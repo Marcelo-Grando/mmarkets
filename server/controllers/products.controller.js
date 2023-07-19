@@ -1,9 +1,11 @@
 import { pool } from "../db.js";
 
+const allProducts = "SELECT * FROM products WHERE market = ?"
+
 export const getProducts = async (req, res) => {
   try {
     const {market} = req.params;
-    const [rows] = await pool.query("SELECT * FROM products WHERE market = ?", [
+    const [rows] = await pool.query(allProducts, [
       market,
     ]);
     res.send(rows);

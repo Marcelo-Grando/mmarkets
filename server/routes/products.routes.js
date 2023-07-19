@@ -13,9 +13,7 @@ const router = Router();
 
 router.get("/products/:market", getProducts);
 
-router.get("/products_sale/:market", getProductsForSale)
-
-//router.get("/products/:market/:product", getProduct);
+router.get("/products-sale/:market", getProductsForSale)
 
 router.get("/products/:market/:product", getProductByName);
 

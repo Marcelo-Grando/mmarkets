@@ -9,8 +9,11 @@ export default function CategoriesPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(!category) return console.log('ingrese nombre de la categoria')
-    sendCategory(category);
+    if (!category) return console.log("ingrese nombre de la categoria");
+    const match = categories.filter((c) => c.category === category);
+    !match.length
+      ? sendCategory(category)
+      : console.log(`La categoria ${category} ya existe`);
     setCategory("");
   };
 

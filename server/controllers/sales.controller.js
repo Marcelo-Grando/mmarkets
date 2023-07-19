@@ -14,22 +14,6 @@ export const getSales = async (req, res) => {
   }
 };
 
-
-
-// export const createSale = async (req, res) => {
-//     const { seller, market, amount } = req.body;
-//     const [rows] = await pool.query(
-//       "INSERT INTO sales (seller,market,amount) VALUES (?,?,?)",
-//       [seller, market, amount]
-//     );
-//     res.send({
-//       id: rows.insertId,
-//       seller,
-//       market,
-//       amount
-//     });
-//   };
-
 export const createSale = async (req, res) => {
   try {
     const { market, seller } = req.params;

@@ -1,5 +1,4 @@
 import { pool } from "../db.js";
-import { date } from "../functions/dates.js";
 
 export const salesTotal = async (req, res) => {
   try {
@@ -41,7 +40,7 @@ export const salesByProducts = async (req, res) => {
     );
     const total_sales = result[0].total_sales;
     const [rows] = await pool.query(
-      "SELECT p.market, p.product_id, p.product, p.description, sum(px.quantify) AS quantify, sum(p.price*px.quantify) AS amount,(SUM(px.quantify*p.price)/?) * 100 AS percentage FROM products p INNER JOIN products_x_sales px ON p.product_id = px.product WHERE p.market = ? GROUP BY p.product_id",
+      "SELECT p.market, p.product_id, p.product, p.description, SUM(px.quantify) AS quantify, SUM(p.price*px.quantify) AS amount,(SUM(px.quantify*p.price)/?) * 100 AS percentage FROM products p INNER JOIN products_x_sales px ON p.product_id = px.product WHERE p.market = ? GROUP BY p.product_id",
       [total_sales,market]
     );
     res.send(rows);
@@ -62,23 +61,6 @@ export const salesBySellers = async (req, res) => {
     console.log(error);
   }
 };
-
-// export const salesByDay = async (req, res) => {
-//   try {
-//     const day = req.body.day ? req.body.day : date;
-//     console.log(day)
-//     const market = req.params.market;
-//     const [result] = await pool.query(
-//       "SELECT SUM(amount) AS 'total_sales' FROM sales WHERE market = ? AND date = ?",
-//       [market, day]
-//     );
-//     if (!result[0].total_sales)
-//       return res.send("There are no sales on the indicated day");
-//     res.send(result[0]);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
 
 export const salesByDay = async (req, res) => {
   const market = req.params.market

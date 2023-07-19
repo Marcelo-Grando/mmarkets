@@ -11,18 +11,18 @@ import {
 
 const router = Router();
 
-router.get("/sales_total/:market", salesTotal);
+router.get("/sales-total/:market", salesTotal);
 
-router.get("/sales_categories/:market", salesByCategories);
+router.get("/sales-categories/:market", salesByCategories);
 
-router.get("/sales_products/:market", salesByProducts);
+router.get("/sales-products/:market", salesByProducts);
 
-router.get("/sales_sellers/:market", salesBySellers);
+router.get("/sales-sellers/:market", salesBySellers);
 
-router.get("/sales_by_day/:market", salesByDay)
+router.get("/sales-by-day/:market", salesByDay)
 
-router.get("/sales_by_month/:market", salesByMonth)
+router.get("/sales-by-month/:market", salesByMonth)
 
-router.get("/sales_by_year/:market", salesByYear)
+router.get("/sales-by-year/:market", salesByYear)
 
 export default router;
