@@ -16,13 +16,13 @@ app.use(express.json());
 app.use(cors())
 
 app.use(getHome);
-app.use(marketRoutes);
-app.use(categoriesRoutes);
-app.use(sellersRotes);
-app.use(salesRoutes);
-app.use(productsRotes);
-app.use(pxsRotes);
-app.use('/reports',reportRoutes)
+app.use('/api',marketRoutes);
+app.use('/api',categoriesRoutes);
+app.use('/api',sellersRotes);
+app.use('/api',salesRoutes);
+app.use('/api',productsRotes);
+app.use('/api',pxsRotes);
+app.use('/api',reportRoutes)
 
 app.use((req, res) => {
   res.status(404).json({
