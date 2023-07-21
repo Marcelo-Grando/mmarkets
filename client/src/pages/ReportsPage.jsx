@@ -65,8 +65,6 @@ export default function ReportsPage() {
     loadSalesByYear();
   }, []);
 
-  console.log(salesDay)
-
   return (
     <>
       <div>
@@ -94,7 +92,7 @@ export default function ReportsPage() {
       <div>
         <h3>Sales By Day</h3>
         {
-            salesDay.map(d => <ReportsDayCard day={d}/>)
+            salesDay.map((d, i) => <ReportsDayCard key={i} day={d}/>)
         }
       </div>
     </>

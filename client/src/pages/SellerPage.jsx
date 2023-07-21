@@ -35,7 +35,6 @@ export default function SellerPage() {
     if (Object.values(seller).includes("")) return console.log("faltan datos");
     const response = await sendSeller(seller);
     setSellers([...sellers, response.data]);
-    console.log(response.data);
     setSeller({
       name: "",
       lastname: "",

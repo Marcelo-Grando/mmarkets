@@ -7,6 +7,8 @@ export default function CategoriesPage() {
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
 
+  console.log(categories)
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!category) return console.log("ingrese nombre de la categoria");

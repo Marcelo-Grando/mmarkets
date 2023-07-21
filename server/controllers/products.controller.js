@@ -1,6 +1,6 @@
 import { pool } from "../db.js";
 
-const allProducts = "SELECT * FROM products WHERE market = ?"
+const allProducts = "SELECT * FROM products p WHERE market = ? ORDER BY p.product ASC"
 
 export const getProducts = async (req, res) => {
   try {

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { findProduct, sendProduct, getProducts } from "../api/Products";
+import { getCategories } from "../api/Categories";
 import FindProductForm from "../components/FindProductForm";
 import CreateProductForm from "../components/CreateProductForm";
 import ProductsFoundContainer from "../components/ProductsFoundContainer";
@@ -15,14 +16,21 @@ export default function ProductsPage() {
     price: "",
   });
   const [productsFound, setProductsFound] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   async function loadProducts() {
     const response = await getProducts();
     setProducts(response.data);
   }
 
+  async function loadCategories() {
+    const response = await getCategories()
+    setCategories(response.data)
+  }
+
   useEffect(() => {
     loadProducts();
+    loadCategories()
   }, []);
 
   const handleSubmit = async (e) => {
@@ -71,6 +79,7 @@ export default function ProductsPage() {
           handleSubmitCreateForm={handleSubmitCreateForm}
           handleInputsChange={handleInputsChange}
           values={values}
+          categories={categories}
         />
       </div>
       <ProductsAcordeon products={products} />

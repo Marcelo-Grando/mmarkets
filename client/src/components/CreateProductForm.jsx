@@ -4,6 +4,7 @@ export default function CreateProductForm({
   handleSubmitCreateForm,
   handleInputsChange,
   values,
+  categories
 }) {
   return (
     <form onSubmit={handleSubmitCreateForm}>
@@ -19,12 +20,12 @@ export default function CreateProductForm({
         onChange={handleInputsChange}
         value={values.description}
       />
-      <input
-        name="category"
-        placeholder="category"
-        onChange={handleInputsChange}
-        value={values.category}
-      />
+      <select name="category" onChange={handleInputsChange} value={values.category}>
+      <option>Select Category</option>
+      {
+        categories.map((c, i) => <option key={i} value={c.category}>{c.category}</option>)
+      }
+      </select>
       <input
         name="price"
         placeholder="price"
