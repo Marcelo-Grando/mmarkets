@@ -22,7 +22,9 @@ export default function SalePage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(!product.length) return console.log('Insert product')
     const response = await getProduct(product);
+    if(!response.data.length) return console.log('Product not Found')
     setFoundProducts(response.data);
     setProduct([]);
   };
@@ -52,7 +54,6 @@ export default function SalePage() {
     setAmount("");
     setElements([]);
     setIndexs([]);
-    console.log(response.data);
   };
 
   const saleAmount = amount
@@ -79,11 +80,15 @@ export default function SalePage() {
       </table>
       <SaleTable products={products} addElements={addElements} />
       <SaleCard
+      addElements={addElements}
         elements={elements}
         setElements={setElements}
         setAmount={setAmount}
         makeSale={makeSale}
+        amount={amount}
         saleAmount={saleAmount}
+        indexs={indexs}
+        setIndexs={setIndexs}
         setFoundProducts={setFoundProducts}
       />
     </>
