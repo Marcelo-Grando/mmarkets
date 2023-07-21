@@ -5,7 +5,8 @@ export default function SaleCard({
   setElements,
   makeSale,
   saleAmount,
-  setAmount
+  setAmount,
+  setFoundProducts
 }) {
   return (
     <div>
@@ -27,6 +28,7 @@ export default function SaleCard({
         onClick={() => {
           if (!elements.length) return console.log("ingrese productos");
           makeSale(elements);
+          setFoundProducts([])
         }}
       >
         sell
