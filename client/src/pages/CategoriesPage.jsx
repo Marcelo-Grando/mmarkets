@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import CategoryForm from "../components/categoryForm";
 import CategoriesContainer from "../components/CategoriesContainer";
 import { sendCategory, getCategories } from "../api/Categories";

@@ -34,7 +34,6 @@ export const createCategory = async (req, res) => {
       "INSERT INTO categories (category,market) VALUES (?,?)",
       [category, market]
     );
-    console.log(rows)
     res.send({
       id: rows.insertId,
       category,
