@@ -22,9 +22,7 @@ export default function SalePage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(!product.length) return console.log('Enter product name')
     const response = await getProduct(product);
-    if(!response.data.length) return console.log('Product not found')
     setFoundProducts(response.data);
     setProduct([]);
   };
