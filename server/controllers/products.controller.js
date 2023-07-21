@@ -38,8 +38,8 @@ export const getProductByName = async (req, res) => {
   try {
     const { market, product } = req.params;
     const [rows] = await pool.query(
-      "SELECT * FROM products WHERE product = ? AND market = ?",
-      [product, market]
+      "SELECT * FROM products WHERE product LIKE ? AND market = ? ORDER BY product ASC",
+      [`${product}%`, market]
     );
     res.json(rows);
   } catch (error) {

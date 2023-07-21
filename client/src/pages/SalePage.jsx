@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
-import { getProducts, sendSale } from "../api/Sales";
+import { getProducts, getProduct, sendSale } from "../api/Sales";
 import SaleTable from "../components/SaleTable";
 import SaleCard from "../components/SaleCard";
+import Product from "../components/Product";
 
 export default function SalePage() {
+  const [product, setProduct] = useState([]);
+  const [foundProducts, setFoundProducts] = useState([]);
   const [products, setProducts] = useState([]);
   const [elements, setElements] = useState([]);
   const [indexs, setIndexs] = useState([]);
@@ -16,6 +19,15 @@ export default function SalePage() {
     }
     loadProducts();
   }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if(!product.length) return console.log('Enter product name')
+    const response = await getProduct(product);
+    if(!response.data.length) return console.log('Product not found')
+    setFoundProducts(response.data);
+    setProduct([]);
+  };
 
   function addElements(article) {
     if (elements.length === 0) {
@@ -51,6 +63,22 @@ export default function SalePage() {
 
   return (
     <>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="find product"
+          onChange={(e) => setProduct(e.target.value)}
+          value={product}
+        />
+        <button>find</button>
+      </form>
+      <table>
+        <tbody>
+          {foundProducts.map((p) => (
+            <Product key={p.product_id} product={p} addElements={addElements} />
+          ))}
+        </tbody>
+      </table>
       <SaleTable products={products} addElements={addElements} />
       <SaleCard
         elements={elements}
@@ -58,6 +86,7 @@ export default function SalePage() {
         setAmount={setAmount}
         makeSale={makeSale}
         saleAmount={saleAmount}
+        setFoundProducts={setFoundProducts}
       />
     </>
   );

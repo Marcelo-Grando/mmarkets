@@ -53,13 +53,14 @@ export default function ProductsPage() {
     e.preventDefault();
     if (Object.values(values).includes("")) return console.log("faltan datos");
     const response = await sendProduct(values);
+    console.log(response)
     setValues({
       product: "",
       description: "",
       category: "",
       price: "",
     });
-    setProducts([...products, response.data]);
+    loadProducts()
   };
 
   return (
