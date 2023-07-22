@@ -72,7 +72,7 @@ export const deleteSeller = async (req, res) => {
       "DELETE FROM sellers WHERE seller_id = ? AND market = ?",
       [seller, market]
     );
-    res.sendStatus(204);
+    res.send('Seller Deleted')
   } catch (error) {
     console.log(error);
   }

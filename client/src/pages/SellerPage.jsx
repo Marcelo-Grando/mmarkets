@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getSellers, sendSeller } from "../api/Sellers";
+import { getSellers, sendSeller, updateSeller, deleteSeller } from "../api/Sellers";
 import SellerCard from "../components/SellerCard";
 import SellerForm from "../components/SellerForm";
 
@@ -21,6 +21,17 @@ export default function SellerPage() {
   useEffect(() => {
     loadSellers();
   }, []);
+
+  const removeSeller = async (seller_id) => {
+    const response = await deleteSeller(seller_id)
+    console.log(response)
+    loadSellers()
+  }
+
+  const updateSellerInfo = async (seller_id, seller) => {
+    const response = await updateSeller(seller_id, seller)
+    console.log(response.data)
+  }
 
   const handleInputsChange = (e) => {
     const { name, value } = e.target;
@@ -46,25 +57,29 @@ export default function SellerPage() {
 
   return (
     <>
-      <div>
-        <h3>Sellers</h3>
-        {sellers.map((s) => (
-          <SellerCard
-            key={s.seller_id}
-            name={s.name}
-            lastname={s.lastname}
-            email={s.email}
-            dni={s.dni}
-          />
-        ))}
-      </div>
-      <div>
+    <div>
         <h3>Create Seller</h3>
         <SellerForm
           handleSubmit={handleSubmit}
           handleInputsChange={handleInputsChange}
           seller={seller}
         />
+      </div>
+      <div>
+        <h3>Sellers</h3>
+        {sellers.map((s) => (
+          <SellerCard
+            key={s.seller_id}
+            seller_id={s.seller_id}
+            name={s.name}
+            lastname={s.lastname}
+            email={s.email}
+            dni={s.dni}
+            removeSeller={removeSeller}
+            seller={s}
+            updateSellerInfo={updateSellerInfo}
+          />
+        ))}
       </div>
     </>
   );

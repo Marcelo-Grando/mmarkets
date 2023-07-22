@@ -8,7 +8,7 @@ export default function CategoriesContainer({
   return (
     <>
       <div>
-        <h2>All Categories</h2>
+        <h3>All Categories</h3>
         <button onClick={showCategories}>show</button>
         <button onClick={() => setCategories([])}>hide</button>
       </div>

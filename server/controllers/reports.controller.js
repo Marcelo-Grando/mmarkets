@@ -22,7 +22,7 @@ export const salesByCategories = async (req, res) => {
     );
     const total_sales = result[0].total_sales;
     const [rows] = await pool.query(
-      "SELECT p.market, p.category, c.category_id, c.category, SUM(quantify) AS quantify, SUM(px.quantify*p.price) AS amount, (SUM(px.quantify*p.price)/?) * 100 AS percentage FROM products_x_sales px INNER JOIN products p ON px.product = p.product_id INNER JOIN categories c ON p.category = c.category_id WHERE p.market = ? GROUP BY p.category",
+      "SELECT p.market, p.category, c.category_id, c.category, SUM(quantify) AS quantify, SUM(px.quantify*p.price) AS amount, (SUM(px.quantify*p.price)/?) * 100 AS percentage FROM products_x_sales px INNER JOIN products p ON px.product = p.product_id INNER JOIN categories c ON p.category = c.category_id WHERE p.market = ? GROUP BY p.category ORDER BY amount DESC",
       [total_sales, market]
     );
     res.send(rows);
@@ -40,7 +40,7 @@ export const salesByProducts = async (req, res) => {
     );
     const total_sales = result[0].total_sales;
     const [rows] = await pool.query(
-      "SELECT p.market, p.product_id, p.product, p.description, SUM(px.quantify) AS quantify, SUM(p.price*px.quantify) AS amount,(SUM(px.quantify*p.price)/?) * 100 AS percentage FROM products p INNER JOIN products_x_sales px ON p.product_id = px.product WHERE p.market = ? GROUP BY p.product_id",
+      "SELECT p.market, p.product_id, p.product, p.description, SUM(px.quantify) AS quantify, SUM(p.price*px.quantify) AS amount,(SUM(px.quantify*p.price)/?) * 100 AS percentage FROM products p INNER JOIN products_x_sales px ON p.product_id = px.product WHERE p.market = ? GROUP BY p.product_id ORDER BY amount DESC",
       [total_sales,market]
     );
     res.send(rows);
