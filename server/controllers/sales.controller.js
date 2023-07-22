@@ -1,6 +1,5 @@
 import { pool } from "../db.js";
-import { years , month, date, time, hour } from "../functions/dates.js"
-
+import { year, month, date, time, hour } from "../functions/dates.js";
 
 export const getSales = async (req, res) => {
   try {
@@ -17,39 +16,30 @@ export const getSales = async (req, res) => {
 export const createSale = async (req, res) => {
   try {
     const { market, seller } = req.params;
+    console.log(req.params)
     const products = req.body;
-    console.log(products)
-    let amount = 0;
-    let articles = [];
+
+    const amount = products
+      .map((p) => p.price * p.quantify)
+      .reduce((acumulador, valorActual) => acumulador + valorActual);
+
     const [sale] = await pool.query(
-      "INSERT INTO sales (market, seller, month, amount, date, time, year, hour) VALUES (?,?,?,0, ?, ?, ?, ?)",
-      [market, seller, month, date, time, years, hour]
+      "INSERT INTO sales (market, seller, amount, year, month, date, time, hour) VALUES (?,?,?,?,?,?,?,?)",
+      [market, seller, amount, year, month, date, time, hour]
     );
+
     for (let i = 0; i < products.length; i++) {
-      let { product_id, quantify } = products[i];
-      const [rows] = await pool.query(
-        "SELECT * FROM products WHERE product_id = ?",
-        [product_id]
-      );
-      amount = Number(amount) + Number(rows[0].price) * quantify;
       await pool.query(
-        "INSERT INTO products_x_sales (product,sale,quantify) VALUES(?,?,?)",
-        [rows[0].product_id, sale.insertId, quantify]
+        "INSERT INTO products_x_sales (product, sale, quantify) VALUES (?,?,?)",
+        [products[i].product_id, sale.insertId, products[i].quantify]
       );
-      articles.push({
-        product: rows[0].product,
-        quantify,
-        price: rows[0].price * quantify,
-      });
     }
-    await pool.query("UPDATE sales SET amount = ? WHERE sale_id = ?", [
-      amount,
-      sale.insertId,
-    ]);
-    res.send({
+
+    res.json({
+      ticket_id: sale.insertId,
       market,
       seller,
-      articles,
+      products,
       date,
       time,
       amount,

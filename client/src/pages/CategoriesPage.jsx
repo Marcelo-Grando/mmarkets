@@ -2,25 +2,26 @@ import { useState } from "react";
 import CategoryForm from "../components/categoryForm";
 import CategoriesContainer from "../components/CategoriesContainer";
 import { sendCategory, getCategories } from "../api/Categories";
+import { useParams } from "react-router-dom";
 
 export default function CategoriesPage() {
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
 
-  console.log(categories)
+  const {market} = useParams()
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!category) return console.log("ingrese nombre de la categoria");
     const match = categories.filter((c) => c.category === category);
     !match.length
-      ? sendCategory(category)
+      ? sendCategory(category, market)
       : console.log(`La categoria ${category} ya existe`);
     setCategory("");
   };
 
   const showCategories = async () => {
-    const response = await getCategories();
+    const response = await getCategories(market);
     setCategories(response.data);
   };
 

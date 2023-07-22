@@ -1,4 +1,5 @@
 import ProductCard from "./ProductCard";
+import { useParams } from "react-router-dom";
 
 export default function SaleCard({
   elements,
@@ -12,6 +13,9 @@ export default function SaleCard({
   setIndexs,
   indexs,
 }) {
+
+  const {market, seller_id} = useParams()
+
   return (
     <div>
       <h2>Sale</h2>
@@ -41,7 +45,7 @@ export default function SaleCard({
       <button
         onClick={() => {
           if (!elements.length) return console.log("Enter products");
-          makeSale(elements);
+          makeSale(elements, market, seller_id);
           setFoundProducts([]);
         }}
       >

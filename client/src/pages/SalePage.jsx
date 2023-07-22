@@ -3,6 +3,7 @@ import { getProducts, getProduct, sendSale } from "../api/Sales";
 import SaleTable from "../components/SaleTable";
 import SaleCard from "../components/SaleCard";
 import Product from "../components/Product";
+import { useParams } from "react-router-dom";
 
 export default function SalePage() {
   const [product, setProduct] = useState([]);
@@ -49,11 +50,12 @@ export default function SalePage() {
     }
   }
 
-  const makeSale = async (elements) => {
-    const response = await sendSale(elements);
+  const makeSale = async (elements, market, seller) => {
+    const response = await sendSale(elements, market, seller);
     setAmount("");
     setElements([]);
     setIndexs([]);
+    console.log(response)
   };
 
   const saleAmount = amount
