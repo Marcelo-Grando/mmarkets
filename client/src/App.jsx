@@ -16,10 +16,10 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path='/sellers-page' element={<SellerPage/>}></Route>
       <Route path='/notfound-page' element={<NotFound/>}></Route>
-      <Route path='/sale-page' element={<SalePage/>}></Route>
-      <Route path='/products-page' element={<ProductsPage/>}></Route>
-      <Route path='/categories-page' element={<CategoriesPage/>}></Route>
-      <Route path='/reports-page' element={<ReportsPage/>}></Route>
+      <Route path='/sale-page/:market/:seller_id' element={<SalePage/>}></Route>
+      <Route path='/products-page/:market' element={<ProductsPage/>}></Route>
+      <Route path='/categories-page/:market' element={<CategoriesPage/>}></Route>
+      <Route path='/reports-page/:market' element={<ReportsPage/>}></Route>
     </Routes>
   )
 }

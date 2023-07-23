@@ -5,6 +5,7 @@ import FindProductForm from "../components/FindProductForm";
 import CreateProductForm from "../components/CreateProductForm";
 import ProductsFoundContainer from "../components/ProductsFoundContainer";
 import ProductsAcordeon from "../components/ProductsAcordeon";
+import { useParams } from "react-router-dom";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
@@ -18,13 +19,15 @@ export default function ProductsPage() {
   const [productsFound, setProductsFound] = useState([]);
   const [categories, setCategories] = useState([]);
 
+  const {market} = useParams()
+
   async function loadProducts() {
-    const response = await getProducts();
+    const response = await getProducts(market);
     setProducts(response.data);
   }
 
   async function loadCategories() {
-    const response = await getCategories()
+    const response = await getCategories(market)
     setCategories(response.data)
   }
 
@@ -36,7 +39,7 @@ export default function ProductsPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!product) return;
-    const response = await findProduct(product);
+    const response = await findProduct(product, market);
     setProductsFound(response.data);
     setProduct("");
   };
@@ -52,7 +55,7 @@ export default function ProductsPage() {
   const handleSubmitCreateForm = async (e) => {
     e.preventDefault();
     if (Object.values(values).includes("")) return console.log("faltan datos");
-    const response = await sendProduct(values);
+    const response = await sendProduct(values, market);
     console.log(response)
     setValues({
       product: "",

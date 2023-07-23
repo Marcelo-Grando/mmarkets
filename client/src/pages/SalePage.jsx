@@ -49,14 +49,13 @@ export default function SalePage() {
     }
   }
 
-  console.log('amount: ',amount)
 
-  const makeSale = async (elements) => {
-    const response = await sendSale(elements);
+  const makeSale = async (elements, market, seller) => {
+    const response = await sendSale(elements, market, seller);
     setAmount("");
     setElements([]);
     setIndexs([]);
-    console.log(elements)
+    console.log(response)
   };
 
   const saleAmount = amount
