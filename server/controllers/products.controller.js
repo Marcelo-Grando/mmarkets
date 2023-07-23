@@ -51,13 +51,12 @@ export const createProduct = async (req, res) => {
   try {
     const {market} = req.params;
     const { product, description, category, price } = req.body;
-    const findProduct = await pool.query('SELECT * FROM products WHERE product = ? AND description = ?', [product, description])
-    if(findProduct[0].length > 0) return res.send('el producto ya existe')
-    const findCategory = await pool.query("SELECT category_id FROM categories c WHERE c.category = ?", [category])
-    if(findCategory[0].length === 0) return res.send(`La categoria ${category} no existe`)
+
+    const [[{category_id}]] = await pool.query("SELECT c.category_id FROM categories c WHERE  c.category = ?", [category])
+    
     const [result] = await pool.query(
       "INSERT INTO products (product, description, category, market, price) VALUES (?,?,?,?,?)",
-      [product, description, findCategory[0][0].category_id, market, price]
+      [product, description, category_id, market, price]
     );
     res.send({
       product_id: result.insertId,

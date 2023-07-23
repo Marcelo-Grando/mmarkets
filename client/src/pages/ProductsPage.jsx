@@ -19,7 +19,7 @@ export default function ProductsPage() {
   const [productsFound, setProductsFound] = useState([]);
   const [categories, setCategories] = useState([]);
 
-  const {market} = useParams()
+  const { market } = useParams();
 
   async function loadProducts() {
     const response = await getProducts(market);
@@ -27,13 +27,13 @@ export default function ProductsPage() {
   }
 
   async function loadCategories() {
-    const response = await getCategories(market)
-    setCategories(response.data)
+    const response = await getCategories(market);
+    setCategories(response.data);
   }
 
   useEffect(() => {
     loadProducts();
-    loadCategories()
+    loadCategories();
   }, []);
 
   const handleSubmit = async (e) => {
@@ -52,18 +52,40 @@ export default function ProductsPage() {
     });
   };
 
+  const productsValidation = (products, values, categories) => {
+    if (Object.values(values).includes("")) return console.log("faltan datos");
+    if (!categories.map(c => c.category).includes(values.category)) return console.log('la categoria no existe')
+
+    const productCount = products
+      .map((p) => p.product)
+      .filter((f) => f === values.product).length;
+    const descriptionCount = products
+      .map((p) => p.description)
+      .filter((f) => f === values.description).length;
+
+    if (productCount && descriptionCount) {
+      setProduct("");
+      return console.log(
+        `The product ${values.product} ${values.description} already exist`
+      );
+    }
+  };
+
   const handleSubmitCreateForm = async (e) => {
     e.preventDefault();
-    if (Object.values(values).includes("")) return console.log("faltan datos");
+
+    productsValidation(products, values, categories);
+
     const response = await sendProduct(values, market);
     console.log(response)
+
     setValues({
       product: "",
       description: "",
       category: "",
       price: "",
     });
-    loadProducts()
+    loadProducts();
   };
 
   return (

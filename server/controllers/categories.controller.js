@@ -9,7 +9,7 @@ export const getCategories = async (req, res) => {
     );
     res.send(rows);
   } catch (error) {
-    console.log(error);
+    res.send(error);
   }
 };
 
@@ -30,16 +30,16 @@ export const createCategory = async (req, res) => {
   try {
     const { market } = req.params;
     const { category } = req.body;
-    const [rows] = await pool.query(
+    const [response] = await pool.query(
       "INSERT INTO categories (category,market) VALUES (?,?)",
       [category, market]
     );
     res.send({
-      id: rows.insertId,
+      id: response.insertId,
       category,
     });
   } catch (error) {
-    console.log(error);
+    res.send(error);
   }
 };
 
@@ -57,7 +57,7 @@ export const updateCategory = async (req, res) => {
     );
     res.json(rows[0]);
   } catch (error) {
-    console.log(error);
+    res.send(error);
   }
 };
 
@@ -70,6 +70,6 @@ export const deleteCategory = async (req, res) => {
     );
     res.sendStatus(204);
   } catch (error) {
-    console.log(error);
+    res.send(error);
   }
 };
