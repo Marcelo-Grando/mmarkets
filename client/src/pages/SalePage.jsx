@@ -11,6 +11,7 @@ export default function SalePage() {
   const [elements, setElements] = useState([]);
   const [indexs, setIndexs] = useState([]);
   const [amount, setAmount] = useState("");
+  const [ej, setEj] = useState(false)
 
   useEffect(() => {
     async function loadProducts() {
@@ -24,8 +25,14 @@ export default function SalePage() {
     e.preventDefault();
     if(!product.length) return console.log('Insert product')
     const response = await getProduct(product);
-    if(!response.data.length) return console.log('Product not Found')
+    if(!response.data.length)  {
+      setEj(true)
+      setProduct([])
+      return
+    }
+    setEj(false)
     setFoundProducts(response.data);
+    
     setProduct([]);
   };
 
@@ -62,10 +69,9 @@ export default function SalePage() {
     ? amount.reduce((acumulador, valorActual) => acumulador + valorActual)
     : "00";
 
-    console.log('saleAmount',saleAmount)
-
   return (
-    <>
+    <div>
+    <h3>Find Product</h3>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -75,26 +81,32 @@ export default function SalePage() {
         />
         <button>find</button>
       </form>
+      <hr />
+      {ej ? <div><span>Product not Found</span></div>: foundProducts.map((p) => (
+            <Product key={p.product_id} product={p} addElements={addElements} />
+          )) }
+      <h3>Products</h3>
+      <div className="sale">
       <table>
         <tbody>
-          {foundProducts.map((p) => (
-            <Product key={p.product_id} product={p} addElements={addElements} />
-          ))}
         </tbody>
       </table>
       <SaleTable products={products} addElements={addElements} />
-      <SaleCard
-      addElements={addElements}
-        elements={elements}
-        setElements={setElements}
-        setAmount={setAmount}
-        makeSale={makeSale}
-        amount={amount}
-        saleAmount={saleAmount}
-        indexs={indexs}
-        setIndexs={setIndexs}
-        setFoundProducts={setFoundProducts}
-      />
-    </>
+      {
+        elements.length? <SaleCard
+        addElements={addElements}
+          elements={elements}
+          setElements={setElements}
+          setAmount={setAmount}
+          makeSale={makeSale}
+          amount={amount}
+          saleAmount={saleAmount}
+          indexs={indexs}
+          setIndexs={setIndexs}
+          setFoundProducts={setFoundProducts}
+        /> : () => setElements([])
+      }
+      </div>
+    </div>
   );
 }

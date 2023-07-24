@@ -28,14 +28,16 @@ export default function ProductCard({
   }
 
   return (
-    <div>
+    <div className="product-card">
       <span>{product.product}</span>
       <span> {product.description}</span>
       <span> x {product.quantify}</span>
       <span> $ {product.price * product.quantify}</span>
+      <span className="product-btn">
       <button onClick={() => addElements(product)}>+</button>
       <button onClick={() => subtractElement(product)}>-</button>
       <button onClick={() => deleteProduct(product)}>dell</button>
+    </span>
     </div>
   );
 }

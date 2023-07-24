@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CategoryForm from "../components/categoryForm";
 import CategoriesContainer from "../components/CategoriesContainer";
-import { sendCategory, getCategories } from "../api/Categories";
+import { sendCategory, getCategories, deleteCategory } from "../api/Categories";
 import { useParams } from "react-router-dom";
 
 export default function CategoriesPage() {
@@ -25,6 +25,11 @@ export default function CategoriesPage() {
     setCategories(response.data);
   };
 
+  const removeCategory = async (category_id) => {
+    const response = await deleteCategory(market, category_id)
+    console.log(response)
+  }
+
   return (
     <>
     <h3>Create Category</h3>
@@ -34,6 +39,7 @@ export default function CategoriesPage() {
         category={category}
       />
       <CategoriesContainer
+      removeCategory={removeCategory}
         showCategories={showCategories}
         setCategories={setCategories}
         categories={categories}

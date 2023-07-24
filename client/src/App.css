@@ -37,3 +37,33 @@ h3 {
   margin-right: 5px;
 }
 
+table {
+  border-collapse: collapse;
+}
+
+caption {
+  width: 420px;
+  border: 1px solid black;
+}
+
+td {
+  border: 1px solid black;
+  padding-inline: 20px;
+}
+
+.sale {
+  display: flex;
+}
+
+.sale-card {
+  border: 1px solid black;
+  margin-left: 10px;
+  padding: 5px;
+}
+
+.sale-card h2 {
+  text-align: center;
+}
+
+
+

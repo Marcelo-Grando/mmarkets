@@ -64,6 +64,7 @@ export const updateCategory = async (req, res) => {
 export const deleteCategory = async (req, res) => {
   try {
     const { market, category } = req.params;
+    console.log(req.params)
     const [result] = await pool.query(
       "DELETE FROM categories WHERE category_id = ? AND market = ?",
       [category, market]

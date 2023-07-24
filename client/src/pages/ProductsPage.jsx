@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { findProduct, sendProduct, getProducts } from "../api/Products";
+import { findProduct, sendProduct, getProducts, deleteProduct } from "../api/Products";
 import { getCategories } from "../api/Categories";
 import FindProductForm from "../components/FindProductForm";
 import CreateProductForm from "../components/CreateProductForm";
@@ -88,6 +88,12 @@ export default function ProductsPage() {
     loadProducts();
   };
 
+  const removeProduct = async (product_id, market) => {
+    const response = await deleteProduct(product_id, market)
+    if (response.status === 204) console.log('Deleted Product')
+    loadProducts()
+  }
+
   return (
     <>
       <div>
@@ -108,7 +114,7 @@ export default function ProductsPage() {
           categories={categories}
         />
       </div>
-      <ProductsAcordeon products={products} />
+      <ProductsAcordeon removeProduct={removeProduct} products={products} />
     </>
   );
 }

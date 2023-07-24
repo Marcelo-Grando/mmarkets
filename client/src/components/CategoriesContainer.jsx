@@ -1,6 +1,7 @@
 import CategoryCard from "./CategoryCard";
 
 export default function CategoriesContainer({
+  removeCategory,
   showCategories,
   setCategories,
   categories,
@@ -14,7 +15,7 @@ export default function CategoriesContainer({
       </div>
       <div>
         {categories.map((c) => (
-          <CategoryCard key={c.category_id} category={c} />
+          <CategoryCard removeCategory={removeCategory} key={c.category_id} category={c} />
         ))}
       </div>
     </>

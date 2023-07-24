@@ -17,7 +17,7 @@ export default function SaleCard({
   const {market, seller_id} = useParams()
 
   return (
-    <div>
+    <div className="sale-card">
       <h2>Sale</h2>
       {elements.map((e) => (
         <ProductCard
@@ -32,7 +32,7 @@ export default function SaleCard({
           indexs={indexs}
         />
       ))}
-      <h3>Amount: ${saleAmount}</h3>
+      <h4>Amount: ${saleAmount}</h4>
       <button
         onClick={() => {
           alert("Cancelar Venta?");
