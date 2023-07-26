@@ -1,8 +1,6 @@
 import { Router } from "express";
 import {
   getProducts,
-  getProductsForSale,
-  getProduct,
   getProductByName,
   createProduct,
   updateProduct,
@@ -12,8 +10,6 @@ import {
 const router = Router();
 
 router.get("/products/:market", getProducts);
-
-router.get("/products-sale/:market", getProductsForSale)
 
 router.get("/products/:market/:product", getProductByName);
 

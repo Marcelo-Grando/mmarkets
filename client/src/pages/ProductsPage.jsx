@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
-import { findProduct, sendProduct, getProducts, deleteProduct } from "../api/Products";
+import {
+  findProduct,
+  sendProduct,
+  getProducts,
+  deleteProduct,
+} from "../api/Products";
 import { getCategories } from "../api/Categories";
 import FindProductForm from "../components/FindProductForm";
 import CreateProductForm from "../components/CreateProductForm";
@@ -53,8 +58,13 @@ export default function ProductsPage() {
   };
 
   const productsValidation = (products, values, categories) => {
-    if (Object.values(values).includes("")) return console.log("faltan datos");
-    if (!categories.map(c => c.category).includes(values.category)) return console.log('la categoria no existe')
+    if (Object.values(values).includes("")) return "faltan datos";
+    if (!categories.map((c) => c.category).includes(values.category))
+      return "la categoria no existe";
+
+    const price = parseFloat(values.price);
+
+    if (isNaN(price)) return "The price must be a number";
 
     const productCount = products
       .map((p) => p.product)
@@ -65,19 +75,21 @@ export default function ProductsPage() {
 
     if (productCount && descriptionCount) {
       setProduct("");
-      return console.log(
-        `The product ${values.product} ${values.description} already exist`
-      );
+      return `The product ${values.product} ${values.description} already exist`;
     }
+    return false;
   };
 
   const handleSubmitCreateForm = async (e) => {
     e.preventDefault();
 
-    productsValidation(products, values, categories);
+    const verify = productsValidation(products, values, categories);
 
+    if (verify) 
+      return console.log(verify);
+  
     const response = await sendProduct(values, market);
-    console.log(response)
+    console.log(response);
 
     setValues({
       product: "",
@@ -89,10 +101,10 @@ export default function ProductsPage() {
   };
 
   const removeProduct = async (product_id, market) => {
-    const response = await deleteProduct(product_id, market)
-    if (response.status === 204) console.log('Deleted Product')
-    loadProducts()
-  }
+    const response = await deleteProduct(product_id, market);
+    if (response.status === 204) console.log("Deleted Product");
+    loadProducts();
+  };
 
   return (
     <>

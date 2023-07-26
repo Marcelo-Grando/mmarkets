@@ -14,13 +14,6 @@ export const getProducts = async (req, res) => {
   }
 };
 
-export const getProductsForSale = async (req, res) => {
-  const {market}= req.params
-  const {pointer} =  req.body
-  const [rows] = await pool.query("SELECT p.product_id, p.product, p.description, p.price FROM products p INNER JOIN categories c ON p.category = c.category_id WHERE p.product = ? OR c.category = ? AND p.market = ?", [pointer, pointer, market])
-  res.send(rows)
-}
-
 export const getProduct = async (req, res) => {
   try {
     const { market, product } = req.params;
