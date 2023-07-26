@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { getProducts, getProduct, sendSale } from "../api/Sales";
 import SaleTable from "../components/SaleTable";
 import SaleCard from "../components/SaleCard";
@@ -13,9 +14,11 @@ export default function SalePage() {
   const [amount, setAmount] = useState("");
   const [ej, setEj] = useState(false)
 
+  const {market} = useParams()
+
   useEffect(() => {
     async function loadProducts() {
-      const response = await getProducts();
+      const response = await getProducts(market);
       setProducts(response.data);
     }
     loadProducts();
@@ -24,7 +27,7 @@ export default function SalePage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(!product.length) return console.log('Insert product')
-    const response = await getProduct(product);
+    const response = await getProduct(product, market);
     if(!response.data.length)  {
       setEj(true)
       setProduct([])

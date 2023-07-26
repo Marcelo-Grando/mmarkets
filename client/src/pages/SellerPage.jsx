@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { getSellers, sendSeller, updateSeller, deleteSeller } from "../api/Sellers";
 import SellerCard from "../components/SellerCard";
 import SellerForm from "../components/SellerForm";
+
+
 
 export default function SellerPage() {
   const [sellers, setSellers] = useState([]);
@@ -12,9 +15,10 @@ export default function SellerPage() {
     dni: "",
     password: "",
   });
+  const {market} = useParams()
 
   async function loadSellers() {
-    const response = await getSellers();
+    const response = await getSellers(market);
     setSellers(response.data);
   }
 
@@ -23,7 +27,7 @@ export default function SellerPage() {
   }, []);
 
   const removeSeller = async (seller_id) => {
-    const response = await deleteSeller(seller_id)
+    const response = await deleteSeller(seller_id, market)
     console.log(response)
     loadSellers()
   }
@@ -44,7 +48,7 @@ export default function SellerPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (Object.values(seller).includes("")) return console.log("faltan datos");
-    const response = await sendSeller(seller);
+    const response = await sendSeller(seller, market);
     setSellers([...sellers, response.data]);
     setSeller({
       name: "",
