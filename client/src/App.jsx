@@ -7,6 +7,7 @@ import NotFound from './pages/NotFound'
 import SalePage from './pages/SalePage'
 import CategoriesPage from './pages/CategoriesPage'
 import ReportsPage from './pages/ReportsPage'
+import SigninSellerPage from './pages/SigninSellerPage'
 
 
 
@@ -20,6 +21,7 @@ function App() {
       <Route path='/products-page/:market' element={<ProductsPage/>}></Route>
       <Route path='/categories-page/:market' element={<CategoriesPage/>}></Route>
       <Route path='/reports-page/:market' element={<ReportsPage/>}></Route>
+      <Route path='/signin' element={<SigninSellerPage/>}></Route>
     </Routes>
   )
 }

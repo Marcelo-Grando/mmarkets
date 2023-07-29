@@ -5,9 +5,15 @@ import {
   createSeller,
   updateSeller,
   deleteSeller,
+  profile,
 } from "../controllers/sellers.controller.js";
+import { signin } from "../controllers/signin.controller.js";
 
 const router = Router();
+
+router.get("/profile", profile)
+
+router.post('/signin', signin)
 
 router.get("/sellers/:market", getSellers);
 

@@ -1,4 +1,31 @@
 import { pool } from "../db.js";
+import jwt from "jsonwebtoken";
+
+export const profile = async (req, res, next) => {
+  try {
+    const token = req.headers["x-access-token"];
+    if (!token) {
+      return res.status(401).json({
+        auth: false,
+        message: "No token provided",
+      });
+    }
+
+    const decoded = jwt.verify(token, "secret");
+
+    const [[user]] = await pool.query(
+      "SELECT seller_id, name, lastname, dni, email, market FROM sellers where seller_id = ?",
+      [decoded.id]
+    );
+    if (!user) {
+      return res.status(404).send("No user found");
+    }
+
+    res.json(user);
+  } catch (error) {
+    res.send(error);
+  }
+};
 
 export const getSellers = async (req, res) => {
   try {
@@ -30,17 +57,26 @@ export const createSeller = async (req, res) => {
   try {
     const { market } = req.params;
     const { name, lastname, dni, email, password } = req.body;
-    const [rows] = await pool.query(
+    const [result] = await pool.query(
       "INSERT INTO sellers (name,lastname,dni,email,password,market) VALUES (?,?,?,?,?,?)",
       [name, lastname, dni, email, password, market]
     );
+
+    console.log(result);
+
+    const token = jwt.sign({ id: result.insertId }, "secret", {
+      expiresIn: 60 * 60 * 8,
+    });
+
     res.send({
-      seller_id: rows.insertId,
+      seller_id: result.insertId,
       name,
       lastname,
       dni,
       email,
       market,
+      auth: true,
+      token,
     });
   } catch (error) {
     console.log(error);
@@ -72,7 +108,7 @@ export const deleteSeller = async (req, res) => {
       "DELETE FROM sellers WHERE seller_id = ? AND market = ?",
       [seller, market]
     );
-    res.send('Seller Deleted')
+    res.send("Seller Deleted");
   } catch (error) {
     console.log(error);
   }

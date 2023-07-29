@@ -1,3 +1,3 @@
-export const getHome = async (req, res) => {
+export const getHome = (req, res) => {
     res.send('Home Page')
 }
