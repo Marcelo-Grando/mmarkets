@@ -2,7 +2,7 @@ import CategoryCard from "./CategoryCard";
 
 export default function CategoriesContainer({
   removeCategory,
-  showCategories,
+  loadCategories,
   setCategories,
   categories,
 }) {
@@ -10,7 +10,7 @@ export default function CategoriesContainer({
     <>
       <div>
         <h3>All Categories</h3>
-        <button onClick={showCategories}>show</button>
+        <button onClick={loadCategories}>show</button>
         <button onClick={() => setCategories([])}>hide</button>
       </div>
       <div>

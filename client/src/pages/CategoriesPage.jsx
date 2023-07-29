@@ -10,23 +10,29 @@ export default function CategoriesPage() {
 
   const {market} = useParams()
 
-  const handleSubmit = (e) => {
+  const loadCategories = async () => {
+    const response = await getCategories(market)
+    setCategories(response.data)
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!category) return console.log("ingrese nombre de la categoria");
     const match = categories.filter((c) => c.category === category);
-    !match.length
-      ? sendCategory(category, market)
-      : console.log(`La categoria ${category} ya existe`);
+    if(!match.length) {
+      const response = await sendCategory(category, market)
+      loadCategories()
+      setCategory("");
+      console.log(response)
+      return
+    }
+    alert(`La categoria ${category} ya existe`);
     setCategory("");
-  };
-
-  const showCategories = async () => {
-    const response = await getCategories(market);
-    setCategories(response.data);
   };
 
   const removeCategory = async (category_id) => {
     const response = await deleteCategory(market, category_id)
+    loadCategories()
     console.log(response)
   }
 
@@ -40,7 +46,7 @@ export default function CategoriesPage() {
       />
       <CategoriesContainer
       removeCategory={removeCategory}
-        showCategories={showCategories}
+        loadCategories={loadCategories}
         setCategories={setCategories}
         categories={categories}
       />
