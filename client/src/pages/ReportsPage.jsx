@@ -30,6 +30,7 @@ export default function ReportsPage() {
 
   async function loadSalesCategories() {
     const response = await getSalesCategories(market);
+    console.log('response: ', response)
     setCategories(response.data);
   }
 

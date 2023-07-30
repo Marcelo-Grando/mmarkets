@@ -20,13 +20,8 @@ export default function SigninSellerPage() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const response = await signinSeller(seller)
-
-    response?console.log('Response: ',response):console.log('first')
-   
     const auth = response.data
 
-    
-    
     setSeller({
       ...seller,
       ...auth

@@ -26,6 +26,8 @@ export default function ProductsPage() {
 
   const { market } = useParams();
 
+  console.log(products)
+
   async function loadProducts() {
     const response = await getProducts(market);
     setProducts(response.data);

@@ -1,5 +1,8 @@
 
 export default function ReportsCategoryCard({category}) {
+
+  console.log(category)
+
   return (
     <div>
         <h4>category: {category.category}</h4>

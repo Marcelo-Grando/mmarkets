@@ -24,6 +24,8 @@ export default function SalePage() {
     loadProducts();
   }, []);
 
+  console.log(elements)
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(!product.length) return console.log('Insert product')

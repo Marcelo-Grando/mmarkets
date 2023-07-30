@@ -1,6 +1,6 @@
 import { pool } from "../db.js";
 
-const allProducts = "SELECT * FROM products p WHERE market = ? ORDER BY p.product ASC"
+const allProducts = "SELECT * FROM products p INNER JOIN categories c ON p.category = c.category_id WHERE p.market = ? ORDER BY p.product ASC"
 
 export const getProducts = async (req, res) => {
   try {

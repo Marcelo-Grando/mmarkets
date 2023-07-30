@@ -8,6 +8,8 @@ export default function CategoriesPage() {
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
 
+  console.log(categories)
+
   const {market} = useParams()
 
   const loadCategories = async () => {

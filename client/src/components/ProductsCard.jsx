@@ -9,6 +9,7 @@ export default function ProductCard({ product, removeProduct }) {
     <div>
       <span>{product.product}</span>
       <span> {product.description}</span>
+      <span> <b>{product.category}</b></span>
       <span> $ {product.price}</span>
       <button className="btn-update">update</button>
       <button className="btn-delete" onClick={() => removeProduct(product.product_id, market)}>delete</button>
