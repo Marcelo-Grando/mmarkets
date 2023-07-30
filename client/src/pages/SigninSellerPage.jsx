@@ -20,6 +20,7 @@ export default function SigninSellerPage() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const response = await signinSeller(seller)
+   
     const auth = response.data
 
     setSeller({
