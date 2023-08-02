@@ -8,6 +8,7 @@ import SalePage from './pages/SalePage'
 import CategoriesPage from './pages/CategoriesPage'
 import ReportsPage from './pages/ReportsPage'
 import SigninSellerPage from './pages/SigninSellerPage'
+import MarketHomePage from './pages/marketHomePage'
 
 
 
@@ -22,6 +23,7 @@ function App() {
       <Route path='/categories-page/:market' element={<CategoriesPage/>}></Route>
       <Route path='/reports-page/:market' element={<ReportsPage/>}></Route>
       <Route path='/signin' element={<SigninSellerPage/>}></Route>
+      <Route path='/market-home/:market' element={<MarketHomePage/>}></Route>
     </Routes>
   )
 }
