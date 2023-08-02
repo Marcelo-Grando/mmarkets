@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { signinSeller } from "../api/SigninSeller";
 
-export default function SigninSellerPage() {
+export default function SigninSeller() {
 
   const [seller, setSeller] = useState({
     email: "",
@@ -31,7 +31,7 @@ export default function SigninSellerPage() {
 
   return (
     <>
-      <h3>Login</h3>
+      <h3>Login Seller</h3>
       <form action="" onSubmit={handleSubmit}>
         <input name="email" type="email" onChange={handleInputsChange}/>
         <input name="password" type="password" onChange={handleInputsChange}/>

@@ -22,8 +22,6 @@ export const signin = async (req, res, next) => {
   
       const validation = a === password;
   
-      console.log(user.seller_id);
-  
       if (!validation) {
         return res.status(401).json({ auth: false, token: null });
       }
