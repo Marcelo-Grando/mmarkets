@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getProducts, getProduct, sendSale } from "../api/Sales";
-import SaleTable from "../components/SaleTable";
-import SaleCard from "../components/SaleCard";
-import Product from "../components/Product";
+import SaleTable from "./SaleTable";
+import SaleCard from "./SaleCard";
+import Product from "./Product";
 
-export default function SalePage() {
+export default function Sale() {
   const [product, setProduct] = useState([]);
   const [foundProducts, setFoundProducts] = useState([]);
   const [products, setProducts] = useState([]);
@@ -23,8 +23,6 @@ export default function SalePage() {
     }
     loadProducts();
   }, []);
-
-  console.log(elements)
 
   const handleSubmit = async (e) => {
     e.preventDefault();

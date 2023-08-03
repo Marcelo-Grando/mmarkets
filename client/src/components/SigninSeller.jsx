@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
-import { signinSeller } from "../api/SigninSeller";
+import { signinSeller, getSeller } from "../api/SigninSeller";
 
 export default function SigninSeller() {
 
@@ -8,6 +8,7 @@ export default function SigninSeller() {
     email: "",
     password: ""
   });
+  const [marketParam, setMarketParam] = useState('')
 
   const handleInputsChange = (e) => {
     const { name, value } = e.target;
@@ -20,6 +21,10 @@ export default function SigninSeller() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const response = await signinSeller(seller)
+
+    const foundSeller = await getSeller(seller.email)
+
+    setMarketParam(foundSeller.data.market)
    
     const auth = response.data
 
@@ -38,7 +43,7 @@ export default function SigninSeller() {
         <button>signin</button>
       </form>
       {
-        seller.auth? <Navigate to={`/sale-page/${seller.market}/${seller.seller_id}`} replace={true} />:console.log('no auth')
+        seller.auth? <Navigate to={`/${marketParam.replace(/ /g,'')}/${seller.market}/${seller.seller_id}`} replace={false} />: console.log('first')
       }
     </>
   );

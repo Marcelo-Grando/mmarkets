@@ -53,6 +53,19 @@ export const getSeller = async (req, res) => {
   }
 };
 
+export const getSellerByEmail = async (req, res) => {
+  try {
+    const { email } = req.params;
+    const [rows] = await pool.query(
+      "SELECT m.market, s.name, s.lastname, s.dni, s.email FROM sellers s INNER JOIN markets m ON s.market = m.market_id WHERE s.email = ?",
+      [email]
+    );
+    res.json(rows[0]);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const createSeller = async (req, res) => {
   try {
     const { market } = req.params;

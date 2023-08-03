@@ -32,6 +32,6 @@ export const signin = async (req, res, next) => {
   
       res.json({ auth: true, token, seller_id: user.seller_id, market: user.market });
     } catch (error) {
-      res.send(error);
+      res.console.error(error);
     }
   };

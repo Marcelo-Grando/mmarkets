@@ -6,12 +6,15 @@ import {
   updateSeller,
   deleteSeller,
   profile,
+  getSellerByEmail
 } from "../controllers/sellers.controller.js";
 
 
 const router = Router();
 
 router.get("/profile", profile)
+
+router.get("/sellers/:email", getSellerByEmail)
 
 router.get("/sellers/:market", getSellers);
 
