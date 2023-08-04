@@ -2,8 +2,6 @@ import React from 'react'
 
 export default function ReportsProductCard({product}) {
 
-console.log(product)
-
   return (
     <div>
         <h4>product: {product.product}</h4>

@@ -30,7 +30,6 @@ export default function ReportsPage() {
 
   async function loadSalesCategories() {
     const response = await getSalesCategories(market);
-    console.log('response: ', response)
     setCategories(response.data);
   }
 
@@ -51,12 +50,10 @@ export default function ReportsPage() {
 
   async function loadSalesByMonth() {
     const response = await getSalesByMonth(market);
-    console.log(response.data);
   }
 
   async function loadSalesByYear() {
     const response = await getSalesByYear(market);
-    console.log(response.data);
   }
 
   useEffect(() => {
