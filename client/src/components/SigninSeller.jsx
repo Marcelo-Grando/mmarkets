@@ -36,7 +36,7 @@ export default function SigninSeller() {
 
   return (
     <>
-      <h3>Login Seller</h3>
+      <h3>Seller Login</h3>
       <form action="" onSubmit={handleSubmit}>
         <input name="email" type="email" onChange={handleInputsChange}/>
         <input name="password" type="password" onChange={handleInputsChange}/>

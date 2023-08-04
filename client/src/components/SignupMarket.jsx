@@ -1,8 +1,8 @@
-import React from 'react'
+
 
 export default function SignupMarket() {
   return (
-    <div>\
+    <div>
         <h3>Create Acount</h3>
         <form action="">
           <input type="text" name="market" placeholder="market name" />

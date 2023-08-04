@@ -10,6 +10,7 @@ import pxsRotes from "./routes/pxs.routes.js";
 import getHome from "./routes/home.routes.js";
 import reportRoutes from "./routes/reports.routes.js"
 import signinRoutes from "./routes/signinSellers.routes.js"
+import authRoutes from "./routes/auth.routes.js"
 
 const app = express();
 app.use(express.json());
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use(cors())
 
 app.use(getHome);
+app.use('/api',authRoutes)
 app.use('/api', signinRoutes)
 app.use('/api',marketRoutes);
 app.use('/api',categoriesRoutes);
