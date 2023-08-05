@@ -59,39 +59,39 @@ export default function ProductsPage() {
     });
   };
 
-  const productsValidation = (products, values, categories) => {
-    if (Object.values(values).includes("")) return "faltan datos";
-    if (!categories.map((c) => c.category).includes(values.category))
-      return "la categoria no existe";
+  // const productsValidation = (products, values, categories) => {
+  //   if (Object.values(values).includes("")) return "faltan datos";
+  //   if (!categories.map((c) => c.category).includes(values.category))
+  //     return "la categoria no existe";
 
-    const price = parseFloat(values.price);
+  //   const price = parseFloat(values.price);
 
-    if (isNaN(price)) return "The price must be a number";
+  //   if (isNaN(price)) return "The price must be a number";
 
-    const productCount = products
-      .map((p) => p.product)
-      .filter((f) => f === values.product).length;
-    const descriptionCount = products
-      .map((p) => p.description)
-      .filter((f) => f === values.description).length;
+  //   const productCount = products
+  //     .map((p) => p.product)
+  //     .filter((f) => f === values.product).length;
+  //   const descriptionCount = products
+  //     .map((p) => p.description)
+  //     .filter((f) => f === values.description).length;
 
-    if (productCount && descriptionCount) {
-      setProduct("");
-      return `The product ${values.product} ${values.description} already exist`;
-    }
-    return false;
-  };
+  //   if (productCount && descriptionCount) {
+  //     setProduct("");
+  //     return `The product ${values.product} ${values.description} already exist`;
+  //   }
+  //   return false;
+  // };
 
   const handleSubmitCreateForm = async (e) => {
     e.preventDefault();
 
-    const verify = productsValidation(products, values, categories);
+    //const verify = productsValidation(products, values, categories);
 
-    if (verify) 
-      return console.log(verify);
+    // if (verify) 
+    //   return console.log(verify);
   
     const response = await sendProduct(values, market);
-    console.log(response);
+    //console.log(response.data)
 
     setValues({
       product: "",

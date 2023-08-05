@@ -71,7 +71,7 @@ export const createSeller = async (req, res) => {
     const { market } = req.params;
     const { name, lastname, dni, email, password } = req.body;
     const [result] = await pool.query(
-      "INSERT INTO sellers (name,lastname,dni,email,password,market) VALUES (?,?,?,?,?,?)",
+      "INSERT INTO sellers (name,lastname,dni,email,password, position, market) VALUES (?,?,?,?,?,'seller',?)",
       [name, lastname, dni, email, password, market]
     );
 

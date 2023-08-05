@@ -72,7 +72,7 @@ export default function SellerPage() {
       </div>
       <div>
         <h3>Sellers</h3>
-        {sellers.map((s) => (
+        {sellers?sellers.map((s) => (
           <SellerCard
             key={s.seller_id}
             seller_id={s.seller_id}
@@ -84,7 +84,7 @@ export default function SellerPage() {
             seller={s}
             updateSellerInfo={updateSellerInfo}
           />
-        ))}
+        )):console.log(sellers)}
       </div>
     </>
   );

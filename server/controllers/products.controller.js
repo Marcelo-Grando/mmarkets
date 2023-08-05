@@ -45,6 +45,14 @@ export const createProduct = async (req, res) => {
     const {market} = req.params;
     const { product, description, category, price } = req.body;
 
+    if(!product || !description || !category || !price) return res.status(400).json({message: 'Complete all fields'})
+
+    if(isNaN(parseInt(price))) return res.status(400).json({message: "The price must be a number"})
+
+    const [foundProduct] = await pool.query("SELECT * FROM products p WHERE p.product = ? AND p.description = ?", [product, description]) 
+
+    if(foundProduct.length) return res.status(400).json({message: 'The product already exists'})
+
     const [[{category_id}]] = await pool.query("SELECT c.category_id FROM categories c WHERE  c.category = ?", [category])
     
     const [result] = await pool.query(
