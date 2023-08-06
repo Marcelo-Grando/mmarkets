@@ -1,6 +1,7 @@
 import Sale from "../components/Sale"
 
 export default function SellerHomePage() {
+  
   return (
     <div>
         <h1>MarketName</h1>

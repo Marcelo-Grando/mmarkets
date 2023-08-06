@@ -1,8 +1,10 @@
 import { Router } from "express";
-import { signin } from "../controllers/signin.controller.js";
+import { signin, getSellerByEmail } from "../controllers/signin.controller.js";
 
 const router = Router();
 
-router.post('/signin', signin)
+router.post("/signin", signin);
 
-export default router
+router.get("/seller/:email", getSellerByEmail);
+
+export default router;

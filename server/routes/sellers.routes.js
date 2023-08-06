@@ -5,8 +5,7 @@ import {
   createSeller,
   updateSeller,
   deleteSeller,
-  profile,
-  getSellerByEmail
+  profile
 } from "../controllers/sellers.controller.js";
 
 
@@ -14,7 +13,7 @@ const router = Router();
 
 router.get("/profile", profile)
 
-router.get("/sellers/:email", getSellerByEmail)
+//PROBLEMAS CON TENER DOS GET CON EL MISMO NAME (UNO SE OCUPA EN SIGNIN MOVERLO AHI)
 
 router.get("/sellers/:market", getSellers);
 

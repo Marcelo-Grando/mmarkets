@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getSellers, sendSeller, updateSeller, deleteSeller } from "../api/Sellers";
+import {
+  getSellers,
+  sendSeller,
+  updateSeller,
+  deleteSeller,
+} from "../api/Sellers";
 import SellerCard from "../components/SellerCard";
 import SellerForm from "../components/SellerForm";
-
-
 
 export default function SellerPage() {
   const [sellers, setSellers] = useState([]);
@@ -15,7 +18,7 @@ export default function SellerPage() {
     dni: "",
     password: "",
   });
-  const {market} = useParams()
+  const { market } = useParams();
 
   async function loadSellers() {
     const response = await getSellers(market);
@@ -27,15 +30,15 @@ export default function SellerPage() {
   }, []);
 
   const removeSeller = async (seller_id) => {
-    const response = await deleteSeller(seller_id, market)
-    console.log(response)
-    loadSellers()
-  }
+    const response = await deleteSeller(seller_id, market);
+    console.log(response);
+    loadSellers();
+  };
 
   const updateSellerInfo = async (seller_id, seller) => {
-    const response = await updateSeller(seller_id, seller)
-    console.log(response.data)
-  }
+    const response = await updateSeller(seller_id, seller);
+    console.log(response.data);
+  };
 
   const handleInputsChange = (e) => {
     const { name, value } = e.target;
@@ -47,10 +50,10 @@ export default function SellerPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (Object.values(seller).includes("")) return console.log("faltan datos");
+    //if (Object.values(seller).includes("")) return console.log("faltan datos");
     const response = await sendSeller(seller, market);
-    console.log(response)
-    setSellers([...sellers, response.data]); 
+    console.log(response);
+    loadSellers();
     setSeller({
       name: "",
       lastname: "",
@@ -62,7 +65,7 @@ export default function SellerPage() {
 
   return (
     <>
-    <div>
+      <div>
         <h3>Create Seller</h3>
         <SellerForm
           handleSubmit={handleSubmit}
@@ -72,7 +75,7 @@ export default function SellerPage() {
       </div>
       <div>
         <h3>Sellers</h3>
-        {sellers?sellers.map((s) => (
+        {sellers.map((s) => (
           <SellerCard
             key={s.seller_id}
             seller_id={s.seller_id}
@@ -84,7 +87,7 @@ export default function SellerPage() {
             seller={s}
             updateSellerInfo={updateSellerInfo}
           />
-        )):console.log(sellers)}
+        ))}
       </div>
     </>
   );

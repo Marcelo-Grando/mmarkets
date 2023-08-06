@@ -30,10 +30,12 @@ export const profile = async (req, res, next) => {
 export const getSellers = async (req, res) => {
   try {
     const { market } = req.params;
+    console.log(req.params);
     const [rows] = await pool.query(
       "SELECT market, seller_id, name, lastname, dni, email FROM sellers WHERE market = ?",
       [market]
     );
+    console.log(rows);
     res.send(rows);
   } catch (error) {
     console.log(error);
@@ -53,29 +55,16 @@ export const getSeller = async (req, res) => {
   }
 };
 
-export const getSellerByEmail = async (req, res) => {
-  try {
-    const { email } = req.params;
-    const [rows] = await pool.query(
-      "SELECT m.market, s.name, s.lastname, s.dni, s.email FROM sellers s INNER JOIN markets m ON s.market = m.market_id WHERE s.email = ?",
-      [email]
-    );
-    res.json(rows[0]);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 export const createSeller = async (req, res) => {
   try {
     const { market } = req.params;
     const { name, lastname, dni, email, password } = req.body;
+    if (!name || !lastname || !dni || !email || !password)
+      return res.status(400).json({ message: "Complete all fields" });
     const [result] = await pool.query(
       "INSERT INTO sellers (name,lastname,dni,email,password, position, market) VALUES (?,?,?,?,?,'seller',?)",
       [name, lastname, dni, email, password, market]
     );
-
-    console.log(result);
 
     const token = jwt.sign({ id: result.insertId }, "secret", {
       expiresIn: 60 * 60 * 8,

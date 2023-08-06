@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const getSellers = async (market_id) => 
-    await axios.get(`http://localhost:3000/api/sellers/${market_id}`)
+export const getSellers = async (market) => 
+    await axios.get(`http://localhost:3000/api/sellers/${market}`)
 
 export const sendSeller = async (seller, market_id) => 
     await axios.post(`http://localhost:3000/api/sellers/${market_id}`, seller)

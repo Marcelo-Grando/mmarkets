@@ -13,7 +13,7 @@ export const signin = async (req, res, next) => {
         return res.status(404).send("The email doesn't exits");
       }
   
-      const [[{ seller_id, user_password }]] = await pool.query(
+      const [[{ user_password }]] = await pool.query(
         "SELECT s.seller_id, s.email as user_email, s.password as user_password FROM sellers s WHERE email = ?",
         [email]
       );
@@ -33,5 +33,19 @@ export const signin = async (req, res, next) => {
       res.json({ auth: true, token, seller_id: user.seller_id, market: user.market });
     } catch (error) {
       res.console.error(error);
+    }
+  };
+
+  export const getSellerByEmail = async (req, res) => {
+    try {
+      const { email } = req.params;
+
+      const [rows] = await pool.query(
+        "SELECT m.market, s.name, s.lastname, s.dni, s.email FROM sellers s INNER JOIN markets m ON s.market = m.market_id WHERE s.email = ?",
+        [email]
+      );
+      res.json(rows[0]);
+    } catch (error) {
+      console.log(error);
     }
   };
