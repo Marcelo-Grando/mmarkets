@@ -13,6 +13,8 @@ export const getSales = async (req, res) => {
   }
 };
 
+//agreagr getProduct y getProducts
+
 export const createSale = async (req, res) => {
   try {
     const { market, seller } = req.params;
@@ -27,12 +29,13 @@ export const createSale = async (req, res) => {
       [market, seller, amount, year, month, date, time, hour]
     );
 
-    for (let i = 0; i < products.length; i++) {
-      await pool.query(
-        "INSERT INTO products_x_sales (product, sale, quantify) VALUES (?,?,?)",
-        [products[i].product_id, sale.insertId, products[i].quantify]
-      );
-    }
+    products.map(
+      async (product) =>
+        await pool.query(
+          "INSERT INTO products_x_sales (product, sale, quantify) VALUES (?,?,?)",
+          [product.product_id, sale.insertId, product.quantify]
+        )
+    );
 
     res.json({
       ticket_id: sale.insertId,

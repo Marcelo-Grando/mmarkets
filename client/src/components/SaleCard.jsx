@@ -44,7 +44,6 @@ export default function SaleCard({
       </button>
       <button
         onClick={() => {
-          if (!elements.length) return console.log("Enter products");
           makeSale(elements, market, seller_id);
           setFoundProducts([]);
         }}
