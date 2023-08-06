@@ -16,34 +16,39 @@ export const salesTotal = async (req, res) => {
 export const salesByCategories = async (req, res) => {
   try {
     const market = req.params.market;
+
     const [result] = await pool.query(
       "SELECT SUM(amount) AS total_sales FROM sales WHERE market = ?",
       [market]
     );
-    const [products] = await pool.query(
+    const [productsCategoryNull] = await pool.query(
       "SELECT * FROM products_x_sales px INNER JOIN products p ON px.product = p.product_id WHERE p.category IS NULL AND  p.market = ?",
       [market]
     );
 
-    const amount = products
-      .map((product) => parseInt(product.price))
-      .reduce((acumulador, valorActual) => acumulador + valorActual);
-
     const total_sales = result[0].total_sales;
-    const noCategory = {
-      market: products[0].market,
-      category: "No category",
-      category_id: null,
-      quantify: products.length,
-      amount,
-      percentage: (amount / total_sales) * 100,
-    };
 
     const [rows] = await pool.query(
       "SELECT p.market, p.category, c.category_id, c.category, SUM(quantify) AS quantify, SUM(px.quantify*p.price) AS amount, (SUM(px.quantify*p.price)/?) * 100 AS percentage FROM products_x_sales px INNER JOIN products p ON px.product = p.product_id INNER JOIN categories c ON p.category = c.category_id WHERE p.market = ? GROUP BY p.category ORDER BY amount DESC",
       [total_sales, market]
     );
-    res.send([...rows, noCategory]);
+
+    if (productsCategoryNull.length) {
+      const amountProductsCategoryNull = productsCategoryNull
+        .map((product) => parseInt(product.price))
+        .reduce((acumulador, valorActual) => acumulador + valorActual);
+
+      const noCategory = {
+        market: productsCategoryNull[0].market,
+        category: "No category",
+        category_id: null,
+        quantify: productsCategoryNull.length,
+        amount: amountProductsCategoryNull,
+        percentage: (amountProductsCategoryNull / total_sales) * 100,
+      };
+      return res.send([...rows, noCategory]);
+    }
+    res.send(rows);
   } catch (error) {
     console.log(error);
   }
