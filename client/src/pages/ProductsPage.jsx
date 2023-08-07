@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import {
   findProduct,
   sendProduct,
@@ -10,7 +11,7 @@ import FindProductForm from "../components/FindProductForm";
 import CreateProductForm from "../components/CreateProductForm";
 import ProductsFoundContainer from "../components/ProductsFoundContainer";
 import ProductsAcordeon from "../components/ProductsAcordeon";
-import { useParams } from "react-router-dom";
+
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
