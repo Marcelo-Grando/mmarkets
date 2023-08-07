@@ -1,6 +1,11 @@
+import { useParams } from "react-router-dom"
 import Sale from "../components/Sale"
 
 export default function SellerHomePage() {
+
+  const {market, seller_id} = useParams()
+
+  console.log('params market: ',market, 'params seller: ', seller_id)
   
   return (
     <div>

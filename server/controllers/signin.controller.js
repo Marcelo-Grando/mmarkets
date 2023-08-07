@@ -24,10 +24,6 @@ export const signin = async (req, res, next) => {
       [email]
     );
 
-    console.log("seller: ", seller);
-    console.log("market: ", market);
-    console.log("administrator: ", administrator);
-
     if (!seller && !market && !administrator) {
       return res.status(404).send("The email doesn't exits");
     }
@@ -52,6 +48,26 @@ export const signin = async (req, res, next) => {
       return res.json({ ...seller, auth: true, token });
     }
 
+    if (administrator) {
+      const [[{ administrator_password }]] = await pool.query(
+        "SELECT a.administrator_id, a.email, a.password as administrator_password FROM administrators a WHERE email = ?",
+        [email]
+      );
+      const a = administrator_password.toString();
+
+      const validation = a === password;
+
+      if (!validation) {
+        return res.status(401).json({ auth: false, token: null });
+      }
+
+      const token = jwt.sign({ id: administrator.administrator_id }, "secret", {
+        expiresIn: 60 * 60 * 8,
+      });
+
+      return res.json({ ...administrator, auth: true, token });
+    }
+
     if (market) {
       const [[{ market_password }]] = await pool.query(
         "SELECT s.market_id, s.email as market_email, s.password as market_password FROM markets s WHERE email = ?",
@@ -71,20 +87,6 @@ export const signin = async (req, res, next) => {
 
       return res.json({ ...market, auth: true, token });
     }
-
-    // const a = seller_password.toString();
-
-    // const validation = a === password;
-
-    // if (!validation) {
-    //   return res.status(401).json({auth: false, token: null });
-    // }
-
-    // const token = jwt.sign({ id: seller.seller_id }, "secret", {
-    //   expiresIn: 60 * 60 * 8,
-    // });
-
-    // return res.json({...seller, auth: true, token});
   } catch (error) {
     console.error(error);
   }

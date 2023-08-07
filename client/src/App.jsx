@@ -9,6 +9,7 @@ import ReportsPage from './pages/ReportsPage'
 import MarketHomePage from './pages/marketHomePage'
 import SellerHomePage from './pages/SellerHomePage'
 import AdministratorHomePage from './pages/AdministratorHomePage'
+import AdministratorPage from './pages/AdministratorPage'
 
 
 
@@ -23,7 +24,8 @@ function App() {
       <Route path='/reports-page/:market' element={<ReportsPage/>}/>
       <Route path='/:market_name/:market' element={<MarketHomePage/>}/>
       <Route path='/:market_name/:market/:seller_id' element={<SellerHomePage/>}/>
-      <Route path='/administrator/:market' element={<AdministratorHomePage/>}/>
+      <Route path='/administrators-page/:market' element={<AdministratorPage/>}/>
+      <Route path='admin/:administrator/:market' element={<AdministratorHomePage/>}/>
     </Routes>
   )
 }

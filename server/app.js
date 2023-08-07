@@ -12,6 +12,7 @@ import getHome from "./routes/home.routes.js";
 import reportRoutes from "./routes/reports.routes.js"
 import signinRoutes from "./routes/signinSellers.routes.js"
 import authRoutes from "./routes/auth.routes.js"
+import administratorsRoutes from "./routes/administrator.routes.js"
 
 const app = express();
 app.use(express.json());
@@ -25,6 +26,7 @@ app.use('/api', signinRoutes)
 app.use('/api',marketRoutes);
 app.use('/api',categoriesRoutes);
 app.use('/api',sellersRotes);
+app.use('/api',administratorsRoutes);
 app.use('/api',salesRoutes);
 app.use('/api',productsRotes);
 app.use('/api',pxsRotes);

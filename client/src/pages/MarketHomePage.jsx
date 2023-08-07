@@ -26,6 +26,7 @@ export default function MarketHomePage() {
                 <li><Link to={`/reports-page/${market}`}>reports</Link></li>
                 <li><Link to={`/products-page/${market}`}>products</Link></li>
                 <li><Link to={`/categories-page/${market}`}>categories</Link></li>
+                <li><Link to={`/administrators-page/${market}`}>administrators</Link></li>
             </ul>
             </nav>
     </div>

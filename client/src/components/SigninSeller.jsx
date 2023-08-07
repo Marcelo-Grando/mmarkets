@@ -36,6 +36,15 @@ export default function SigninSeller() {
       })
     }
 
+    if (user.position === 'administrator') {
+      console.log('position administrator')
+      setParam(`admin/${user.name.concat(user.lastname).replace(/ /g, "")}/${user.market}/`)  
+      setMember({
+        ...member,
+        auth: user.auth
+      })
+    }
+
     if (user.position === 'main-account') {
       console.log('position market')
       setParam(`/${user.market.replace(/ /g, "")}/${user.market_id}`)  
