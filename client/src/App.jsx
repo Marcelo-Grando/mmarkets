@@ -21,7 +21,7 @@ function App() {
       <Route path='/products-page/:market' element={<ProductsPage/>}/>
       <Route path='/categories-page/:market' element={<CategoriesPage/>}/>
       <Route path='/reports-page/:market' element={<ReportsPage/>}/>
-      <Route path='/market-home/:market' element={<MarketHomePage/>}/>
+      <Route path='/:market_name/:market' element={<MarketHomePage/>}/>
       <Route path='/:market_name/:market/:seller_id' element={<SellerHomePage/>}/>
       <Route path='/administrator/:market' element={<AdministratorHomePage/>}/>
     </Routes>

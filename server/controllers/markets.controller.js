@@ -6,6 +6,13 @@ export const getMarkets = async (req, res) => {
   res.json(rows);
 };
 
+export const getMarket = async (req, res) => {
+  const {market_id} = req.params
+  const [[market]] = await pool.query("SELECT market, adress, email FROM markets WHERE market_id = ?", [market_id]);
+  
+  res.json(market);
+};
+
 export const loginMarket = async (req, res) => {
   const { email, password } = req.body;
   const [rows] = await pool.query("SELECT * FROM markets WHERE email = ?", [

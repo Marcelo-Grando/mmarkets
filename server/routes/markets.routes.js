@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   getMarkets,
+  getMarket,
   loginMarket,
   createMarket,
   updateMarket,
@@ -13,6 +14,9 @@ const router = Router();
 router.post("/hola", redirecciona)
 
 router.get("/markets", getMarkets);
+
+
+router.get("/markets/:market_id", getMarket);
 
 //iniciar sesion
 router.post("/markets_login", loginMarket);

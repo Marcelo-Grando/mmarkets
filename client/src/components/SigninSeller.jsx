@@ -3,34 +3,58 @@ import { Navigate } from "react-router-dom";
 import { signinSeller, getSellerByEmail } from "../api/SigninSeller";
 
 export default function SigninSeller() {
-  const [seller, setSeller] = useState({
+  const [member, setMember] = useState({
     email: "",
     password: "",
   });
-  const [marketParam, setMarketParam] = useState("");
+  const [param, setParam] = useState("");
 
   const handleInputsChange = (e) => {
     const { name, value } = e.target;
-    setSeller({
-      ...seller,
+    setMember({
+      ...member,
       [name]: value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await signinSeller(seller);
+    const response = await signinSeller(member);
 
-    const foundSeller = await getSellerByEmail(seller.email);
+    const user = response.data
 
-    setMarketParam(foundSeller.data.market);
+    console.log('USER: ', user)
 
-    const auth = response.data;
+    if (user.position === 'seller') {
+      console.log('position seller')
+      setParam(`/${user.name.concat(user.lastname).replace(/ /g, "")}/${user.market}/${
+        user.seller_id
+      }`)  
+      setMember({
+        ...member,
+        auth: user.auth
+      })
+    }
 
-    setSeller({
-      ...seller,
-      ...auth,
-    });
+    if (user.position === 'main-account') {
+      console.log('position market')
+      setParam(`/${user.market.replace(/ /g, "")}/${user.market_id}`)  
+      setMember({
+        ...member,
+        auth: user.auth
+      })
+    }
+
+    // const foundSeller = await getSellerByEmail(seller.email);
+
+    // setMarketParam(foundSeller.data.market);
+
+    // const auth = response.data;
+
+    // setSeller({
+    //   ...seller,
+    //   ...auth,
+    // });
   };
 
   return (
@@ -41,11 +65,9 @@ export default function SigninSeller() {
         <input name="password" type="password" onChange={handleInputsChange} />
         <button>signin</button>
       </form>
-      {seller.auth ? (
+      {member.auth ? (
         <Navigate
-          to={`/${marketParam.replace(/ /g, "")}/${seller.market}/${
-            seller.seller_id
-          }`}
+          to={param}
           replace={false}
         />
       ) : (
