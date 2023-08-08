@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { sendMarket } from "../api/Home";
-import SigninSeller from "../components/SigninSeller";
+import Signin from "../components/Signin";
 
 
 export default function HomePage() {
@@ -49,7 +49,7 @@ export default function HomePage() {
           <button>create acount</button>
         </form>
         </div>
-        <SigninSeller/>
+        <Signin/>
     </div>
   );
 }

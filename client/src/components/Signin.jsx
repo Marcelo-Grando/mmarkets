@@ -23,10 +23,7 @@ export default function SigninSeller() {
 
     const user = response.data
 
-    console.log('USER: ', user)
-
     if (user.position === 'seller') {
-      console.log('position seller')
       setParam(`/${user.name.concat(user.lastname).replace(/ /g, "")}/${user.market}/${
         user.seller_id
       }`)  
@@ -37,7 +34,6 @@ export default function SigninSeller() {
     }
 
     if (user.position === 'administrator') {
-      console.log('position administrator')
       setParam(`admin/${user.name.concat(user.lastname).replace(/ /g, "")}/${user.market}/`)  
       setMember({
         ...member,
@@ -46,24 +42,12 @@ export default function SigninSeller() {
     }
 
     if (user.position === 'main-account') {
-      console.log('position market')
       setParam(`/${user.market.replace(/ /g, "")}/${user.market_id}`)  
       setMember({
         ...member,
         auth: user.auth
       })
     }
-
-    // const foundSeller = await getSellerByEmail(seller.email);
-
-    // setMarketParam(foundSeller.data.market);
-
-    // const auth = response.data;
-
-    // setSeller({
-    //   ...seller,
-    //   ...auth,
-    // });
   };
 
   return (
