@@ -7,8 +7,6 @@ export default function SaleTable({ products, addElements }) {
   
   const [value, setValue] = useState(false)
 
-  console.log(value)
-
   return (
     <table>
       <caption onClick={() => setValue(value?false:true)}>Products</caption>

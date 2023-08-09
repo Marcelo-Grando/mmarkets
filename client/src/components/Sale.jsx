@@ -65,7 +65,7 @@ export default function Sale() {
     setAmount("");
     setElements([]);
     setIndexs([]);
-    console.log(response)
+    console.log(response.data)
   };
 
   const saleAmount = amount
