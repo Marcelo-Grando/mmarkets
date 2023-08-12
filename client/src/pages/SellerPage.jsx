@@ -27,12 +27,12 @@ export default function SellerPage() {
 
   useEffect(() => {
     loadSellers();
-  }, []);
+  }, [sellers]);
 
   const removeSeller = async (seller_id) => {
     const response = await deleteSeller(seller_id, market);
     console.log(response);
-    loadSellers();
+    //loadSellers();
   };
 
   const updateSellerInfo = async (seller_id, seller) => {
@@ -53,7 +53,7 @@ export default function SellerPage() {
     //if (Object.values(seller).includes("")) return console.log("faltan datos");
     const response = await sendSeller(seller, market);
     console.log(response);
-    loadSellers();
+    //loadSellers();
     setSeller({
       name: "",
       lastname: "",

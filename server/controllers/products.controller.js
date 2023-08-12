@@ -5,6 +5,7 @@ const allProducts =
 
 export const getProducts = async (req, res) => {
   try {
+    console.log('Auth: ',req.headers.authorization)
     const { market } = req.params;
     const [rows] = await pool.query(allProducts, [market]);
     res.send(rows);

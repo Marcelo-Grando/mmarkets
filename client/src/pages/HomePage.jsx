@@ -2,35 +2,33 @@ import { useEffect, useState } from "react";
 import { sendMarket } from "../api/Home";
 import Signin from "../components/Signin";
 
-
 export default function HomePage() {
-  
   const [account, setAccount] = useState({
-    market: '',
-    adress: '',
-    email: '',
-    password: ''
-  })
+    market: "",
+    adress: "",
+    email: "",
+    password: "",
+  });
 
   const handleInputsChange = (e) => {
-    const {name, value} = e.target
+    const { name, value } = e.target;
     setAccount({
       ...account,
-      [name]: value
-    })
-  }
+      [name]: value,
+    });
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    const response = await sendMarket(account)
-    console.log(response)
+    e.preventDefault();
+    const response = await sendMarket(account);
+    console.log(response);
     setAccount({
-      market: '',
-    adress: '',
-    email: '',
-    password: ''
-    })
-  }
+      market: "",
+      adress: "",
+      email: "",
+      password: "",
+    });
+  };
 
   //console.log(account)
 
@@ -39,17 +37,41 @@ export default function HomePage() {
       <div>
         <h1>Mmarkets</h1>
       </div>
-        <div>
+      <div>
         <h3>Create Acount</h3>
         <form action="" onSubmit={handleSubmit}>
-          <input type="text" name="market" placeholder="market name" onChange={handleInputsChange} value={account.market}/>
-          <input type="text" name="adress" placeholder="adress" onChange={handleInputsChange} value={account.adress}/>
-          <input type="email" name="email" placeholder="email" onChange={handleInputsChange} value={account.email}/>
-          <input type="password" name="password" placeholder="password" onChange={handleInputsChange} value={account.password}/>
+          <input
+            type="text"
+            name="market"
+            placeholder="market name"
+            onChange={handleInputsChange}
+            value={account.market}
+          />
+          <input
+            type="text"
+            name="adress"
+            placeholder="adress"
+            onChange={handleInputsChange}
+            value={account.adress}
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="email"
+            onChange={handleInputsChange}
+            value={account.email}
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="password"
+            onChange={handleInputsChange}
+            value={account.password}
+          />
           <button>create acount</button>
         </form>
-        </div>
-        <Signin/>
+      </div>
+      <Signin />
     </div>
   );
 }

@@ -1,13 +1,20 @@
 * {
-  background: whitesmoke;
+  background: rgb(248, 244, 244);
+}
+
+h1 {
+  text-decoration:underline;
 }
 
 input {
-  border-radius: 5px;
+  background: rgb(231, 229, 229);
+  border-radius:5px;
+  margin-inline: 2px;
 }
 
 button {
   border-radius: 5px;
+  font-weight:lighter;
 }
 
 .btn-delete {
@@ -15,12 +22,12 @@ button {
 }
 
 .btn-update {
-  background: rgb(12, 172, 201);
+  background: rgb(25, 150, 182);
 }
 
 h3 {
   text-align: center;
-  background: rgb(50, 185, 219);
+  background: rgb(25, 150, 182);
 }
 
 .seller-card {

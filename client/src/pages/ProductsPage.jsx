@@ -42,7 +42,7 @@ export default function ProductsPage() {
   useEffect(() => {
     loadProducts();
     loadCategories();
-  }, []);
+  }, [products, categories]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -106,7 +106,7 @@ export default function ProductsPage() {
   const removeProduct = async (product_id, market) => {
     const response = await deleteProduct(product_id, market);
     if (response.status === 204) console.log("Deleted Product");
-    loadProducts();
+    //loadProducts();
   };
 
   return (

@@ -64,7 +64,7 @@ export default function ReportsPage() {
     loadSalesByDay();
     loadSalesByMonth();
     loadSalesByYear();
-  }, []);
+  }, [salesTotal]);
 
   return (
     <>

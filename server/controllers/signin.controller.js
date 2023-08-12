@@ -14,13 +14,15 @@ export const signin = async (req, res) => {
 
     const verifiedPassword = user.password.toString() === password;
 
-    if (!verifiedPassword) return res.status(401).json({ auth: false, token: null });
+    if (!verifiedPassword)
+      return res.status(401).json({ auth: false, token: null });
 
     const token = jwt.sign({ id: user.id }, "secret", {
       expiresIn: 60 * 60 * 8,
     });
-
-    return res.json({ ...user, auth: true, token });
+    
+    res.cookie("token", token);
+    res.json({ ...user, auth: true, token });
   } catch (error) {
     console.log(error);
   }

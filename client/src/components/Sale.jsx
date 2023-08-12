@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getProducts, getProduct, sendSale } from "../api/Sales";
+import { getProducts, getProduct, sendSale, prueba } from "../api/Sales";
 import SaleTable from "./SaleTable";
 import SaleCard from "./SaleCard";
 import Product from "./Product";
@@ -23,6 +23,11 @@ export default function Sale() {
     }
     loadProducts();
   }, []);
+
+  const handlePrueba = async () => {
+    const response = await prueba(market, )
+    console.log(response)
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -74,6 +79,7 @@ export default function Sale() {
 
   return (
     <div>
+      {/* <button onClick={handlePrueba}>PRUEBA</button> */}
     <h3>Find Product</h3>
       <form onSubmit={handleSubmit}>
         <input

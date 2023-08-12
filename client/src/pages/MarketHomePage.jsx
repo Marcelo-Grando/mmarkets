@@ -15,7 +15,7 @@ export default function MarketHomePage() {
 
  useEffect(()=> {
   loadMarket()
- }, [])
+ }, [account])
 
   return (
     <div>

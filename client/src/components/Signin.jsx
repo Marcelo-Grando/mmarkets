@@ -21,7 +21,11 @@ export default function SigninSeller() {
     e.preventDefault();
     const response = await signinSeller(member);
 
+    console.log(response)
+
     const user = response.data
+
+    //combiar response solo traer id y la position del user y hacer una consulta desde aca para redireccionar
 
     if (user.position === 'seller') {
       setParam(`/${user.name.concat(user.lastname).replace(/ /g, "")}/${user.market}/${
