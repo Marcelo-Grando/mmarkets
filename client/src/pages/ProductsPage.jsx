@@ -42,7 +42,7 @@ export default function ProductsPage() {
   useEffect(() => {
     loadProducts();
     loadCategories();
-  }, [products, categories]);
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
