@@ -17,6 +17,9 @@ export const getSales = async (req, res) => {
 
 export const createSale = async (req, res) => {
   try {
+
+    console.log(req.session.user)
+
     const { market, seller } = req.params;
     const products = req.body;
 

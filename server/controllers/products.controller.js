@@ -5,7 +5,9 @@ const allProducts =
 
 export const getProducts = async (req, res) => {
   try {
-    console.log('Auth: ',req.headers.authorization)
+    console.log('Auth: ', req.session.id)
+    //const [result] = await pool.query('SELECT * FROM mire_sessions WHERE session_id = ?', [req.session.id])
+    //console.log('MIRE: ', result)
     const { market } = req.params;
     const [rows] = await pool.query(allProducts, [market]);
     res.send(rows);
