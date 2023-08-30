@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { signinSeller, getSellerByEmail } from "../api/SigninSeller";
 
 export default function SigninSeller() {
@@ -8,6 +8,8 @@ export default function SigninSeller() {
     password: "",
   });
   const [param, setParam] = useState("");
+
+  const navigate = useNavigate() 
 
   const handleInputsChange = (e) => {
     const { name, value } = e.target;
@@ -19,7 +21,10 @@ export default function SigninSeller() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    //const response = await signinSeller(member);
+
     const response = await signinSeller(member);
+
 
     console.log(response)
 
@@ -28,7 +33,7 @@ export default function SigninSeller() {
     //combiar response solo traer id y la position del user y hacer una consulta desde aca para redireccionar
 
     if (user.position === 'seller') {
-      setParam(`/${user.name.concat(user.lastname).replace(/ /g, "")}/${user.market}/${
+      navigate(`/${user.name.concat(user.lastname).replace(/ /g, "")}/${user.market}/${
         user.seller_id
       }`)  
       setMember({
@@ -38,7 +43,7 @@ export default function SigninSeller() {
     }
 
     if (user.position === 'administrator') {
-      setParam(`admin/${user.name.concat(user.lastname).replace(/ /g, "")}/${user.market}/`)  
+    navigate(`admin/${user.name.concat(user.lastname).replace(/ /g, "")}/${user.market}/`)  
       setMember({
         ...member,
         auth: user.auth
@@ -46,13 +51,18 @@ export default function SigninSeller() {
     }
 
     if (user.position === 'main-account') {
-      setParam(`/${user.market.replace(/ /g, "")}/${user.market_id}`)  
+      navigate(`/${user.market.replace(/ /g, "")}/${user.market_id}`)  
       setMember({
         ...member,
         auth: user.auth
       })
     }
   };
+
+  const aaa = async () => {
+    const res = await getSellerByEmail('marcelogrando017@gmail.com')
+    console.log(res)
+  }
 
   return (
     <>
@@ -62,14 +72,16 @@ export default function SigninSeller() {
         <input name="password" type="password" onChange={handleInputsChange} />
         <button>signin</button>
       </form>
-      {member.auth ? (
-        <Navigate
-          to={param}
-          replace={false}
-        />
+      <button onClick={aaa}>prueba</button>
+      {/* {member.auth ? (
+        // <Navigate
+        //   to={param}
+        //   replace={true}
+        // />
+        navigate(param)
       ) : (
         console.log("no login")
-      )}
+      )} */}
     </>
   );
 }

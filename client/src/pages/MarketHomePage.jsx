@@ -8,19 +8,23 @@ export default function MarketHomePage() {
 
  const {market} = useParams()
 
- const loadMarket = async () => {
-  const response = await getMarket(market)
-  setAccount(response.data)
- }
+  // const loadMarket = async () => {
+  //   const response = await getMarket(market)
+  //   setAccount(response.data)
+  // }
 
- useEffect(()=> {
-  loadMarket()
- }, [])
+  // console.log(account)
+
+  // const u = toString
+
+  // useEffect(()=> {
+  //   loadMarket()
+  // }, [])
 
   return (
     <div>
         <nav>
-            <h2>{account.market}</h2>
+            <h2>Market</h2>
             <ul>
                 <li><Link to={`/sellers-page/${market}`}>sellers</Link></li>
                 <li><Link to={`/reports-page/${market}`}>reports</Link></li>

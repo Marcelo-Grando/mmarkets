@@ -30,12 +30,21 @@ export const profile = async (req, res, next) => {
 export const getSellers = async (req, res) => {
   try {
     const { market } = req.params;
-    console.log(req.params);
+    //console.log(req.params);
+
+    console.log('req.session.id: ', req.session.id)
+
+    const [ses] = await pool.query('SELECT * FROM sessions WHERE session_id = ?', [req.session.id])
+
+    const session = JSON.parse(ses[0].data)
+
+    console.log('BUCA SESSION EN BD Market', session.user)
+
     const [rows] = await pool.query(
       "SELECT market, seller_id, name, lastname, dni, email FROM sellers WHERE market = ?",
       [market]
     );
-    console.log(rows);
+    //console.log(rows);
     res.send(rows);
   } catch (error) {
     console.log(error);
@@ -45,6 +54,7 @@ export const getSellers = async (req, res) => {
 export const getSeller = async (req, res) => {
   try {
     const { market, seller } = req.params;
+
     const [rows] = await pool.query(
       "SELECT market, name, lastname, dni, email FROM sellers WHERE seller_id = ? AND market = ?",
       [seller, market]
@@ -57,6 +67,13 @@ export const getSeller = async (req, res) => {
 
 export const createSeller = async (req, res) => {
   try {
+    console.log('req.session.id: ', req.session.id)
+
+    const [ses] = await pool.query('SELECT * FROM sessions WHERE session_id = ?', [req.session.id])
+
+    const session = JSON.parse(ses[0].data)
+
+    console.log('BUCA SESSION EN BD Market', session.user)
     const { market } = req.params;
     const { name, lastname, dni, email, password } = req.body;
     if (!name || !lastname || !dni || !email || !password)

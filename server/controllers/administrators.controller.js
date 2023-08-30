@@ -11,9 +11,9 @@ export const createAdministrator = async (req, res) => {
         [name, lastname, dni, email, password, market]
       );
   
-      const token = jwt.sign({ id: result.insertId }, "secret", {
-        expiresIn: 60 * 60 * 8,
-      });
+      // const token = jwt.sign({ id: result.insertId }, "secret", {
+      //   expiresIn: 60 * 60 * 8,
+      // });
   
       res.send({
         seller_id: result.insertId,

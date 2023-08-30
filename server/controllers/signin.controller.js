@@ -38,6 +38,8 @@ export const signin = async (req, res) => {
       return res.status(404).send("The email is not registered");
     }
 
+    console.log(user.password.toString())
+
     const verifiedPassword = user.password.toString() === password;
 
     if (!verifiedPassword)
@@ -47,16 +49,24 @@ export const signin = async (req, res) => {
       expiresIn: 60 * 60 * 8,
     });
     
-    req.session.user = user; 
+    req.session.user = email
 
-    res.json({ ...user, auth: true, token });
+    res.json(user);
   } catch (error) {
     console.log(error);
   }
 };
 
+export const signout = async (req, res) => {
+  console.log('session id desde signout',req.session.id)
+  req.session.destroy()
+  res.send(true)
+}
+
 export const getSellerByEmail = async (req, res) => {
   try {
+    console.log('user: ',req.session.user)
+
     const { email } = req.params;
 
     const [rows] = await pool.query(

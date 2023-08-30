@@ -13,7 +13,7 @@ export default function SaleTable({ products, addElements }) {
       <tbody>
         {value? products.map((p) => (
           <Product key={p.product_id} product={p} addElements={addElements} />
-        )): () => setValue(false)}
+        )): <tr></tr>}
       </tbody>
     </table>
   );

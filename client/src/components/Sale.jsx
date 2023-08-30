@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getProducts, getProduct, sendSale, prueba } from "../api/Sales";
+import { getSellerByEmail } from "../api/SigninSeller";
 import SaleTable from "./SaleTable";
 import SaleCard from "./SaleCard";
 import Product from "./Product";
@@ -25,8 +26,7 @@ export default function Sale() {
   }, []);
 
   const handlePrueba = async () => {
-    const response = await prueba(market, )
-    console.log(response)
+    const response = await getSellerByEmail('marcelogrando017@gmail.com')
   }
 
   const handleSubmit = async (e) => {
@@ -79,7 +79,7 @@ export default function Sale() {
 
   return (
     <div>
-      {/* <button onClick={handlePrueba}>PRUEBA</button> */}
+      <button onClick={handlePrueba}>PRUEBA</button>
     <h3>Find Product</h3>
       <form onSubmit={handleSubmit}>
         <input
@@ -113,7 +113,7 @@ export default function Sale() {
           indexs={indexs}
           setIndexs={setIndexs}
           setFoundProducts={setFoundProducts}
-        /> : () => setElements([])
+        /> : <div></div>
       }
       </div>
     </div>

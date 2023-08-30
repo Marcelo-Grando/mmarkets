@@ -49,14 +49,21 @@ table {
 }
 
 caption {
-  width: 420px;
+  width: 405px;
   border: 1px solid black;
+}
+
+.invisible-td {
+  padding-inline: 0;
+  border: none;
 }
 
 td {
   border: 1px solid black;
   padding-inline: 20px;
 }
+
+
 
 .sale {
   display: flex;

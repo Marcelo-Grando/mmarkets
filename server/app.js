@@ -25,7 +25,13 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(morgan("dev"));
-app.use(cors());
+
+app.use(
+  cors({
+    credentials: true,
+    origin: "http://localhost:5173" 
+  }),
+);
 
 const MySQLStore = MySQLStoreClassFactory(session);
 
@@ -43,22 +49,9 @@ const sessionStore = new MySQLStore(
   pool
 );
 
-
-app.use(getHome);
-app.use("/api", authRoutes);
-
-app.use("/api", marketRoutes);
-app.use("/api", categoriesRoutes);
-app.use("/api", sellersRotes);
-app.use("/api", administratorsRoutes);
-app.use("/api", salesRoutes);
-
-app.use("/api", pxsRotes);
-app.use("/api", reportRoutes);
-
-
 app.use(
   session({
+    key: "user_session",
     secret: "secret",
     resave: false,
     store: sessionStore,
@@ -69,8 +62,28 @@ app.use(
   })
 );
 
+
+
+app.use(getHome);
+app.use("/api", authRoutes);
+
+app.use("/api", marketRoutes);
+app.use("/api", categoriesRoutes);
+app.use("/api", sellersRotes);
+app.use("/api", administratorsRoutes);
+app.use("/api", salesRoutes);
+
+
+app.use("/api", pxsRotes);
+app.use("/api", reportRoutes);
 app.use("/api", productsRotes);
+
+
+
+
+
 app.use("/api", signinRoutes);
+
 
 
 app.use((req, res) => {
