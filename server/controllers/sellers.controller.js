@@ -79,13 +79,9 @@ export const createSeller = async (req, res) => {
     if (!name || !lastname || !dni || !email || !password)
       return res.status(400).json({ message: "Complete all fields" });
     const [result] = await pool.query(
-      "INSERT INTO sellers (name,lastname,dni,email,password, position, market) VALUES (?,?,?,?,?,'seller',?)",
-      [name, lastname, dni, email, password, market]
+      "INSERT INTO sellers (name,lastname,dni,email,password, position, market) VALUES (?,?,?,?,AES_ENCRYPT(?, ?),'seller',?)",
+      [name, lastname, dni, email, password, dni, market]
     );
-
-    const token = jwt.sign({ id: result.insertId }, "secret", {
-      expiresIn: 60 * 60 * 8,
-    });
 
     res.send({
       seller_id: result.insertId,
@@ -93,9 +89,7 @@ export const createSeller = async (req, res) => {
       lastname,
       dni,
       email,
-      market,
-      auth: true,
-      token,
+      market
     });
   } catch (error) {
     console.log(error);

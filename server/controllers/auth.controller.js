@@ -10,7 +10,7 @@ export const createAccount = async (req, res) => {
   );
   if (foundEmail) return res.send("The email is already exist");
   const [rows] = await pool.query(
-    "INSERT INTO markets (market,adress,email,password,position) VALUES (?,?,?,?,'main-account')",
+    "INSERT INTO markets (market,adress,email,password,position) VALUES (?,?,?,AES_ENCRYPT(?, 'secret'),'main-account')",
     [market, adress, email, password]
   );
   res.send({

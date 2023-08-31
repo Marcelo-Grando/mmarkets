@@ -38,7 +38,7 @@ export default function HomePage() {
         <h1>Mmarkets</h1>
       </div>
       <div>
-        <h3>Create Acount</h3>
+        <h3>Create Main Acount</h3>
         <form action="" onSubmit={handleSubmit}>
           <input
             type="text"

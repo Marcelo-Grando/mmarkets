@@ -7,8 +7,8 @@ export const createAdministrator = async (req, res) => {
       if (!name || !lastname || !dni || !email || !password)
         return res.status(400).json({ message: "Complete all fields" });
       const [result] = await pool.query(
-        "INSERT INTO administrators (name,lastname,dni,email,password, position, market) VALUES (?,?,?,?,?,'administrator',?)",
-        [name, lastname, dni, email, password, market]
+        "INSERT INTO administrators (name,lastname,dni,email,password, position, market) VALUES (?,?,?,?,AES_ENCRYPT(?, ?),'administrator',?)",
+        [name, lastname, dni, email, password, dni, market]
       );
   
       // const token = jwt.sign({ id: result.insertId }, "secret", {
