@@ -9,9 +9,11 @@ import {
   salesByYear
 } from "../controllers/reports.controller.js";
 
+import { verifySession } from "../middlewares/verify.signin.js";
+
 const router = Router();
 
-router.get("/sales-total/:market", salesTotal);
+router.get("/sales-total/:market", verifySession, salesTotal);
 
 router.get("/sales-categories/:market", salesByCategories);
 

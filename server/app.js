@@ -18,6 +18,8 @@ import signinRoutes from "./routes/signinSellers.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import administratorsRoutes from "./routes/administrator.routes.js";
 
+import { verifySession } from "./middlewares/verify.signin.js";
+
 const app = express();
 
 app.use(express.json());
@@ -55,36 +57,23 @@ app.use(
     secret: "secret",
     resave: false,
     store: sessionStore,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {
       maxAge: 1000 * 60 * 60 * 8,
     },
   })
 );
 
-
-
-app.use(getHome);
+app.use("/api",signinRoutes);
 app.use("/api", authRoutes);
-
-app.use("/api", marketRoutes);
+app.use("/api", verifySession, marketRoutes);
 app.use("/api", categoriesRoutes);
 app.use("/api", sellersRotes);
 app.use("/api", administratorsRoutes);
 app.use("/api", salesRoutes);
-
-
 app.use("/api", pxsRotes);
 app.use("/api", reportRoutes);
 app.use("/api", productsRotes);
-
-
-
-
-
-app.use("/api", signinRoutes);
-
-
 
 app.use((req, res) => {
   res.status(404).json({

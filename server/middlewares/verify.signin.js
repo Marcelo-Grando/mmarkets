@@ -1,6 +1,29 @@
 import { pool } from "../db.js";
 
-export const verifiedPassword = async (dni, user_id, user_password) => {
+export const verifySession = async (req, res, next) => {
+  try {
+    const [[response]] = await pool.query(
+      "SELECT * FROM sessions WHERE session_id = ?",
+      [req.session.id]
+    );
+    console.log('verify session: ',response)
+    if (!response) {
+      req.redirect = true;
+      return res.status(401).json({ message: "The user doesn't have an active session" });
+    }
+    const session_cookie = JSON.parse(response.data);
+    console.log(!session_cookie.user)
+    if (!session_cookie.user)
+      return res.status(401).json({ message: "The user doesn't have an active session" });
+
+    req.redirect = 'yes';  
+    next();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const comparePassword = async (dni, user_id, user_password) => {
   const [[seller_password]] = await pool.query(
     "SELECT AES_DECRYPT(password, ?) AS value FROM sellers WHERE seller_id = ?",
     [dni, user_id]
@@ -22,7 +45,7 @@ export const verifiedPassword = async (dni, user_id, user_password) => {
     return administrator_password.value.toString() === user_password;
 };
 
-export const verifyUser = async (email) => {
+export const findUser = async (email) => {
   const [[seller]] = await pool.query(
     "SELECT *, seller_id AS id FROM sellers WHERE email = ?",
     [email]

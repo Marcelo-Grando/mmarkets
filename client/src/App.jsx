@@ -6,7 +6,7 @@ import ProductsPage from "./pages/ProductsPage";
 import NotFound from "./pages/NotFound";
 import CategoriesPage from "./pages/CategoriesPage";
 import ReportsPage from "./pages/ReportsPage";
-import MarketHomePage from "./pages/marketHomePage";
+import MarketHomePage from "./pages/MarketHomePage";
 import SellerHomePage from "./pages/SellerHomePage";
 import AdministratorHomePage from "./pages/AdministratorHomePage";
 import AdministratorPage from "./pages/AdministratorPage";

@@ -21,12 +21,7 @@ export const getSales = async (req, res) => {
 //agreagr getProduct y getProducts
 
 export const createSale = async (req, res) => {
-  try {
-
-    console.log('REQ SESSION USER: ',req.session.id)
-
-    
-
+  try { 
     const { market, seller } = req.params;
     const products = req.body;
 

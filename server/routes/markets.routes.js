@@ -9,14 +9,17 @@ import {
   redirecciona
 } from "../controllers/markets.controller.js";
 
+import { verifySession } from "../middlewares/verify.signin.js";
+
 const router = Router();
 
 router.post("/hola", redirecciona)
 
+
+
 router.get("/markets", getMarkets);
 
-
-router.get("/markets/:market_id", getMarket);
+router.get("/markets/:market_id",getMarket);
 
 //iniciar sesion
 router.post("/markets_login", loginMarket);

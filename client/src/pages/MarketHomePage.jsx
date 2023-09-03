@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom"
+import { Link, useParams, useNavigate } from "react-router-dom"
 import { getMarket } from "../api/Market"
+
+import { logout } from "../api/SigninSeller"
+
 
 export default function MarketHomePage() {
 
@@ -8,31 +11,37 @@ export default function MarketHomePage() {
 
  const {market} = useParams()
 
-  // const loadMarket = async () => {
-  //   const response = await getMarket(market)
-  //   setAccount(response.data)
-  // }
+  const loadMarket = async () => {
+    const response = await getMarket(market)
+    console.log('response del load market: ',response)
+    setAccount(response.data)
+  }
 
-  // console.log(account)
+  useEffect(()=> {
+    loadMarket()
+  }, [])
 
-  // const u = toString
+  const navigate = useNavigate()
 
-  // useEffect(()=> {
-  //   loadMarket()
-  // }, [])
+  const closeSession = async () => {
+    const response = await logout()
+    console.log(('close session', response))
+    navigate('/', {replace: true})
+  }
 
-  return (
-    <div>
-        <nav>
-            <h2>Market</h2>
-            <ul>
-                <li><Link to={`/sellers-page/${market}`}>sellers</Link></li>
-                <li><Link to={`/reports-page/${market}`}>reports</Link></li>
-                <li><Link to={`/products-page/${market}`}>products</Link></li>
-                <li><Link to={`/categories-page/${market}`}>categories</Link></li>
-                <li><Link to={`/administrators-page/${market}`}>administrators</Link></li>
-            </ul>
-            </nav>
-    </div>
-  )
+    return (
+      <div>
+          <nav>
+              <h2>{account.market}</h2>
+              <ul>
+                  <li><Link to={`/sellers-page/${market}`}>sellers</Link></li>
+                  <li><Link to={`/reports-page/${market}`}>reports</Link></li>
+                  <li><Link to={`/products-page/${market}`}>products</Link></li>
+                  <li><Link to={`/categories-page/${market}`}>categories</Link></li>
+                  <li><Link to={`/administrators-page/${market}`}>administrators</Link></li>
+              </ul>
+              </nav>
+              <button onClick={closeSession}>Logout</button>
+      </div>
+    ) 
 }

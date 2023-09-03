@@ -8,6 +8,9 @@ export const getMarkets = async (req, res) => {
 
 export const getMarket = async (req, res) => {
   const {market_id} = req.params
+
+  console.log('session en getMarket',req.session.id)
+
   const [[market]] = await pool.query("SELECT market, adress, email FROM markets WHERE market_id = ?", [market_id]);
   
   res.json(market);
