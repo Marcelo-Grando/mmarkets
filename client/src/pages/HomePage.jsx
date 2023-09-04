@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { sendMarket } from "../api/Home";
+import { useState } from "react";
+import { createAccount } from "../api/Home";
 import Signin from "../components/Signin";
 
 export default function HomePage() {
@@ -20,7 +20,7 @@ export default function HomePage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await sendMarket(account);
+    const response = await createAccount(account);
     console.log(response);
     setAccount({
       market: "",

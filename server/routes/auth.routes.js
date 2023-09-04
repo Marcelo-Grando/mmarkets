@@ -3,7 +3,6 @@ import { createAccount, signin, signout} from "../controllers/auth.controller.js
 
 const router = Router()
 
-//router.post('/signIn', signIn)
 router.post('/markets',createAccount)
 
 router.post("/signin", signin);

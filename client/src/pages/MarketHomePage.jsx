@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { Link, useParams, useNavigate } from "react-router-dom"
 import { getMarket } from "../api/Market"
 
-import { logout } from "../api/SigninSeller"
+import { logout } from "../api/Signin"
 
 
 export default function MarketHomePage() {
