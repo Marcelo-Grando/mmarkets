@@ -12,14 +12,20 @@ import sellersRotes from "./routes/sellers.routes.js";
 import salesRoutes from "./routes/sales.routes.js";
 import productsRotes from "./routes/products.routes.js";
 import pxsRotes from "./routes/pxs.routes.js";
-import getHome from "./routes/home.routes.js";
 import reportRoutes from "./routes/reports.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import administratorsRoutes from "./routes/administrator.routes.js";
 
 import { verifySession } from "./middlewares/verify.signin.js";
 
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
 const app = express();
+
+import * as dotenv from 'dotenv'
+dotenv.config({path: `${__dirname}/.env`})
+
 
 app.use(express.json());
 
@@ -62,6 +68,7 @@ app.use(
     },
   })
 );
+
 
 app.use("/api", authRoutes);
 app.use("/api", verifySession, marketRoutes);

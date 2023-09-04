@@ -1,12 +1,15 @@
 import { pool } from "../db.js";
 
+
+
+
+
 export const verifySession = async (req, res, next) => {
   try {
     const [[response]] = await pool.query(
       "SELECT * FROM sessions WHERE session_id = ?",
       [req.session.id]
     );
-    console.log('verify session: ',response)
     if (!response) {
       req.redirect = true;
       return res.status(401).json({ message: "The user doesn't have an active session" });
@@ -15,8 +18,7 @@ export const verifySession = async (req, res, next) => {
     console.log(!session_cookie.user)
     if (!session_cookie.user)
       return res.status(401).json({ message: "The user doesn't have an active session" });
-
-    req.redirect = 'yes';  
+ 
     next();
   } catch (error) {
     console.log(error);
@@ -24,13 +26,16 @@ export const verifySession = async (req, res, next) => {
 };
 
 export const comparePassword = async (dni, user_id, user_password) => {
+
+  const SECRET = process.env.SECRET
+
   const [[seller_password]] = await pool.query(
     "SELECT AES_DECRYPT(password, ?) AS value FROM sellers WHERE seller_id = ?",
     [dni, user_id]
   );
   const [[market_password]] = await pool.query(
-    "SELECT AES_DECRYPT(password, 'secret') AS value FROM markets WHERE market_id = ?",
-    [user_id]
+    "SELECT AES_DECRYPT(password, ?) AS value FROM markets WHERE market_id = ?",
+    [SECRET, user_id]
   );
   const [[administrator_password]] = await pool.query(
     "SELECT AES_DECRYPT(password, ?) AS value FROM administrators WHERE administrator_id = ?",

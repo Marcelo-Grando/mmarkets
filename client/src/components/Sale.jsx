@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getProducts, getProduct, sendSale, prueba } from "../api/Sales";
+import { getProducts, getProduct, sendSale } from "../api/Sales";
 import SaleTable from "./SaleTable";
 import SaleCard from "./SaleCard";
 import Product from "./Product";
@@ -23,10 +23,6 @@ export default function Sale() {
     }
     loadProducts();
   }, []);
-
-  const handlePrueba = async () => {
-    const response = await getSellerByEmail('marcelogrando017@gmail.com')
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
