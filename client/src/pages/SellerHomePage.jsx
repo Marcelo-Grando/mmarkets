@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom"
 import Sale from "../components/Sale"
-import { logout } from "../api/SigninSeller"
+import { logout } from "../api/Signin"
 
 export default function SellerHomePage() {
 

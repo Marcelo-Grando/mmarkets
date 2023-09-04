@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
-import { signinSeller, getSellerByEmail } from "../api/SigninSeller";
+import { useNavigate } from "react-router-dom";
+import { signinSeller} from "../api/Signin";
 
 export default function SigninSeller() {
   const [member, setMember] = useState({

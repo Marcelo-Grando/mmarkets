@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getProducts, getProduct, sendSale, prueba } from "../api/Sales";
-import { getSellerByEmail } from "../api/SigninSeller";
 import SaleTable from "./SaleTable";
 import SaleCard from "./SaleCard";
 import Product from "./Product";

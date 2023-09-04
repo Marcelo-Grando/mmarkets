@@ -1,6 +1,5 @@
 import { pool } from "../db.js";
-
-export const signIn = async (req, res, next) => {};
+import { findUser, comparePassword } from "../middlewares/verify.signin.js";
 
 export const createAccount = async (req, res) => {
   const { market, adress, email, password } = req.body;
@@ -21,6 +20,31 @@ export const createAccount = async (req, res) => {
   });
 };
 
-export const createSeller = async (req, res, next) => {};
+export const signin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
 
-export const createAdministrator = async (req, res, next) => {};
+    const verifyUser = await findUser(email);
+
+    if (!verifyUser) {
+      return res.status(404).json({message: "The email is not registered"});
+    }
+
+    const verify_password = await comparePassword(verifyUser.dni, verifyUser.id, password)
+
+    if(!verify_password)
+      return res.status(401).json({message: 'Incorrect Password'});
+
+    req.session.user = email
+
+    res.json(verifyUser);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const signout = async (req, res) => {
+  console.log('session id desde signout',req.session.id)
+  req.session.destroy()
+  res.json({message: 'Session ended successfully'})
+}

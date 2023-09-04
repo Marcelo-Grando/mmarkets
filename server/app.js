@@ -14,7 +14,6 @@ import productsRotes from "./routes/products.routes.js";
 import pxsRotes from "./routes/pxs.routes.js";
 import getHome from "./routes/home.routes.js";
 import reportRoutes from "./routes/reports.routes.js";
-import signinRoutes from "./routes/signinSellers.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import administratorsRoutes from "./routes/administrator.routes.js";
 
@@ -64,7 +63,6 @@ app.use(
   })
 );
 
-app.use("/api",signinRoutes);
 app.use("/api", authRoutes);
 app.use("/api", verifySession, marketRoutes);
 app.use("/api", categoriesRoutes);
