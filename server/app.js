@@ -75,7 +75,7 @@ app.use("/api", verifySession, marketRoutes);
 app.use("/api", categoriesRoutes);
 app.use("/api", verifySession, sellersRotes);
 app.use("/api", verifySession, administratorsRoutes);
-app.use("/api", salesRoutes);
+app.use("/api", verifySession, salesRoutes);
 app.use("/api", pxsRotes);
 app.use("/api", reportRoutes);
 app.use("/api", productsRotes);

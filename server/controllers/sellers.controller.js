@@ -55,10 +55,16 @@ export const getSeller = async (req, res) => {
   try {
     const { market, seller } = req.params;
 
+    console.log('req:',req.session.user)
+
     const [rows] = await pool.query(
       "SELECT market, name, lastname, dni, email FROM sellers WHERE seller_id = ? AND market = ?",
       [seller, market]
     );
+      //tarea: cambiar las siguientes lineas por un middleware que compare los roles 
+    if(rows[0].email !== req.session.user) 
+      return res.status(401).json({ message: "The user doesn't have an active session" });
+    console.log(rows[0])
     res.json(rows[0]);
   } catch (error) {
     console.log(error);

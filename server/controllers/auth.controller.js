@@ -30,7 +30,7 @@ export const signin = async (req, res) => {
 
     const verifyUser = await findUser(email);
 
-    console.log(verifyUser)
+    console.log('verifyUser',verifyUser)
 
     if (!verifyUser) {
       return res.status(404).json({message: "The email is not registered"});

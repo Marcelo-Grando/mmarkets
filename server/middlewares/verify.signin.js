@@ -6,14 +6,15 @@ export const verifySession = async (req, res, next) => {
       "SELECT * FROM sessions WHERE session_id = ?",
       [req.session.id]
     );
-    if (!response) {
-      req.redirect = true;
+    if (!response) 
       return res.status(401).json({ message: "The user doesn't have an active session" });
-    }
+
     const session_cookie = JSON.parse(response.data);
     console.log(!session_cookie.user)
     if (!session_cookie.user)
       return res.status(401).json({ message: "The user doesn't have an active session" });
+
+      console.log('ses user: ', session_cookie.user)
  
     next();
   } catch (error) {
