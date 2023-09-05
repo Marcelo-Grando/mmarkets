@@ -40,9 +40,6 @@ export const comparePassword = async (dni, user_id, user_password) => {
     [dni, user_id]
   );
 
-  console.log(administrator_password.value)
-  console.log(user_password)
-
   if (seller_password)
     return seller_password.value.toString() === user_password;
   if (market_password)
