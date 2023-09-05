@@ -7,8 +7,7 @@ export const salesTotal = async (req, res) => {
     const [ses] = await pool.query('SELECT * FROM sessions WHERE session_id = ?', [req.session.id])
 
     const session = JSON.parse(ses[0].data)
-
-    console.log('BUCA SESSION EN BD Market', session.user)
+    
     const market = req.params.market;
     const [result] = await pool.query(
       "SELECT SUM(amount) AS total_sales FROM sales WHERE market = ?",

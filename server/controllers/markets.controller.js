@@ -2,14 +2,11 @@ import { pool } from "../db.js";
 
 export const getMarkets = async (req, res) => {
   const [rows] = await pool.query("SELECT market, adress, email FROM markets");
-  console.log(year)
   res.json(rows);
 };
 
 export const getMarket = async (req, res) => {
   const {market_id} = req.params
-
-  console.log('session en getMarket',req.session.id)
 
   const [[market]] = await pool.query("SELECT market, adress, email FROM markets WHERE market_id = ?", [market_id]);
   

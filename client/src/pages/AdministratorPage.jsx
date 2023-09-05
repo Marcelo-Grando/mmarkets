@@ -13,6 +13,7 @@ export default function AdministratorPage() {
     dni: "",
     password: "",
   });
+ 
 
   async function loadAdministrators(market) {
     const response = await getAdministrators(market);

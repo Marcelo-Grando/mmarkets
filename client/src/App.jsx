@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import SellerPage from "./pages/SellerPage";
 import ProductsPage from "./pages/ProductsPage";
-import NotFound from "./pages/NotFound";
+import SessionNotFound from "./pages/SessionNotFound";
 import CategoriesPage from "./pages/CategoriesPage";
 import ReportsPage from "./pages/ReportsPage";
 import MarketHomePage from "./pages/MarketHomePage";
@@ -21,7 +21,7 @@ function App() {
         element={<SellerHomePage />}
       />
       <Route
-        path="admin/:administrator/:market"
+        path="admin/:administrator/:market/:administrador_id"
         element={<AdministratorHomePage />}
       />
       <Route path="/sellers-page/:market" element={<SellerPage />} />
@@ -32,7 +32,7 @@ function App() {
       <Route path="/products-page/:market" element={<ProductsPage />} />
       <Route path="/categories-page/:market" element={<CategoriesPage />} />
       <Route path="/reports-page/:market" element={<ReportsPage />} />
-      <Route path="/notfound-page" element={<NotFound />} />
+      <Route path="/notfound-page" element={<SessionNotFound />} />
     </Routes>
   );
 }

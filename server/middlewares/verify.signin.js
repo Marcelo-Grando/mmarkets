@@ -1,9 +1,5 @@
 import { pool } from "../db.js";
 
-
-
-
-
 export const verifySession = async (req, res, next) => {
   try {
     const [[response]] = await pool.query(
@@ -29,6 +25,8 @@ export const comparePassword = async (dni, user_id, user_password) => {
 
   const SECRET = process.env.SECRET
 
+  console.log('dni', dni, 'user_id', user_id, 'password', user_password)
+
   const [[seller_password]] = await pool.query(
     "SELECT AES_DECRYPT(password, ?) AS value FROM sellers WHERE seller_id = ?",
     [dni, user_id]
@@ -41,6 +39,9 @@ export const comparePassword = async (dni, user_id, user_password) => {
     "SELECT AES_DECRYPT(password, ?) AS value FROM administrators WHERE administrator_id = ?",
     [dni, user_id]
   );
+
+  console.log(administrator_password.value)
+  console.log(user_password)
 
   if (seller_password)
     return seller_password.value.toString() === user_password;

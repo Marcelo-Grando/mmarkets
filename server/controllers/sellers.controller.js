@@ -67,13 +67,10 @@ export const getSeller = async (req, res) => {
 
 export const createSeller = async (req, res) => {
   try {
-    console.log('req.session.id: ', req.session.id)
-
     const [ses] = await pool.query('SELECT * FROM sessions WHERE session_id = ?', [req.session.id])
 
     const session = JSON.parse(ses[0].data)
 
-    console.log('BUCA SESSION EN BD Market', session.user)
     const { market } = req.params;
     const { name, lastname, dni, email, password } = req.body;
     if (!name || !lastname || !dni || !email || !password)

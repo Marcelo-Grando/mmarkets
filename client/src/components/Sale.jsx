@@ -74,7 +74,6 @@ export default function Sale() {
 
   return (
     <div>
-      <button onClick={handlePrueba}>PRUEBA</button>
     <h3>Find Product</h3>
       <form onSubmit={handleSubmit}>
         <input

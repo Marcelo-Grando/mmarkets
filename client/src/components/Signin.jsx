@@ -32,7 +32,7 @@ export default function SigninSeller() {
     
 
     if (user.position === 'administrator') 
-    navigate(`admin/${user.name.concat(user.lastname).replace(/ /g, "")}/${user.market}/`)  
+    navigate(`admin/${user.name.concat(user.lastname).replace(/ /g, "")}/${user.market}/${user.administrator_id}`)  
     
 
     if (user.position === 'main-account') 

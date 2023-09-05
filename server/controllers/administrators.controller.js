@@ -11,10 +11,6 @@ export const createAdministrator = async (req, res) => {
         [name, lastname, dni, email, password, dni, market]
       );
   
-      // const token = jwt.sign({ id: result.insertId }, "secret", {
-      //   expiresIn: 60 * 60 * 8,
-      // });
-  
       res.send({
         seller_id: result.insertId,
         name,
@@ -38,8 +34,22 @@ export const createAdministrator = async (req, res) => {
           "SELECT market, administrator_id, name, lastname, dni, email FROM administrators WHERE market = ?",
           [market]
         );
-        console.log(rows);
         res.send(rows);
+      } catch (error) {
+        console.log(error);
+      }
+  }
+
+  export const getAdministrator = async (req, res) => {
+    try {
+        const { market, administrator_id } = req.params;
+        console.log('ad',administrator_id);
+        const [rows] = await pool.query(
+          "SELECT market, administrator_id, name, lastname, dni, email FROM administrators WHERE administrator_id = ? AND market = ?",
+          [administrator_id, market]
+        );
+        console.log(rows)
+        res.send(rows[0]);
       } catch (error) {
         console.log(error);
       }

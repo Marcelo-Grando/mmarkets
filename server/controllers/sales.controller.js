@@ -29,8 +29,6 @@ export const createSale = async (req, res) => {
 
     const session = JSON.parse(ses[0].data)
 
-    console.log('BUCA SESSION EN BD', session.user)
-
     //si existe session permitimos la venta despues pasar a middleware
 
     const amount = products

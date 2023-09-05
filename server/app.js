@@ -73,8 +73,8 @@ app.use(
 app.use("/api", authRoutes);
 app.use("/api", verifySession, marketRoutes);
 app.use("/api", categoriesRoutes);
-app.use("/api", sellersRotes);
-app.use("/api", administratorsRoutes);
+app.use("/api", verifySession, sellersRotes);
+app.use("/api", verifySession, administratorsRoutes);
 app.use("/api", salesRoutes);
 app.use("/api", pxsRotes);
 app.use("/api", reportRoutes);

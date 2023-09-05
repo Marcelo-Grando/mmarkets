@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { createAdministrator, getAdministrators } from "../controllers/administrators.controller.js";
+import { createAdministrator, getAdministrators, getAdministrator } from "../controllers/administrators.controller.js";
 
 const router = Router()
 
 router.get("/admnistrators/:market", getAdministrators)
 
-//router.get("/administrators/:market/:administrator_id")
+router.get("/administrators/:market/:administrator_id", getAdministrator)
 
 router.post("/administrators/:market", createAdministrator);
 
