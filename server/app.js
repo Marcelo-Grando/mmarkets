@@ -72,13 +72,13 @@ app.use(
 
 app.use("/api", authRoutes);
 app.use("/api", verifySession, marketRoutes);
-app.use("/api", categoriesRoutes);
+app.use("/api", verifySession, categoriesRoutes);
 app.use("/api", verifySession, sellersRotes);
 app.use("/api", verifySession, administratorsRoutes);
 app.use("/api", verifySession, salesRoutes);
-app.use("/api", pxsRotes);
-app.use("/api", reportRoutes);
-app.use("/api", productsRotes);
+app.use("/api", verifySession, pxsRotes);
+app.use("/api", verifySession, reportRoutes);
+app.use("/api", verifySession, productsRotes);
 
 app.use((req, res) => {
   res.status(404).json({

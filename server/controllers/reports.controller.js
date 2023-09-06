@@ -2,7 +2,7 @@ import { pool } from "../db.js";
 
 export const salesTotal = async (req, res) => {
   try {
-    console.log('req.session.id: ', req.session.id)
+    console.log('req.session.id: ', req.session.user)
 
     const [ses] = await pool.query('SELECT * FROM sessions WHERE session_id = ?', [req.session.id])
 
