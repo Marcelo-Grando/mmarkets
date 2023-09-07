@@ -15,7 +15,16 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/:market_name/:market" element={<MarketHomePage />} />
+      <Route path="/:maket_name/:market/" element={<MarketHomePage />}>
+        <Route path="sellers/:market" element={<SellerPage />} />
+        <Route path="products/:market" element={<ProductsPage />} />
+        <Route path="categories/:market" element={<CategoriesPage />} />
+        <Route path="reports/:market" element={<ReportsPage />} />
+        <Route
+          path="administrators/:market"
+          element={<AdministratorPage />}
+        />
+      </Route>
       <Route
         path="/:market_name/:market/:seller_id"
         element={<SellerHomePage />}
@@ -24,14 +33,6 @@ function App() {
         path="admin/:administrator/:market/:administrador_id"
         element={<AdministratorHomePage />}
       />
-      <Route path="/sellers-page/:market" element={<SellerPage />} />
-      <Route
-        path="/administrators-page/:market"
-        element={<AdministratorPage />}
-      />
-      <Route path="/products-page/:market" element={<ProductsPage />} />
-      <Route path="/categories-page/:market" element={<CategoriesPage />} />
-      <Route path="/reports-page/:market" element={<ReportsPage />} />
       <Route path="/notfound-page" element={<SessionNotFound />} />
     </Routes>
   );

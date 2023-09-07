@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate, Outlet } from "react-router-dom";
 import { getMarket } from "../api/Market";
 
 import { logout } from "../api/Signin";
@@ -9,6 +9,7 @@ export default function MarketHomePage() {
   const [account, setAccount] = useState({});
 
   const { market } = useParams();
+  const params = useParams()
 
   const loadMarket = async () => {
     const response = await getMarket(market);
@@ -17,6 +18,7 @@ export default function MarketHomePage() {
   };
 
   console.log(account)
+  console.log('params: ',params)
 
   useEffect(() => {
     loadMarket();
@@ -32,28 +34,31 @@ export default function MarketHomePage() {
  
 
   return (
-    (account.market) ?  <div>
+    (account.market) ?  <main>
     <nav>
       <h2>{account.market}</h2>
       <ul>
         <li>
-          <Link to={`/sellers-page/${market}`}>sellers</Link>
+          <Link to={`sellers/${market}`}>sellers</Link>
         </li>
         <li>
-          <Link to={`/reports-page/${market}`}>reports</Link>
+          <Link to={`reports/${market}`}>reports</Link>
         </li>
         <li>
-          <Link to={`/products-page/${market}`}>products</Link>
+          <Link to={`products/${market}`}>products</Link>
         </li>
         <li>
-          <Link to={`/categories-page/${market}`}>categories</Link>
+          <Link to={`categories/${market}`}>categories</Link>
         </li>
         <li>
-          <Link to={`/administrators-page/${market}`}>administrators</Link>
+          <Link to={`administrators/${market}`}>administrators</Link>
         </li>
       </ul>
+      <button onClick={closeSession}>Logout</button>
     </nav>
-    <button onClick={closeSession}>Logout</button>
-  </div>: <SessionNotFound/>
+    <section>
+      <Outlet/>
+    </section>
+  </main>: <SessionNotFound/>
   )
 }

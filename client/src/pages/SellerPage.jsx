@@ -50,7 +50,6 @@ export default function SellerPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //if (Object.values(seller).includes("")) return console.log("faltan datos");
     const response = await sendSeller(seller, market);
     console.log(response);
     loadSellers();

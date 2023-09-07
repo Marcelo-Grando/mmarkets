@@ -22,6 +22,18 @@ export const verifySession = async (req, res, next) => {
   }
 };
 
+export const verifySeller = async (req, res, next) => {
+
+}
+
+export const verifyAdmin = async (req, res, next) => {
+
+}
+
+export const verifyMainAccount = async (req, res, next) => {
+  
+}
+
 export const comparePassword = async (dni, user_id, user_password) => {
 
   const SECRET = process.env.SECRET

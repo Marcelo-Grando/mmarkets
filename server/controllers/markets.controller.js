@@ -8,7 +8,11 @@ export const getMarkets = async (req, res) => {
 export const getMarket = async (req, res) => {
   const {market_id} = req.params
 
+  console.log(req.session.user)
+
   const [[market]] = await pool.query("SELECT market, adress, email FROM markets WHERE market_id = ?", [market_id]);
+
+  console.log(market.email)
 
   if(market.email !== req.session.user) 
       return res.status(401).json({ message: "The current session does not have permissions for this route" });

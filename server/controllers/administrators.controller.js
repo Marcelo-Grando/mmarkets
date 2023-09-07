@@ -34,6 +34,7 @@ export const getAdministrators = async (req, res) => {
       "SELECT market, administrator_id, name, lastname, dni, email FROM administrators WHERE market = ?",
       [market]
     );
+    console.log('admin: ', rows)
     res.send(rows);
   } catch (error) {
     console.log(error);

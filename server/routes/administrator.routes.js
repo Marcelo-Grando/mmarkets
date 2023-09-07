@@ -3,7 +3,7 @@ import { createAdministrator, getAdministrators, getAdministrator } from "../con
 
 const router = Router()
 
-router.get("/admnistrators/:market", getAdministrators)
+router.get("/administrators/:market", getAdministrators)
 
 router.get("/administrators/:market/:administrator_id", getAdministrator)
 
