@@ -1,8 +1,10 @@
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate, Outlet } from "react-router-dom";
 import { getAdministrator } from "../api/Administrators";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { logout } from "../api/Signin";
 import SessionNotFound from "./SessionNotFound";
+
+import UserContext from "../context/UserContext";
 
 export default function AdministratorHomePage() {
 
@@ -10,45 +12,44 @@ export default function AdministratorHomePage() {
 
   const [account, setAccount] = useState({})
 
-  console.log(market, administrador_id)
+  const {user, setUser} = useContext(UserContext)
 
-  const loadAdministrator = async () => {
-    const response = await getAdministrator(market, administrador_id);
-    console.log("response del load market: ", response.data);
-    setAccount(response.data);
-  };
+  console.log('user context desde admin: ',user)
 
+  // const loadAdministrator = async () => {
+  //   const response = await getAdministrator(market, administrador_id);
+  //   console.log("response del load market: ", response.data);
+  //   setAccount(response.data);
+  // };
 
-
-  useEffect(() => {
-    loadAdministrator();
-  }, []);
-
-  console.log(account)
+  // useEffect(() => {
+  //   loadAdministrator();
+  // }, []);
 
   const navigate = useNavigate();
 
   const closeSession = async () => {
     const response = await logout();
-    console.log(("close session", response));
+    setUser(null)
     navigate("/", { replace: true });
   };
 
-  
-
   return (
-    (account.name) ? <div>
+    user ? <main>
     <h1>Market Name</h1>
-    <h2>{account.name}</h2>
+    <h2>{user.name}</h2>
     <ul>
       <li>
-        <Link to={`/reports-page/${market}`}>Reports</Link>
+        <Link to={`reports/${user.market}`}>Reports</Link>
       </li>
       <li>
         <Link>Sales</Link>
       </li>
       <button onClick={closeSession}>Logout</button>
     </ul>
-  </div> : <SessionNotFound/>
+    <section>
+      <Outlet/>
+    </section>
+  </main> : <SessionNotFound/>
   );
 }

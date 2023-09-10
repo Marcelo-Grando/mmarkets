@@ -2,39 +2,46 @@ import { useParams, useNavigate } from "react-router-dom"
 import Sale from "../components/Sale"
 import { getSeller } from "../api/Sellers"
 import { logout } from "../api/Signin"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import SessionNotFound from "./SessionNotFound"
+import UserContext from "../context/UserContext"
 
 export default function SellerHomePage() {
 
-  const [account, setAccount] = useState({})
+  const [account, setAccount] = useState(null)
 
   const {market, seller_id} = useParams()
 
-  const loadSeller = async () => {
-    const response = await getSeller(market, seller_id);
-    console.log("response del load market: ", response.data);
-    setAccount(response.data);
-  };
+  const {user, setUser} = useContext(UserContext)
 
-  console.log(account)
+  // const loadSeller = async () => {
+  //   const response = await getSeller(market, seller_id);
+  //   setAccount(response.data);
+  // };
+
+  // useEffect(() => {
+  //   loadSeller();
+  // }, []);
 
   useEffect(() => {
-    loadSeller();
-  }, []);
+    localStorage.setItem('user', JSON.stringify(user))
+    console.log('local: ', JSON.parse(localStorage.getItem('user')))
+  }, [])
+
+  
 
   const navigate = useNavigate()
 
   const closeSession = async () => {
     const response = await logout()
-    console.log(('close session', response))
+    await setUser(null)
     navigate('/', {replace: true, })
   }
   
   return (
-    (account.email) ? <div>
+    user ? <div>
     <h1>MarketName</h1>
-    <h2>Seller Name</h2>
+    <h2>{user.name}</h2>
     <ul>
         <li>Profile</li>
         <li>Sales</li>

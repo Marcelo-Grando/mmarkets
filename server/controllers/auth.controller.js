@@ -43,7 +43,7 @@ export const signin = async (req, res) => {
     if(!verify_password)
       return res.status(401).json({message: 'Incorrect Password'});
 
-    req.session.user = email
+    req.session.user = verifyUser.email
 
     res.json(verifyUser);
   } catch (error) {

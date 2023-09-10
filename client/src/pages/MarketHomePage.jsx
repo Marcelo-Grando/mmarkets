@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useParams, useNavigate, Outlet } from "react-router-dom";
 import { getMarket } from "../api/Market";
+
+import UserContext from "../context/UserContext";
 
 import { logout } from "../api/Signin";
 import SessionNotFound from "./SessionNotFound";
@@ -9,34 +11,34 @@ export default function MarketHomePage() {
   const [account, setAccount] = useState({});
 
   const { market } = useParams();
-  const params = useParams()
 
-  const loadMarket = async () => {
-    const response = await getMarket(market);
-    console.log("response del load market: ", response.data.market);
-    setAccount(response.data);
-  };
+  const {user, setUser} = useContext(UserContext)
 
-  console.log(account)
-  console.log('params: ',params)
+  console.log('user context desde market',user)
 
-  useEffect(() => {
-    loadMarket();
-  }, []);
+  // const loadMarket = async () => {
+  //   const response = await getMarket(market);
+  //   console.log("response del load market: ", response.data.market);
+  //   setAccount(response.data);
+  // };
+
+  // useEffect(() => {
+  //   loadMarket();
+  // }, []);
 
   const navigate = useNavigate();
 
   const closeSession = async () => {
     const response = await logout();
-    console.log(("close session", response));
+    setUser(null)
     navigate("/", { replace: true });
   };
  
 
   return (
-    (account.market) ?  <main>
+    user ?  <main>
     <nav>
-      <h2>{account.market}</h2>
+      <h2>{user.market}</h2>
       <ul>
         <li>
           <Link to={`sellers/${market}`}>sellers</Link>

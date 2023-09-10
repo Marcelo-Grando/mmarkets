@@ -34,7 +34,6 @@ export default function AdministratorPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //if (Object.values(seller).includes("")) return console.log("faltan datos");
     const response = await sendAdministrator(market, administrator);
     console.log(response);
     setSeller({
@@ -45,8 +44,6 @@ export default function AdministratorPage() {
       password: "",
     });
   };
-
-  console.log(administrator);
 
   return (
     <div>

@@ -63,17 +63,17 @@ export const comparePassword = async (dni, user_id, user_password) => {
 
 export const findUser = async (email) => {
   const [[seller]] = await pool.query(
-    "SELECT *, seller_id AS id FROM sellers WHERE email = ?",
+    "SELECT name, email, lastname, dni, position, market, seller_id AS id FROM sellers WHERE email = ?",
     [email]
   );
 
   const [[market]] = await pool.query(
-    "SELECT *, market_id AS id FROM markets WHERE email = ?",
+    "SELECT market, email, position, market_id AS id FROM markets WHERE email = ?",
     [email]
   );
 
   const [[administrator]] = await pool.query(
-    "SELECT *, administrator_id AS id FROM administrators WHERE email = ?",
+    "SELECT name, email, lastname, dni, position, market, administrator_id AS id FROM administrators WHERE email = ?",
     [email]
   );
 

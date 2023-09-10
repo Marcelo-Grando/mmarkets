@@ -30,8 +30,6 @@ export default function HomePage() {
     });
   };
 
-  //console.log(account)
-
   return (
     <div>
       <div>

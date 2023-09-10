@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { signinSeller} from "../api/Signin";
+
+import UserContext from "../context/UserContext";
+
+import { signinSeller } from "../api/Signin";
 
 export default function SigninSeller() {
   const [member, setMember] = useState({
@@ -8,7 +11,9 @@ export default function SigninSeller() {
     password: "",
   });
 
-  const navigate = useNavigate() 
+  const { user, setUser } = useContext(UserContext);
+
+  const navigate = useNavigate();
 
   const handleInputsChange = (e) => {
     const { name, value } = e.target;
@@ -22,23 +27,22 @@ export default function SigninSeller() {
     e.preventDefault();
 
     const response = await signinSeller(member);
+    const { position, name, lastname, market, id } = response.data;
+    setUser(response.data);
 
-    const user = response.data
+    if (position === "seller")
+      navigate(`/${name.concat(lastname).replace(/ /g, "")}/${market}/${id}`);
 
-    if (user.position === 'seller') 
-      navigate(`/${user.name.concat(user.lastname).replace(/ /g, "")}/${user.market}/${
-        user.seller_id
-      }`)  
-    
+    if (position === "administrator")
+      navigate(
+        `admin/${name.concat(lastname).replace(/ /g, "")}/${market}/${id}`
+      );
 
-    if (user.position === 'administrator') 
-    navigate(`admin/${user.name.concat(user.lastname).replace(/ /g, "")}/${user.market}/${user.administrator_id}`)  
-    
-
-    if (user.position === 'main-account') 
-      navigate(`/${user.market.replace(/ /g, "")}/${user.market_id}`)  
-    
+    if (position === "main-account")
+      navigate(`/${market.replace(/ /g, "")}/${id}`);
   };
+
+  console.log(" user en sig: ", user);
 
   return (
     <>

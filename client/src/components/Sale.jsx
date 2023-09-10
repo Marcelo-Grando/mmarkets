@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { getProducts, getProduct, sendSale } from "../api/Sales";
 import SaleTable from "./SaleTable";
 import SaleCard from "./SaleCard";
 import Product from "./Product";
+
+import UserContext from "../context/UserContext";
 
 export default function Sale() {
   const [product, setProduct] = useState([]);
@@ -16,9 +18,11 @@ export default function Sale() {
 
   const {market} = useParams()
 
+  const {user, setUser} = useContext(UserContext)
+
   useEffect(() => {
     async function loadProducts() {
-      const response = await getProducts(market);
+      const response = await getProducts(user.market);
       setProducts(response.data);
     }
     loadProducts();
