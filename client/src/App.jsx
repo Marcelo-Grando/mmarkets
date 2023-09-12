@@ -31,7 +31,8 @@ function App() {
           />
         </Route>
         <Route
-          path="/:market_name/:market/:seller_id"
+          exact
+          path="/seller"
           element={<SellerHomePage />}
         />
         <Route

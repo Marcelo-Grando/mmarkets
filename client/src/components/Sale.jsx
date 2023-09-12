@@ -16,13 +16,13 @@ export default function Sale() {
   const [amount, setAmount] = useState("");
   const [ej, setEj] = useState(false)
 
-  const {market} = useParams()
+  const {market} = JSON.parse(localStorage.getItem('userData'))
 
   const {user, setUser} = useContext(UserContext)
 
   useEffect(() => {
     async function loadProducts() {
-      const response = await getProducts(user.market);
+      const response = await getProducts(market);
       setProducts(response.data);
     }
     loadProducts();

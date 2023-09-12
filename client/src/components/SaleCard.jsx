@@ -17,9 +17,7 @@ export default function SaleCard({
   indexs,
 }) {
 
-  const {market, seller_id} = useParams()
-
-  const {user, setUser} = useContext(UserContext)
+  const {market, id} = JSON.parse(localStorage.getItem('userData'))
 
   return (
     <div className="sale-card">
@@ -50,7 +48,8 @@ export default function SaleCard({
       <button
         onClick={() => {
           console.log('local: ', JSON.parse(localStorage.getItem('user')))
-          makeSale(elements, user.market, user.id);
+          console.log('local desde el sigin: ', JSON.parse(localStorage.getItem('userData')))
+          makeSale(elements, market, id);
           setFoundProducts([]);
         }}
       >

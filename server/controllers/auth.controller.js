@@ -45,7 +45,9 @@ export const signin = async (req, res) => {
 
     req.session.user = verifyUser.email
 
-    res.json(verifyUser);
+    const expires = req.session.cookie._expires
+
+    res.json({...verifyUser, expires});
   } catch (error) {
     console.log(error);
   }

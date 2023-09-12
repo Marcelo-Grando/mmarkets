@@ -10,22 +10,25 @@ export default function SellerHomePage() {
 
   const [account, setAccount] = useState(null)
 
-  const {market, seller_id} = useParams()
+  //const {market, seller_id} = useParams()
 
-  const {user, setUser} = useContext(UserContext)
+  
 
-  // const loadSeller = async () => {
-  //   const response = await getSeller(market, seller_id);
-  //   setAccount(response.data);
-  // };
+  const loadSeller = async () => {
+    if (localStorage.userData) {
+      const {market, id}  = JSON.parse(localStorage.getItem('userData'))
+      const response = await getSeller(market, id);
+      setAccount(response.data);
+      console.log(response.data)
+    }
+  };
 
   // useEffect(() => {
   //   loadSeller();
   // }, []);
 
   useEffect(() => {
-    localStorage.setItem('user', JSON.stringify(user))
-    console.log('local: ', JSON.parse(localStorage.getItem('user')))
+    loadSeller()
   }, [])
 
   
@@ -34,14 +37,15 @@ export default function SellerHomePage() {
 
   const closeSession = async () => {
     const response = await logout()
-    await setUser(null)
+    setAccount(null)
+    localStorage.removeItem('userData')
     navigate('/', {replace: true, })
   }
   
   return (
-    user ? <div>
-    <h1>MarketName</h1>
-    <h2>{user.name}</h2>
+     account ? <div>
+    <h1>Mmarket'S</h1>
+    <h2>{account.name}</h2>
     <ul>
         <li>Profile</li>
         <li>Sales</li>
