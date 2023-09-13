@@ -12,7 +12,6 @@ import ReportsCategoryCard from "../components/ReportsCategoryCard";
 import ReportsProductCard from "../components/ReportsProductCard";
 import ReportsSellerCard from "../components/ReportsSellerCard";
 import ReportsDayCard from "../components/ReportsDayCard";
-import { useParams } from "react-router-dom";
 
 export default function ReportsPage() {
   const [salesTotal, setSalesTotal] = useState({});
@@ -21,39 +20,39 @@ export default function ReportsPage() {
   const [sellers, setSellers] = useState([]);
   const [salesDay, setSalesDay] = useState([])
 
-  const {market} = useParams()
+  const {market_id} = JSON.parse(localStorage.getItem('userData'))
 
   async function loadSalesTotal() {
-    const response = await getSalesTotal(market);
+    const response = await getSalesTotal(market_id);
     setSalesTotal(response.data);
   }
 
   async function loadSalesCategories() {
-    const response = await getSalesCategories(market);
+    const response = await getSalesCategories(market_id);
     setCategories(response.data);
   }
 
   async function loadSalesProducts() {
-    const response = await getSalesProducts(market);
+    const response = await getSalesProducts(market_id);
     setProducts(response.data);
   }
 
   async function loadSalesSellers() {
-    const response = await getSalesSellers(market);
+    const response = await getSalesSellers(market_id);
     setSellers(response.data);
   }
 
   async function loadSalesByDay() {
-    const response = await getSalesByDay(market);
+    const response = await getSalesByDay(market_id);
     setSalesDay(response.data)
   }
 
   async function loadSalesByMonth() {
-    const response = await getSalesByMonth(market);
+    const response = await getSalesByMonth(market_id);
   }
 
   async function loadSalesByYear() {
-    const response = await getSalesByYear(market);
+    const response = await getSalesByYear(market_id);
   }
 
   useEffect(() => {

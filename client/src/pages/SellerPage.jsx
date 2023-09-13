@@ -18,10 +18,10 @@ export default function SellerPage() {
     dni: "",
     password: "",
   });
-  const { market } = useParams();
+  const { market_id } = JSON.parse(localStorage.getItem('userData'))
 
   async function loadSellers() {
-    const response = await getSellers(market);
+    const response = await getSellers(market_id);
     setSellers(response.data);
   }
 
@@ -30,7 +30,7 @@ export default function SellerPage() {
   }, []);
 
   const removeSeller = async (seller_id) => {
-    const response = await deleteSeller(seller_id, market);
+    const response = await deleteSeller(seller_id, market_id);
     console.log(response);
     loadSellers();
   };
@@ -50,7 +50,7 @@ export default function SellerPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await sendSeller(seller, market);
+    const response = await sendSeller(seller, market_id);
     console.log(response);
     loadSellers();
     setSeller({

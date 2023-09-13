@@ -25,15 +25,15 @@ export default function ProductsPage() {
   const [productsFound, setProductsFound] = useState([]);
   const [categories, setCategories] = useState([]);
 
-  const { market } = useParams();
+  const { market_id } = JSON.parse(localStorage.getItem('userData'));
 
   async function loadProducts() {
-    const response = await getProducts(market);
+    const response = await getProducts(market_id);
     setProducts(response.data);
   }
 
   async function loadCategories() {
-    const response = await getCategories(market);
+    const response = await getCategories(market_id);
     setCategories(response.data);
   }
 
@@ -45,7 +45,7 @@ export default function ProductsPage() {
   const findProductsByName = async (e) => {
     e.preventDefault();
     if (!product) return;
-    const response = await findProduct(product, market);
+    const response = await findProduct(product, market_id);
     setProductsFound(response.data);
     setProduct("");
   };
@@ -61,7 +61,7 @@ export default function ProductsPage() {
   const handleSubmitCreateForm = async (e) => {
     e.preventDefault();
 
-    const response = await sendProduct(values, market);
+    const response = await sendProduct(values, market_id);
     console.log(response);
 
     setValues({
@@ -73,8 +73,8 @@ export default function ProductsPage() {
     loadProducts();
   };
 
-  const removeProduct = async (product_id, market) => {
-    const response = await deleteProduct(product_id, market);
+  const removeProduct = async (product_id, market_id) => {
+    const response = await deleteProduct(product_id, market_id);
     if (response.status === 204) console.log("Deleted Product");
     loadProducts();
   };

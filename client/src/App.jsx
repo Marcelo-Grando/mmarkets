@@ -20,13 +20,13 @@ function App() {
     <UserProvider>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/:maket_name/:market/" element={<MarketHomePage />}>
-          <Route path="sellers/:market" element={<SellerPage />} />
-          <Route path="products/:market" element={<ProductsPage />} />
-          <Route path="categories/:market" element={<CategoriesPage />} />
-          <Route path="reports/:market" element={<ReportsPage />} />
+        <Route path="/market" element={<MarketHomePage />}>
+          <Route path="sellers" element={<SellerPage />} />
+          <Route path="products" element={<ProductsPage />} />
+          <Route path="categories" element={<CategoriesPage />} />
+          <Route path="reports" element={<ReportsPage />} />
           <Route
-            path="administrators/:market"
+            path="administrators"
             element={<AdministratorPage />}
           />
         </Route>
@@ -36,10 +36,10 @@ function App() {
           element={<SellerHomePage />}
         />
         <Route
-          path="admin/:administrator/:market/:administrador_id"
+          path="/administrator"
           element={<AdministratorHomePage />}
         >
-          <Route path="reports/:market" element={<ReportsPage />} />
+          <Route path="reports" element={<ReportsPage />} />
         </Route>
         <Route path="/notfound-page" element={<SessionNotFound />} />
       </Routes>

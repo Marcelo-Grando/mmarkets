@@ -1,8 +1,7 @@
-import { useParams } from "react-router-dom";
 
 export default function ProductCard({ product, removeProduct }) {
 
-  const {market} = useParams()
+  const {market_id} = JSON.parse(localStorage.getItem('userData'))
 
   return (
     <>
@@ -12,7 +11,7 @@ export default function ProductCard({ product, removeProduct }) {
       <span> <b>{product.category}</b></span>
       <span> $ {product.price}</span>
       <button className="btn-update">update</button>
-      <button className="btn-delete" onClick={() => removeProduct(product.product_id, market)}>delete</button>
+      <button className="btn-delete" onClick={() => removeProduct(product.product_id, market_id)}>delete</button>
     </div>
     </>
   );

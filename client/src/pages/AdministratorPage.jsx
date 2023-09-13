@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { sendAdministrator, getAdministrators } from "../api/Administrators";
-import { useParams } from "react-router-dom";
 
 export default function AdministratorPage() {
-  const { market } = useParams();
+  const { market_id } = JSON.parse(localStorage.getItem("userData"));
 
   const [administrators, setAdministrators] = useState([]);
   const [administrator, setAdministrator] = useState({
@@ -13,7 +12,6 @@ export default function AdministratorPage() {
     dni: "",
     password: "",
   });
- 
 
   async function loadAdministrators(market) {
     const response = await getAdministrators(market);
@@ -21,7 +19,7 @@ export default function AdministratorPage() {
   }
 
   useEffect(() => {
-    loadAdministrators(market);
+    loadAdministrators(market_id);
   }, []);
 
   const handleInputsChange = (e) => {
@@ -34,7 +32,7 @@ export default function AdministratorPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await sendAdministrator(market, administrator);
+    const response = await sendAdministrator(market_id, administrator);
     console.log(response);
     setSeller({
       name: "",

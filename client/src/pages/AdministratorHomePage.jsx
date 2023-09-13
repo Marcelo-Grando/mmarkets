@@ -1,55 +1,52 @@
-import { Link, useParams, useNavigate, Outlet } from "react-router-dom";
+import { Link, useNavigate, Outlet } from "react-router-dom";
 import { getAdministrator } from "../api/Administrators";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { logout } from "../api/Signin";
 import SessionNotFound from "./SessionNotFound";
 
-import UserContext from "../context/UserContext";
-
 export default function AdministratorHomePage() {
+  const [account, setAccount] = useState({});
 
-  const { market, administrador_id } = useParams();
+  const loadAdministrator = async () => {
+    if (localStorage.userData) {
+      const { market_id, id } = JSON.parse(localStorage.getItem("userData"));
+      const response = await getAdministrator(market_id, id);
+      console.log("response del load market: ", response.data);
+      setAccount(response.data);
+    }
+  };
 
-  const [account, setAccount] = useState({})
-
-  const {user, setUser} = useContext(UserContext)
-
-  console.log('user context desde admin: ',user)
-
-  // const loadAdministrator = async () => {
-  //   const response = await getAdministrator(market, administrador_id);
-  //   console.log("response del load market: ", response.data);
-  //   setAccount(response.data);
-  // };
-
-  // useEffect(() => {
-  //   loadAdministrator();
-  // }, []);
+  useEffect(() => {
+    loadAdministrator();
+  }, []);
 
   const navigate = useNavigate();
 
   const closeSession = async () => {
     const response = await logout();
-    setUser(null)
+    setAccount(null);
+    localStorage.removeItem("userData");
     navigate("/", { replace: true });
   };
 
-  return (
-    user ? <main>
-    <h1>Market Name</h1>
-    <h2>{user.name}</h2>
-    <ul>
-      <li>
-        <Link to={`reports/${user.market}`}>Reports</Link>
-      </li>
-      <li>
-        <Link>Sales</Link>
-      </li>
-      <button onClick={closeSession}>Logout</button>
-    </ul>
-    <section>
-      <Outlet/>
-    </section>
-  </main> : <SessionNotFound/>
+  return account ? (
+    <main>
+      <h1>Market Name</h1>
+      <h2>{account.name}</h2>
+      <ul>
+        <li>
+          <Link to={`reports`}>Reports</Link>
+        </li>
+        <li>
+          <Link>Sales</Link>
+        </li>
+        <button onClick={closeSession}>Logout</button>
+      </ul>
+      <section>
+        <Outlet />
+      </section>
+    </main>
+  ) : (
+    <SessionNotFound />
   );
 }

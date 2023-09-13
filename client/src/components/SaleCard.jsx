@@ -1,8 +1,4 @@
 import ProductCard from "./ProductCard";
-import { useParams } from "react-router-dom";
-
-import UserContext from "../context/UserContext";
-import { useContext } from "react";
 
 export default function SaleCard({
   elements,
@@ -16,8 +12,7 @@ export default function SaleCard({
   setIndexs,
   indexs,
 }) {
-
-  const {market, id} = JSON.parse(localStorage.getItem('userData'))
+  const { market_id, id } = JSON.parse(localStorage.getItem("userData"));
 
   return (
     <div className="sale-card">
@@ -47,9 +42,12 @@ export default function SaleCard({
       </button>
       <button
         onClick={() => {
-          console.log('local: ', JSON.parse(localStorage.getItem('user')))
-          console.log('local desde el sigin: ', JSON.parse(localStorage.getItem('userData')))
-          makeSale(elements, market, id);
+          console.log("local: ", JSON.parse(localStorage.getItem("user")));
+          console.log(
+            "local desde el sigin: ",
+            JSON.parse(localStorage.getItem("userData"))
+          );
+          makeSale(elements, market_id, id);
           setFoundProducts([]);
         }}
       >

@@ -30,6 +30,8 @@ export default function SigninSeller() {
     const { position, name, lastname, market, id } = response.data;
     setUser(response.data);
 
+    console.log(response.data)
+
     localStorage.setItem('userData', JSON.stringify(response.data))
 
     if (position === "seller")
@@ -37,11 +39,11 @@ export default function SigninSeller() {
 
     if (position === "administrator")
       navigate(
-        `admin/${name.concat(lastname).replace(/ /g, "")}/${market}/${id}`
+        `/administrator`
       );
 
     if (position === "main-account")
-      navigate(`/${market.replace(/ /g, "")}/${id}`);
+      navigate(`/market`);
   };
 
 

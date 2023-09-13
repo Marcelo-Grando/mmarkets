@@ -3,11 +3,14 @@ import { year, month, date, time, hour } from "../functions/dates.js";
 
 export const getSales = async (req, res) => {
   try {
-    const [ses] = await pool.query('SELECT * FROM sessions WHERE session_id = ?', [req.session.id])
+    const [ses] = await pool.query(
+      "SELECT * FROM sessions WHERE session_id = ?",
+      [req.session.id]
+    );
 
-    const session = JSON.parse(ses[0].data)
+    const session = JSON.parse(ses[0].data);
 
-    console.log('BUCA SESSION EN BD', session.user)
+    console.log("BUCA SESSION EN BD", session.user);
     const market = req.params.market;
     const [rows] = await pool.query("SELECT * FROM sales WHERE market = ?", [
       market,
@@ -21,15 +24,14 @@ export const getSales = async (req, res) => {
 //agreagr getProduct y getProducts
 
 export const createSale = async (req, res) => {
-  try { 
+  try {
     const { market, seller } = req.params;
     const products = req.body;
 
-    const [ses] = await pool.query('SELECT * FROM sessions WHERE session_id = ?', [req.session.id])
-
-    const session = JSON.parse(ses[0].data)
-
-    //si existe session permitimos la venta despues pasar a middleware
+    const [[{ email }]] = await pool.query(
+      "SELECT * FROM sellers WHERE seller_id = ?",
+      [seller]
+    );
 
     const amount = products
       .map((p) => p.price * p.quantify)
@@ -51,7 +53,7 @@ export const createSale = async (req, res) => {
     res.json({
       ticket_id: sale.insertId,
       market,
-      seller,
+      seller_email: email,
       products,
       date,
       time,
