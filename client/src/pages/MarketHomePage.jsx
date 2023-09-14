@@ -52,8 +52,8 @@ export default function MarketHomePage() {
             <Link className="nav-link" to={`administrators`}>administrators</Link>
           </li>
         </ul>
-        </div>
         <button onClick={closeSession} type="button" class="btn btn-primary btn-sm">Logout</button>
+        </div>
       </nav>
       <section>
         <Outlet />

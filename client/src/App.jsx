@@ -14,6 +14,7 @@ import MarketHomePage from "./pages/MarketHomePage";
 import SellerHomePage from "./pages/SellerHomePage";
 import AdministratorHomePage from "./pages/AdministratorHomePage";
 import AdministratorPage from "./pages/AdministratorPage";
+import CreateAccountPage from "./pages/CreateAccountPage";
 
 function App() {
 
@@ -43,6 +44,7 @@ function App() {
           <Route path="reports" element={<ReportsPage />} />
         </Route>
         <Route path="/notfound-page" element={<SessionNotFound />} />
+        <Route path="/create-account" element={<CreateAccountPage/>}/>
       </Routes>
     </UserProvider>
   );

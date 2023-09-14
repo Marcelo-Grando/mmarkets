@@ -31,6 +31,7 @@ export const loginMarket = async (req, res) => {
 
 export const createMarket = async (req, res) => {
   const { market, email, adress, password } = req.body;
+  
   const [rows] = await pool.query(
     "INSERT INTO markets (market,email,adress,password,position) VALUES (?,?,?,?,'main-account')",
     [market, email, adress, password]

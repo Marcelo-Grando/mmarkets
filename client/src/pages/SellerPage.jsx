@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { NavLink, Outlet, useParams } from "react-router-dom";
 import {
   getSellers,
   sendSeller,
@@ -65,12 +65,53 @@ export default function SellerPage() {
   return (
     <>
       <div>
-        <h3>Create Seller</h3>
-        <SellerForm
-          handleSubmit={handleSubmit}
-          handleInputsChange={handleInputsChange}
-          seller={seller}
-        />
+        <div class="container-fluid border border-dark text-center">
+          <div class="row p-0">
+            <div class="col btn-gr">
+              <NavLink className="nav-link">create seller</NavLink>
+            </div>
+            <div class="col btn-gr">
+              <NavLink className="nav-link">statistics sellers</NavLink>
+            </div>
+            <div class="col btn-gr">
+              <NavLink className="nav-link">sellers info</NavLink>
+            </div>
+            <div class="col btn-gr">
+              <NavLink className="nav-link">resume</NavLink>
+            </div>
+            <div class="col btn-gr">
+              <NavLink className="nav-link">payments</NavLink>
+            </div>
+          </div>
+        </div>
+        <div>
+          <Outlet/>
+        </div>
+        <div className="conteiner-fluid">
+          <div className="row p-1 mx-3">
+            <div className="col">
+              <SellerForm
+                handleSubmit={handleSubmit}
+                handleInputsChange={handleInputsChange}
+                seller={seller}
+              />
+            </div>
+            <div className="col">
+              <button className="btn bg-info w-100 my-3">sellers Info</button>
+              <button className="btn bg-info w-100 my-3">
+                sellers statistics
+              </button>
+              <button className="btn bg-info w-100 my-3">sellers turnes</button>
+              <button className="btn bg-info w-100 my-3">sellers resume</button>
+              <button className="btn bg-info w-100 my-3">
+                sellers payments
+              </button>
+              <button className="btn bg-info w-100 my-3">
+                sellers settings
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
       <div>
         <h3>Sellers</h3>

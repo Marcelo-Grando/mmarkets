@@ -7,11 +7,15 @@ export const createAccount = async (req, res) => {
   const SECRET = process.env.SECRET
 
   const { market, adress, email, password } = req.body;
+
+  if(!market || !email || !adress || !password) 
+    return res.status(401).json({message: "faltan datos"})
+
   const [[foundEmail]] = await pool.query(
     "SELECT email FROM markets m WHERE m.email = ?",
     [email]
   );
-  if (foundEmail) return res.send("The email is already exist");
+  if (foundEmail) return res.status(401).json({message: "The email is already exist"});
   const [rows] = await pool.query(
     "INSERT INTO markets (market,adress,email,password,position) VALUES (?,?,?,AES_ENCRYPT(?, ?),'main-account')",
     [market, adress, email, password, SECRET]
