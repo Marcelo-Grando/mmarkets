@@ -15,7 +15,7 @@ export default function SaleCard({
   const { market_id, id } = JSON.parse(localStorage.getItem("userData"));
 
   return (
-    <div className="sale-card">
+    <div className="card">
       <h2>Sale</h2>
       {elements.map((e) => (
         <ProductCard

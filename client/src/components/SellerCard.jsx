@@ -3,7 +3,7 @@ import React from 'react'
 export default function SellerCard({seller_id, name, lastname, email, dni, removeSeller}) {
 
   return (
-    <div className='seller-card'>
+    <div className='card w-25 p-3 m-3'>
         <h4>{`${name} ${lastname}`}</h4>
         <h6>{email}</h6>
         <h6>{`DNI: ${dni}`}</h6>

@@ -1,6 +1,7 @@
-* {
-  background: rgb(248, 244, 244);
+body {
+  background-color: #c0d0c7ee;
 }
+
 
 h1 {
   text-decoration:underline;
@@ -9,7 +10,6 @@ h1 {
 input {
   background: rgb(231, 229, 229);
   border-radius:5px;
-  margin-inline: 2px;
 }
 
 button {

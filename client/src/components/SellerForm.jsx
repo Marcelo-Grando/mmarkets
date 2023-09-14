@@ -4,7 +4,7 @@ export default function SellerForm({
   seller,
 }) {
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="px-1" onSubmit={handleSubmit}>
       <input
         name="name"
         placeholder="name"
@@ -25,12 +25,14 @@ export default function SellerForm({
       />
       <input
         name="email"
+        type="email"
         placeholder="email"
         onChange={handleInputsChange}
         value={seller.email}
       />
       <input
         name="password"
+        type="password"
         placeholder="password"
         onChange={handleInputsChange}
         value={seller.password}

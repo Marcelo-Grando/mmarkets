@@ -8,7 +8,7 @@ export default function SaleTable({ products, addElements }) {
   const [value, setValue] = useState(false)
 
   return (
-    <table>
+    <table className="table table-warning table-striped w-50 p-3">
       <caption onClick={() => setValue(value?false:true)}>Products</caption>
       <tbody>
         {value? products.map((p) => (

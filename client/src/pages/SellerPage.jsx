@@ -18,7 +18,7 @@ export default function SellerPage() {
     dni: "",
     password: "",
   });
-  const { market_id } = JSON.parse(localStorage.getItem('userData'))
+  const { market_id } = JSON.parse(localStorage.getItem("userData"));
 
   async function loadSellers() {
     const response = await getSellers(market_id);
@@ -74,19 +74,21 @@ export default function SellerPage() {
       </div>
       <div>
         <h3>Sellers</h3>
-        {sellers.map((s) => (
-          <SellerCard
-            key={s.seller_id}
-            seller_id={s.seller_id}
-            name={s.name}
-            lastname={s.lastname}
-            email={s.email}
-            dni={s.dni}
-            removeSeller={removeSeller}
-            seller={s}
-            updateSellerInfo={updateSellerInfo}
-          />
-        ))}
+        <div className="d-flex flex-wrap">
+          {sellers.map((s) => (
+            <SellerCard
+              key={s.seller_id}
+              seller_id={s.seller_id}
+              name={s.name}
+              lastname={s.lastname}
+              email={s.email}
+              dni={s.dni}
+              removeSeller={removeSeller}
+              seller={s}
+              updateSellerInfo={updateSellerInfo}
+            />
+          ))}
+        </div>
       </div>
     </>
   );

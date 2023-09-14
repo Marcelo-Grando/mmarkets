@@ -31,27 +31,29 @@ export default function MarketHomePage() {
   };
 
   return account && account.position === 'main-account' ? (
-    <main>
-      <nav>
+    <main className="background-color: #eee">
+      <nav className="navbar navbar-expand-lg bg-body-tertiaty px-2">
         <h2>{account.market}</h2>
-        <ul>
-          <li>
-            <Link to={`sellers`}>sellers</Link>
+        <div className="container-fluid">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+          <li className="nav-item">
+            <Link className="nav-link" to={`sellers`}>sellers</Link>
           </li>
-          <li>
-            <Link to={`reports`}>reports</Link>
+          <li className="nav-item">
+            <Link className="nav-link" to={`reports`}>reports</Link>
           </li>
-          <li>
-            <Link to={`products`}>products</Link>
+          <li className="nav-item">
+            <Link className="nav-link" to={`products`}>products</Link>
           </li>
-          <li>
-            <Link to={`categories`}>categories</Link>
+          <li className="nav-item">
+            <Link className="nav-link" to={`categories`}>categories</Link>
           </li>
-          <li>
-            <Link to={`administrators`}>administrators</Link>
+          <li className="nav-item">
+            <Link className="nav-link" to={`administrators`}>administrators</Link>
           </li>
         </ul>
-        <button onClick={closeSession}>Logout</button>
+        </div>
+        <button onClick={closeSession} type="button" class="btn btn-primary btn-sm">Logout</button>
       </nav>
       <section>
         <Outlet />
