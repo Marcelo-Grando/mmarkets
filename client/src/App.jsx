@@ -17,6 +17,8 @@ import AdministratorPage from "./pages/AdministratorPage";
 import CreateAccountPage from "./pages/CreateAccountPage";
 import MarketHome from "./components/MarketHome";
 import ManegeSellers from "./components/manegeSellers";
+import SellersReports from "./components/SellersReports";
+import SalesReports from "./components/SalesReports";
 
 function App() {
   return (
@@ -30,7 +32,10 @@ function App() {
           </Route>
           <Route path="products" element={<ProductsPage />} />
           <Route path="categories" element={<CategoriesPage />} />
-          <Route path="reports" element={<ReportsPage />} />
+          <Route path="reports" element={<ReportsPage />} >
+            <Route path="sellers" element={<SellersReports/>}/>
+            <Route path="sales" element={<SalesReports/>}/>
+          </Route>
           <Route path="administrators" element={<AdministratorPage />} />
         </Route>
         <Route exact path="/seller" element={<SellerHomePage />} />
