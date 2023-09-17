@@ -1,5 +1,5 @@
 import Signin from "../components/Signin";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -22,30 +22,30 @@ export default function HomePage() {
         <div className="container-fluid">
           <ul className="navbar-nav justify-content-end">
             <li className="nav-item">
-              <Link className="nav-link">utilities</Link>
+              <NavLink className="nav-link">utilities</NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link">tutorials</Link>
+              <NavLink className="nav-link">tutorials</NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link">prices</Link>
+              <NavLink className="nav-link">prices</NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link">About</Link>
+              <NavLink className="nav-link">About</NavLink>
             </li>
           </ul>
           <div>
             <button
               onClick={navLogin}
               type="button"
-              class="btn btn-primary btn-sm mx-2"
+              className="btn btn-primary btn-sm mx-2"
             >
               Login
             </button>
             <button
               onClick={navRegister}
               type="button"
-              class="btn btn-primary btn-sm"
+              className="btn btn-primary btn-sm"
             >
               Register
             </button>
