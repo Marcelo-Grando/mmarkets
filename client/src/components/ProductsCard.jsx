@@ -5,13 +5,13 @@ export default function ProductCard({ product, removeProduct }) {
 
   return (
     <>
-    <div>
-      <span>{product.product}</span>
-      <span> {product.description}</span>
-      <span> <b>{product.category}</b></span>
-      <span> $ {product.price}</span>
-      <button className="btn-update">update</button>
-      <button className="btn-delete" onClick={() => removeProduct(product.product_id, market_id)}>delete</button>
+    <div className="row ">
+      <span className="col p-0 border">{product.product}</span>
+      <span className="col p-0 border"> {product.description}</span>
+      <span className="col p-0 border"> <b>{product.category}</b></span>
+      <span className="col p-0 border"> $ {product.price}</span>
+      <button className="col btn btn-success p-0 m-1">update</button>
+      <button className="col btn btn-danger p-0 m-1" onClick={() => removeProduct(product.product_id, market_id)}>delete</button>
     </div>
     </>
   );

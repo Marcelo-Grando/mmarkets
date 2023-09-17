@@ -4,7 +4,7 @@ export default function ReportsPage() {
   return (
       <main>
         <nav className="container-fluid border border-dark text-center">
-          <div className="row p-0">
+          <div className="row">
             <div className="col btn-gr">
               <NavLink className="nav-link">sales</NavLink>
             </div>

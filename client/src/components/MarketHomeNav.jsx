@@ -5,8 +5,8 @@ export default function MarketHomeNav({closeSession, account}) {
     const navigate = useNavigate()
 
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiaty px-2">
-        <h2 onClick={()=> navigate('/market')}>{account.market}</h2>
+    <nav className="navbar navbar-expand-lg bg-body-tertiaty px-3">
+        <h2 className="logo" onClick={()=> navigate('/market')}>{account.market}</h2>
         <div className="container-fluid">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
           <li className="nav-item">

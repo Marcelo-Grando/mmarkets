@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom"
 export default function SellersNav() {
   return (
     <nav className="container-fluid border border-dark text-center">
-          <div className="row p-0">
+          <div className="row">
             <div className="col btn-gr">
               <NavLink to={'manege-sellers'} className="nav-link">manage seller</NavLink>
             </div>

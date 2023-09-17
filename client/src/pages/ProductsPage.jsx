@@ -25,7 +25,7 @@ export default function ProductsPage() {
   const [productsFound, setProductsFound] = useState([]);
   const [categories, setCategories] = useState([]);
 
-  const { market_id } = JSON.parse(localStorage.getItem('userData'));
+  const { market_id } = JSON.parse(localStorage.getItem("userData"));
 
   async function loadProducts() {
     const response = await getProducts(market_id);
@@ -46,7 +46,7 @@ export default function ProductsPage() {
     e.preventDefault();
     if (!product) return;
     const response = await findProduct(product, market_id);
-    setProductsFound(response.data);
+    setProducts(response.data);
     setProduct("");
   };
 
@@ -80,26 +80,29 @@ export default function ProductsPage() {
   };
 
   return (
-    <>
-      <div>
-        <h3>Find Product</h3>
-        <FindProductForm
-          handleSubmit={findProductsByName}
-          setProduct={setProduct}
-          product={product}
-        />
+    <div className="px-3">
+      <div className="row">
+        <div className="w-25">
+          <div className="col m-2">
+            <FindProductForm
+              findProductsByName={findProductsByName}
+              setProduct={setProduct}
+              product={product}
+            />
+            <CreateProductForm
+              handleSubmitCreateForm={handleSubmitCreateForm}
+              handleInputsChange={handleInputsChange}
+              values={values}
+              categories={categories}
+            />
+          </div>
+        </div>
+        <div className="col my-0 p-0">
+          <div className="ventana con desplazamiento">
+          <ProductsAcordeon removeProduct={removeProduct} products={products} />
+          </div>
+        </div>
       </div>
-      <ProductsFoundContainer productsFound={productsFound} />
-      <div>
-        <h3>Create Product</h3>
-        <CreateProductForm
-          handleSubmitCreateForm={handleSubmitCreateForm}
-          handleInputsChange={handleInputsChange}
-          values={values}
-          categories={categories}
-        />
-      </div>
-      <ProductsAcordeon removeProduct={removeProduct} products={products} />
-    </>
+    </div>
   );
 }
