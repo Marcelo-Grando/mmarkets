@@ -24,6 +24,8 @@ export default function ProductCard({
       }
     });
     const items = elements.filter((e) => e.quantify != 0);
+    const newIndexs = indexs.filter((i) => i != product.product_id);
+    setIndexs([...newIndexs]);
     setElements([...items]);
   }
 
