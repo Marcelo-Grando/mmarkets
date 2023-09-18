@@ -42,7 +42,6 @@ export default function SigninSeller() {
   };
 
   return (
-    <>
       <div className="p-2">
         <div className="abs-center text-center">
           <form className="border p-3 form" action="" onSubmit={handleSubmit}>
@@ -72,6 +71,5 @@ export default function SigninSeller() {
           </form>
         </div>
       </div>
-    </>
   );
 }

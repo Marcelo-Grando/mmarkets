@@ -15,8 +15,7 @@ export default function SaleCard({
   const { market_id, id } = JSON.parse(localStorage.getItem("userData"));
 
   return (
-    <div className="card">
-      <h2>Sale</h2>
+    <div className="container card border text-center">
       {elements.map((e) => (
         <ProductCard
           elements={elements}
@@ -30,29 +29,37 @@ export default function SaleCard({
           indexs={indexs}
         />
       ))}
-      <h4>Amount: ${saleAmount}</h4>
-      <button
-        onClick={() => {
-          alert("Cancelar Venta?");
-          setElements([]);
-          setAmount("");
-        }}
-      >
-        cancel
-      </button>
-      <button
-        onClick={() => {
-          console.log("local: ", JSON.parse(localStorage.getItem("user")));
-          console.log(
-            "local desde el sigin: ",
-            JSON.parse(localStorage.getItem("userData"))
-          );
-          makeSale(elements, market_id, id);
-          setFoundProducts([]);
-        }}
-      >
-        sell
-      </button>
+      {saleAmount != "00" && (
+        <div className="text-center">
+          <h4>$ {saleAmount}</h4>
+          <div className="row m-2">
+          <button
+          className="col mx-2 p-0 btn btn-danger"
+            onClick={() => {
+              alert("Cancelar Venta?");
+              setElements([]);
+              setAmount("");
+            }}
+          >
+            cancel
+          </button>
+          <button
+          className="col mx-2 btn p-0 btn-success"
+            onClick={() => {
+              console.log("local: ", JSON.parse(localStorage.getItem("user")));
+              console.log(
+                "local desde el sigin: ",
+                JSON.parse(localStorage.getItem("userData"))
+              );
+              makeSale(elements, market_id, id);
+              setFoundProducts([]);
+            }}
+          >
+            sell
+          </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

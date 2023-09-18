@@ -34,14 +34,14 @@ export default function SellerHomePage() {
 
   return account ? (
     <div>
-      <h1>Mmarket'S</h1>
+      {/* <h1>Mmarket'S</h1>
       <h2>{account.name}</h2>
       <ul>
         <li>Profile</li>
         <li>Sales</li>
         <li>Help</li>
       </ul>
-      <button onClick={closeSession}>logout</button>
+      <button onClick={closeSession}>logout</button> */}
       <Sale />
     </div>
   ) : (

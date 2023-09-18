@@ -4,7 +4,6 @@ export default function ProductRow({ product, addElements }) {
       <td>{product.product} </td>
       <td>{product.description}</td>
       <td>$ {product.price}</td>
-      <td className="invisible-td">
       <button
           onClick={() => {
             addElements({
@@ -16,9 +15,9 @@ export default function ProductRow({ product, addElements }) {
             });
           }}
         >
-          add
+          
+          +
         </button>
-      </td>
     </>
   );
 }

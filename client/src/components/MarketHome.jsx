@@ -1,7 +1,7 @@
 export default function MarketHome() {
   return (
     <div className="container-fluid">
-      <div className="row my-3 p-3">
+      <div className="row my-1 p-3">
         <div className="col">
           <h4>section 1</h4>
           <p>

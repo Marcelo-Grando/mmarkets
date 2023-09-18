@@ -1,13 +1,13 @@
-export default function SellerForm({
+export default function AdministratorForm({
   handleSubmit,
   handleInputsChange,
-  seller,
+  administrator,
 }) {
   return (
-    <div className="p-2">
+    <div className="p-2 mx-2">
       <div className="abs-center text-center">
-        <form className="border p-3 form" onSubmit={handleSubmit}>
-          <h4 className="aling-middle p-2">Create Seller</h4>
+        <form className="border p-2 form" onSubmit={handleSubmit}>
+          <h4>create administrator</h4>
           <div className="form-group p-1">
             <input
               autoFocus
@@ -15,16 +15,16 @@ export default function SellerForm({
               name="name"
               placeholder="name"
               onChange={handleInputsChange}
-              value={seller.name}
+              value={administrator.name}
             />
           </div>
           <div className="form-group p-1">
             <input
-            className="form-control"
+              className="form-control"
               name="lastname"
               placeholder="lastname"
               onChange={handleInputsChange}
-              value={seller.lastname}
+              value={administrator.lastname}
             />
           </div>
           <div className="form-group p-1">
@@ -33,7 +33,7 @@ export default function SellerForm({
               name="dni"
               placeholder="dni"
               onChange={handleInputsChange}
-              value={seller.dni}
+              value={administrator.dni}
             />
           </div>
           <div className="form-group p-1">
@@ -43,7 +43,7 @@ export default function SellerForm({
               type="email"
               placeholder="email"
               onChange={handleInputsChange}
-              value={seller.email}
+              value={administrator.email}
             />
           </div>
           <div className="form-group p-1">
@@ -53,12 +53,12 @@ export default function SellerForm({
               type="password"
               placeholder="password"
               onChange={handleInputsChange}
-              value={seller.password}
+              value={administrator.password}
             />
           </div>
           <div className="form-group m-1">
-              <button className="btn bg-info w-100">Create</button>
-            </div>
+            <button className="btn bg-info w-100">Create</button>
+          </div>
         </form>
       </div>
     </div>

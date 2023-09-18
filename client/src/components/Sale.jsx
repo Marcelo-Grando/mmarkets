@@ -3,6 +3,8 @@ import { getProducts, getProduct, sendSale } from "../api/Sales";
 import SaleTable from "./SaleTable";
 import SaleCard from "./SaleCard";
 import Product from "./Product";
+import FindProductForm from "./FindProductForm";
+import { findProduct } from "../api/Products";
 
 export default function Sale() {
   const [product, setProduct] = useState([]);
@@ -70,50 +72,50 @@ export default function Sale() {
     ? amount.reduce((acumulador, valorActual) => acumulador + valorActual)
     : "00";
 
+  const findProductsByName = async (e) => {
+    e.preventDefault();
+    if (!product) return;
+    const response = await findProduct(product, market_id);
+    setProducts(response.data);
+    setProduct("");
+  };
+
   return (
-    <div>
-      <h3>Find Product</h3>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="find product"
-          onChange={(e) => setProduct(e.target.value)}
-          value={product}
-        />
-        <button>find</button>
-      </form>
-      <hr />
-      {ej ? (
-        <div>
-          <span>Product not Found</span>
+    <div className="container-fluid">
+      <div className="row py-2">
+        <div className="container w-25">
+          <div className="col">
+            <FindProductForm
+              findProductsByName={findProductsByName}
+              setProduct={setProduct}
+              product={product}
+            />
+          </div>
         </div>
-      ) : (
-        foundProducts.map((p) => (
-          <Product key={p.product_id} product={p} addElements={addElements} />
-        ))
-      )}
-      <h3>Products</h3>
-      <div className="sale">
-        <table>
-          <tbody></tbody>
-        </table>
-        <SaleTable products={products} addElements={addElements} />
-        {elements.length ? (
-          <SaleCard
-            addElements={addElements}
-            elements={elements}
-            setElements={setElements}
-            setAmount={setAmount}
-            makeSale={makeSale}
-            amount={amount}
-            saleAmount={saleAmount}
-            indexs={indexs}
-            setIndexs={setIndexs}
-            setFoundProducts={setFoundProducts}
-          />
-        ) : (
-          <div></div>
-        )}
+        <div className="container w-75 my-2">
+          <div className="row">
+            <div className="col-md-5 border mx-0 p-0">
+              {products.map((product) => (
+                <Product product={product} addElements={addElements} />
+              ))}
+            </div>
+
+            <div className="col">
+              <SaleCard
+                addElements={addElements}
+                elements={elements}
+                setElements={setElements}
+                setAmount={setAmount}
+                makeSale={makeSale}
+                amount={amount}
+                saleAmount={saleAmount}
+                indexs={indexs}
+                setIndexs={setIndexs}
+                setFoundProducts={setFoundProducts}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

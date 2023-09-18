@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import {
   findProduct,
   sendProduct,
@@ -10,7 +9,6 @@ import { getCategories } from "../api/Categories";
 
 import FindProductForm from "../components/FindProductForm";
 import CreateProductForm from "../components/CreateProductForm";
-import ProductsFoundContainer from "../components/ProductsFoundContainer";
 import ProductsAcordeon from "../components/ProductsAcordeon";
 
 export default function ProductsPage() {

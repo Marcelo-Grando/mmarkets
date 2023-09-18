@@ -28,16 +28,24 @@ export default function ProductCard({
   }
 
   return (
-    <div className="product-card">
-      <span>{product.product}</span>
-      <span> {product.description}</span>
-      <span> x {product.quantify}</span>
-      <span> $ {product.price * product.quantify}</span>
-      <span className="product-btn">
-      <button onClick={() => addElements(product)}>+</button>
-      <button onClick={() => subtractElement(product)}>-</button>
-      <button onClick={() => deleteProduct(product)}>dell</button>
-    </span>
+    <div className="row">
+      <span className="col border p-0">{product.product}</span>
+      <span className="col border p-0">{product.description}</span>
+      <span className="col-md-1 border p-0">x{product.quantify}</span>
+      <span className="col border p-0">${product.price * product.quantify}</span>
+      <div className="col-md-2 border p-0">
+        <div className="btn-group">
+          <div className="btn p-0" onClick={() => addElements(product)}>
+            +
+          </div>
+          <div className="btn p-0" onClick={() => subtractElement(product)}>
+            -
+          </div>
+          <div className="btn p-0" onClick={() => deleteProduct(product)}>
+            x
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

@@ -69,7 +69,7 @@ export default function ManegeSellers() {
                 seller={seller}
               />
             </div>
-            <div className="col">
+            <div className="col my-1">
               <div className="container-fluid">
               <div className="row text-center">
                 {sellers.map((seller, index) => (
