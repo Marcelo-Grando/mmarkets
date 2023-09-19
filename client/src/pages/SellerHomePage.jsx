@@ -4,6 +4,7 @@ import { getSeller } from "../api/Sellers";
 import { logout } from "../api/Signin";
 import { useState, useEffect } from "react";
 import SessionNotFound from "./SessionNotFound";
+import SellerHomeNav from "../components/SellerHomeNav";
 
 export default function SellerHomePage() {
   const [account, setAccount] = useState(null);
@@ -33,17 +34,10 @@ export default function SellerHomePage() {
   console.log(account)
 
   return account ? (
-    <div>
-      {/* <h1>Mmarket'S</h1>
-      <h2>{account.name}</h2>
-      <ul>
-        <li>Profile</li>
-        <li>Sales</li>
-        <li>Help</li>
-      </ul>
-      <button onClick={closeSession}>logout</button> */}
+    <main>
+      <SellerHomeNav closeSession={closeSession}/>
       <Sale />
-    </div>
+    </main>
   ) : (
     <SessionNotFound />
   );

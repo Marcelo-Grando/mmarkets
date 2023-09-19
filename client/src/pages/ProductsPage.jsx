@@ -20,7 +20,6 @@ export default function ProductsPage() {
     category: "",
     price: "",
   });
-  const [productsFound, setProductsFound] = useState([]);
   const [categories, setCategories] = useState([]);
 
   const { market_id } = JSON.parse(localStorage.getItem("userData"));

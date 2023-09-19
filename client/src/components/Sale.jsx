@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { getProducts, getProduct, sendSale } from "../api/Sales";
-import SaleTable from "./SaleTable";
+import { getProducts, sendSale } from "../api/Sales";
 import SaleCard from "./SaleCard";
 import Product from "./Product";
 import FindProductForm from "./FindProductForm";
@@ -8,37 +7,22 @@ import { findProduct } from "../api/Products";
 
 export default function Sale() {
   const [product, setProduct] = useState([]);
-  const [foundProducts, setFoundProducts] = useState([]);
   const [products, setProducts] = useState([]);
   const [elements, setElements] = useState([]);
+  const [foundProducts, setFoundProducts] = useState([]);
   const [indexs, setIndexs] = useState([]);
   const [amount, setAmount] = useState("");
-  const [ej, setEj] = useState(false);
 
   const { market_id } = JSON.parse(localStorage.getItem("userData"));
 
+  async function loadProducts() {
+    const response = await getProducts(market_id);
+    setProducts(response.data);
+  }
+
   useEffect(() => {
-    async function loadProducts() {
-      const response = await getProducts(market_id);
-      setProducts(response.data);
-    }
     loadProducts();
   }, []);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!product.length) return console.log("Insert product");
-    const response = await getProduct(product, market_id);
-    if (!response.data.length) {
-      setEj(true);
-      setProduct([]);
-      return;
-    }
-    setEj(false);
-    setFoundProducts(response.data);
-
-    setProduct([]);
-  };
 
   function addElements(article) {
     if (elements.length === 0) {
@@ -95,8 +79,8 @@ export default function Sale() {
         <div className="container w-75 my-2">
           <div className="row">
             <div className="col-md-5 border mx-0 p-0">
-              {products.map((product) => (
-                <Product product={product} addElements={addElements} />
+              {products.map((product, index) => (
+                <Product key={index} product={product} addElements={addElements} />
               ))}
             </div>
 

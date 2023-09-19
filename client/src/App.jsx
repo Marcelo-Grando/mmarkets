@@ -32,15 +32,18 @@ function App() {
           </Route>
           <Route path="products" element={<ProductsPage />} />
           <Route path="categories" element={<CategoriesPage />} />
-          <Route path="reports" element={<ReportsPage />} >
-            <Route path="sellers" element={<SellersReports/>}/>
-            <Route path="sales" element={<SalesReports/>}/>
+          <Route path="reports" element={<ReportsPage />}>
+            <Route path="sellers" element={<SellersReports />} />
+            <Route path="sales" element={<SalesReports />} />
           </Route>
           <Route path="administrators" element={<AdministratorPage />} />
         </Route>
         <Route exact path="/seller" element={<SellerHomePage />} />
         <Route path="/administrator" element={<AdministratorHomePage />}>
-          <Route path="reports" element={<ReportsPage />} />
+          <Route path="reports" element={<ReportsPage />}>
+            <Route path="sellers" element={<SellersReports />} />
+            <Route path="sales" element={<SalesReports />} />
+          </Route>
         </Route>
         <Route path="/notfound-page" element={<SessionNotFound />} />
         <Route path="/create-account" element={<CreateAccountPage />} />

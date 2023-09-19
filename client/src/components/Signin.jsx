@@ -1,8 +1,6 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
-import UserContext from "../context/UserContext";
-
 import { signinSeller } from "../api/Signin";
 
 export default function SigninSeller() {
@@ -10,8 +8,6 @@ export default function SigninSeller() {
     email: "",
     password: "",
   });
-
-  const { user, setUser } = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -27,8 +23,7 @@ export default function SigninSeller() {
     e.preventDefault();
 
     const response = await signinSeller(member);
-    const { position, name, lastname, market, id } = response.data;
-    setUser(response.data);
+    const { position} = response.data;
 
     console.log(response.data);
 
