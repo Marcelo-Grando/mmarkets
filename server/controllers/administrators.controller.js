@@ -4,6 +4,7 @@ export const createAdministrator = async (req, res) => {
   try {
     const { market } = req.params;
     const { name, lastname, dni, email, password } = req.body;
+    console.log(name, lastname, dni, email, password)
     if (!name || !lastname || !dni || !email || !password)
       return res.status(400).json({ message: "Complete all fields" });
     const [result] = await pool.query(
@@ -54,6 +55,21 @@ export const getAdministrator = async (req, res) => {
         .json({ message: "The user doesn't have an active session" });
     console.log(rows);
     res.send(rows[0]);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteAdministrator = async (req, res) => {
+  try {
+    console.log('llego params: ', req.params)
+    const { administrator_id, market } = req.params;
+    const [result] = await pool.query(
+      "DELETE FROM administrators WHERE administrator_id = ? AND market = ?",
+      [administrator_id, market]
+    );
+    console.log('result :', result)
+    res.send("Administrator Deleted");
   } catch (error) {
     console.log(error);
   }

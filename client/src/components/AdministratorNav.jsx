@@ -5,7 +5,7 @@ export default function AdministratorNav() {
     <nav className="container-fluid border border-dark text-center">
           <div className="row">
             <div className="col btn-gr">
-              <NavLink to={'manege-sellers'} className="nav-link">manage administrators</NavLink>
+              <NavLink className="nav-link">manage administrators</NavLink>
             </div>
             <div className="col btn-gr">
               <NavLink className="nav-link">administrator reports</NavLink>

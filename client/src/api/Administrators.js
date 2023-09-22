@@ -8,8 +8,13 @@ export const getAdministrator = async (market, administrator_id) =>
     `http://localhost:3000/api/administrators/${market}/${administrator_id}`
   );
 
-export const sendAdministrator = async (market, administrator) =>
+export const sendAdministrator = async (administrator, market_id) =>
   await axios.post(
-    `http://localhost:3000/api/administrators/${market}`,
+    `http://localhost:3000/api/administrators/${market_id}`,
     administrator
+  );
+
+export const deleteAdministrator = async (administrator_id, market_id) =>
+  await axios.delete(
+    `http://localhost:3000/api/administrators/${market_id}/${administrator_id}/`
   );

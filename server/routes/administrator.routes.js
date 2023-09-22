@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createAdministrator, getAdministrators, getAdministrator } from "../controllers/administrators.controller.js";
+import { createAdministrator, getAdministrators, getAdministrator, deleteAdministrator } from "../controllers/administrators.controller.js";
 
 const router = Router()
 
@@ -11,6 +11,6 @@ router.post("/administrators/:market", createAdministrator);
 
 router.patch("/administrators/:market/:administrator_id");
 
-router.delete("/administrators/:market/:administrator_id");
+router.delete("/administrators/:market/:administrator_id", deleteAdministrator);
 
 export default router

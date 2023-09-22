@@ -1,50 +1,12 @@
-import { useState, useEffect } from "react";
-import { sendAdministrator, getAdministrators } from "../api/Administrators";
-
 import AdministratorNav from "../components/AdministratorNav";
 import AdministratorForm from "../components/AdministratorForm";
 
+import { useMembers } from "../hooks/useMembers";
+
 export default function AdministratorPage() {
-  const { market_id } = JSON.parse(localStorage.getItem("userData"));
+  const [administrators, handleInputsChange, handleSubmit, administrator, removeAdministrator, updateSellerInfo] = useMembers();
 
-  const [administrators, setAdministrators] = useState([]);
-  const [administrator, setAdministrator] = useState({
-    name: "",
-    lastname: "",
-    email: "",
-    dni: "",
-    password: "",
-  });
-
-  async function loadAdministrators() {
-    const response = await getAdministrators(market_id);
-    setAdministrators(response.data);
-  }
-
-  useEffect(() => {
-    loadAdministrators();
-  }, []);
-
-  const handleInputsChange = (e) => {
-    const { name, value } = e.target;
-    setAdministrator({
-      ...administrator,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const response = await sendAdministrator(market_id, administrator);
-    loadAdministrators()
-    setAdministrator({
-      name: "",
-      lastname: "",
-      email: "",
-      dni: "",
-      password: "",
-    });
-  };
+  console.log(administrator)
 
   return (
     <div>
@@ -69,7 +31,7 @@ export default function AdministratorPage() {
                 <h6>{`DNI: ${admin.dni}`}</h6>
                 <div className="row m-1">
                   <button className="col btn btn-info mx-1 p-0">update</button>
-                  <button className="col btn btn-danger mx-1 p-1">
+                  <button onClick={() => removeAdministrator(admin.administrator_id )} className="col btn btn-danger mx-1 p-1">
                     delete
                   </button>
                 </div>
