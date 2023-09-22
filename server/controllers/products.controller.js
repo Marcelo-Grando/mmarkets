@@ -30,8 +30,8 @@ export const getProductByName = async (req, res) => {
   try {
     const { market, product } = req.params;
     const [rows] = await pool.query(
-      "SELECT p.product_id, p.product, p.description, p.price, c.category FROM products p INNER JOIN categories c ON p.category = c.category_id WHERE p.product LIKE ? AND p.market = ? ORDER BY product ASC",
-      [`${product}%`, market]
+      "SELECT p.product_id, p.product, p.description, p.price, c.category FROM products p INNER JOIN categories c ON p.category = c.category_id WHERE p.product LIKE ? || c.category LIKE ? AND p.market = ? ORDER BY product ASC",
+      [`${product}%`,`${product}%`, market]
     );
     if (!rows.length)
       return res.status(404).json({ message: "Product is not exist" });

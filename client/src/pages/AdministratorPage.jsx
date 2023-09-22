@@ -16,13 +16,13 @@ export default function AdministratorPage() {
     password: "",
   });
 
-  async function loadAdministrators(market) {
-    const response = await getAdministrators(market);
+  async function loadAdministrators() {
+    const response = await getAdministrators(market_id);
     setAdministrators(response.data);
   }
 
   useEffect(() => {
-    loadAdministrators(market_id);
+    loadAdministrators();
   }, []);
 
   const handleInputsChange = (e) => {
@@ -36,8 +36,8 @@ export default function AdministratorPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await sendAdministrator(market_id, administrator);
-    console.log(response);
-    setSeller({
+    loadAdministrators()
+    setAdministrator({
       name: "",
       lastname: "",
       email: "",
@@ -59,7 +59,7 @@ export default function AdministratorPage() {
             />
           </div>
           <div className="col my-1">
-            {administrators.map((admin) => (
+            {administrators && administrators.map((admin) => (
               <div
                 className="col seller-card p-2 m-1 text-center"
                 key={admin.administrator_id}

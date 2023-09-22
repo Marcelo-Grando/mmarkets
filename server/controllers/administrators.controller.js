@@ -19,7 +19,6 @@ export const createAdministrator = async (req, res) => {
       email,
       market,
       auth: true,
-      token,
     });
   } catch (error) {
     console.log(error);
@@ -46,7 +45,7 @@ export const getAdministrator = async (req, res) => {
     const { market, administrator_id } = req.params;
     console.log("ad", administrator_id);
     const [rows] = await pool.query(
-      "SELECT market, administrator_id, name, lastname, dni, email FROM administrators WHERE administrator_id = ? AND market = ?",
+      "SELECT market, administrator_id, name, lastname, dni, email, position FROM administrators WHERE administrator_id = ? AND market = ?",
       [administrator_id, market]
     );
     if (rows[0].email !== req.session.user)

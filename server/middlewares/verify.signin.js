@@ -10,11 +10,9 @@ export const verifySession = async (req, res, next) => {
       return res.status(401).json({ message: "The user doesn't have an active session" });
 
     const session_cookie = JSON.parse(response.data);
-    console.log(!session_cookie.user)
+    console.log(session_cookie)
     if (!session_cookie.user)
       return res.status(401).json({ message: "The user doesn't have an active session" });
-
-      console.log('ses user: ', session_cookie.user)
  
     next();
   } catch (error) {
