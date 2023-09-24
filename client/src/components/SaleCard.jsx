@@ -7,7 +7,6 @@ export default function SaleCard({
   saleAmount,
   setAmount,
   amount,
-  setFoundProducts,
   addElements,
   setIndexs,
   indexs,
@@ -46,13 +45,7 @@ export default function SaleCard({
           <button
           className="col mx-2 btn p-0 btn-success"
             onClick={() => {
-              console.log("local: ", JSON.parse(localStorage.getItem("user")));
-              console.log(
-                "local desde el sigin: ",
-                JSON.parse(localStorage.getItem("userData"))
-              );
               makeSale(elements, market_id, id);
-              setFoundProducts([]);
             }}
           >
             sell

@@ -34,15 +34,11 @@ export const signin = async (req, res) => {
 
     const verifyUser = await findUser(email);
 
-    console.log('verifyUser',verifyUser)
-
     if (!verifyUser) {
       return res.status(404).json({message: "The email is not registered"});
     }
 
     const verify_password = await comparePassword(verifyUser.dni, verifyUser.id, password)
-
-    console.log(verify_password)
 
     if(!verify_password)
       return res.status(401).json({message: 'Incorrect Password'});

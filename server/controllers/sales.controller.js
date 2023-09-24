@@ -3,15 +3,8 @@ import { year, month, date, time, hour } from "../functions/dates.js";
 
 export const getSales = async (req, res) => {
   try {
-    const [ses] = await pool.query(
-      "SELECT * FROM sessions WHERE session_id = ?",
-      [req.session.id]
-    );
+    const { market } = req.params;
 
-    const session = JSON.parse(ses[0].data);
-
-    console.log("BUCA SESSION EN BD", session.user);
-    const market = req.params.market;
     const [rows] = await pool.query("SELECT * FROM sales WHERE market = ?", [
       market,
     ]);
@@ -20,8 +13,6 @@ export const getSales = async (req, res) => {
     console.log(error);
   }
 };
-
-//agreagr getProduct y getProducts
 
 export const createSale = async (req, res) => {
   try {

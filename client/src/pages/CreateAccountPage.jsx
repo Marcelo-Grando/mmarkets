@@ -30,7 +30,6 @@ const type = localStorage.getItem('type')
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await createAccount(account);
-    console.log(response);
     setAccount({
       market: "",
       adress: "",

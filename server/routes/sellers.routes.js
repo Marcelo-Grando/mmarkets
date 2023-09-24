@@ -4,16 +4,10 @@ import {
   getSeller,
   createSeller,
   updateSeller,
-  deleteSeller,
-  profile
+  deleteSeller
 } from "../controllers/sellers.controller.js";
 
-
 const router = Router();
-
-router.get("/profile", profile)
-
-//PROBLEMAS CON TENER DOS GET CON EL MISMO NAME (UNO SE OCUPA EN SIGNIN MOVERLO AHI)
 
 router.get("/sellers/:market", getSellers);
 

@@ -34,15 +34,3 @@ export const createMarket = async (req, res) => {
     adress,
   });
 };
-
-export const updateMarket = (req, res) => {
-  res.send("actualizando cuenta");
-};
-
-export const redirecciona = (req, res, next) => {
- 
-}
-
-export const deleteMarket = (req, res) => {
-  res.send("Eliminado cuenta");
-};

@@ -3,34 +3,18 @@ import {
   getMarkets,
   getMarket,
   loginMarket,
-  createMarket,
-  updateMarket,
-  deleteMarket,
-  redirecciona
+  createMarket
 } from "../controllers/markets.controller.js";
 
-import { verifySession } from "../middlewares/verify.signin.js";
-
 const router = Router();
-
-router.post("/hola", redirecciona)
-
-
 
 router.get("/markets", getMarkets);
 
 router.get("/markets/:market_id",getMarket);
 
-//iniciar sesion
 router.post("/markets_login", loginMarket);
 
-//crear cuenta
 router.post("/markets_join", createMarket);
 
-//actualizar cuenta
-router.patch("/markets/:id", updateMarket);
-
-//borrar cuenta
-router.delete("/markets/:id", deleteMarket);
 
 export default router;

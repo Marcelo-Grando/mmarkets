@@ -4,7 +4,6 @@ export const createAdministrator = async (req, res) => {
   try {
     const { market } = req.params;
     const { name, lastname, dni, email, password } = req.body;
-    console.log(name, lastname, dni, email, password)
     if (!name || !lastname || !dni || !email || !password)
       return res.status(400).json({ message: "Complete all fields" });
     const [result] = await pool.query(
@@ -34,7 +33,6 @@ export const getAdministrators = async (req, res) => {
       "SELECT market, administrator_id, name, lastname, dni, email FROM administrators WHERE market = ?",
       [market]
     );
-    console.log('admin: ', rows)
     res.send(rows);
   } catch (error) {
     console.log(error);
@@ -68,7 +66,6 @@ export const deleteAdministrator = async (req, res) => {
       "DELETE FROM administrators WHERE administrator_id = ? AND market = ?",
       [administrator_id, market]
     );
-    console.log('result :', result)
     res.send("Administrator Deleted");
   } catch (error) {
     console.log(error);

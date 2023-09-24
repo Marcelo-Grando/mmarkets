@@ -9,7 +9,6 @@ export default function Sale() {
   const [product, setProduct] = useState([]);
   const [products, setProducts] = useState([]);
   const [elements, setElements] = useState([]);
-  const [foundProducts, setFoundProducts] = useState([]);
   const [indexs, setIndexs] = useState([]);
   const [amount, setAmount] = useState("");
 
@@ -49,7 +48,6 @@ export default function Sale() {
     setAmount("");
     setElements([]);
     setIndexs([]);
-    console.log(response.data);
   };
 
   const saleAmount = amount
@@ -95,7 +93,6 @@ export default function Sale() {
                 saleAmount={saleAmount}
                 indexs={indexs}
                 setIndexs={setIndexs}
-                setFoundProducts={setFoundProducts}
               />
             </div>
           </div>
