@@ -2,9 +2,6 @@ import { useState } from "react";
 import Product from "./Product";
 
 export default function SaleTable({ products, addElements }) {
-
-  //buscar convertir a un acordeon y sacar el useState()
-  
   const [value, setValue] = useState(false)
 
   return (

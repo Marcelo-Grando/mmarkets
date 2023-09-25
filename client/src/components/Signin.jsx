@@ -25,8 +25,6 @@ export default function SigninSeller() {
     const response = await signinSeller(member);
     const { position} = response.data;
 
-    console.log(response.data);
-
     localStorage.setItem("userData", JSON.stringify(response.data));
 
     if (position === "seller") navigate(`/seller`);

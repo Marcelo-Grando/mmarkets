@@ -13,8 +13,6 @@ export default function AdministratorPage() {
     updateSellerInfo,
   ] = useMembers();
 
-  console.log(administrator);
-
   return (
     <div>
       <AdministratorNav />

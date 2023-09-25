@@ -49,7 +49,7 @@ export const signin = async (req, res) => {
 
     res.json({...verifyUser, expires});
   } catch (error) {
-    console.log(error);
+    console.log('error',error);
   }
 };
 

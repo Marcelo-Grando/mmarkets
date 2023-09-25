@@ -19,6 +19,7 @@ import MarketHome from "./components/MarketHome";
 import ManegeSellers from "./components/manegeSellers";
 import SellersReports from "./components/SellersReports";
 import SalesReports from "./components/SalesReports";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/market" element={<MarketHome />} />
           <Route path="sellers" element={<SellerPage />}>
             <Route path="manege-sellers" element={<ManegeSellers />} />
+            <Route path="*" element={<NotFoundPage/>}/>
           </Route>
           <Route path="products" element={<ProductsPage />} />
           <Route path="categories" element={<CategoriesPage />} />
@@ -37,6 +39,7 @@ function App() {
             <Route path="sales" element={<SalesReports />} />
           </Route>
           <Route path="administrators" element={<AdministratorPage />} />
+          <Route path="*" element={<NotFoundPage/>}/>
         </Route>
         <Route exact path="/seller" element={<SellerHomePage />} />
         <Route path="/administrator" element={<AdministratorHomePage />}>

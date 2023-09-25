@@ -10,7 +10,7 @@ export const verifySession = async (req, res, next) => {
       return res.status(401).json({ message: "The user doesn't have an active session" });
 
     const session_cookie = JSON.parse(response.data);
-    console.log(session_cookie)
+ 
     if (!session_cookie.user)
       return res.status(401).json({ message: "The user doesn't have an active session" });
  
@@ -20,23 +20,9 @@ export const verifySession = async (req, res, next) => {
   }
 };
 
-export const verifySeller = async (req, res, next) => {
-
-}
-
-export const verifyAdmin = async (req, res, next) => {
-
-}
-
-export const verifyMainAccount = async (req, res, next) => {
-  
-}
-
 export const comparePassword = async (dni, user_id, user_password) => {
 
   const SECRET = process.env.SECRET
-
-  console.log('dni', dni, 'user_id', user_id, 'password', user_password)
 
   const [[seller_password]] = await pool.query(
     "SELECT AES_DECRYPT(password, ?) AS value FROM sellers WHERE seller_id = ?",
