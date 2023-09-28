@@ -1,4 +1,4 @@
-export default function ReportsProductCard({ product, category }) {
+export default function ReportsProductCard({ product }) {
   return (
     <div className="row w-25">
       <div className="col mx-1 my-2 px-2">

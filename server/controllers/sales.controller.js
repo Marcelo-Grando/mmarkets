@@ -19,8 +19,8 @@ export const createSale = async (req, res) => {
     const { market, seller } = req.params;
     const products = req.body;
 
-    const [[{ email }]] = await pool.query(
-      "SELECT * FROM sellers WHERE seller_id = ?",
+    const [[{ email, market_name, seller_id }]] = await pool.query(
+      "SELECT s.seller_id, s.email, m.market AS market_name FROM sellers s INNER JOIN markets m ON s.market = m.market_id WHERE seller_id = ?",
       [seller]
     );
 
@@ -43,13 +43,42 @@ export const createSale = async (req, res) => {
 
     res.json({
       ticket_id: sale.insertId,
-      market,
+      market_name,
       seller_email: email,
-      products,
+      seller_id,
+      products: JSON.stringify(products),
       date,
       time,
       amount,
+      market,
     });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const createTicket = async (req, res) => {
+  try {
+    const {
+      ticket_id,
+      products,
+      amount,
+      date,
+      time,
+      seller_email,
+      market,
+      market_name,
+      seller_id
+    } = req.body;
+    const [response] = await pool.query(
+      "INSERT INTO tickets_sales (ticket_id, products, amount, date, time, seller, market_id, market) VALUES (?,?,?,?,?,?,?,?)",
+      [ticket_id, products, amount, date, time, seller_email, market, market_name]
+    );
+    const sold_products = JSON.parse(products)
+    sold_products.forEach(async product => {
+      await pool.query('INSERT INTO sold_products (product_id, name, description, category, price, quantify, ticket_id, market_id, seller_id) VALUES (?,?,?,?,?,?,?,?,?)', [product.product_id, product.product, product.description, product.category, product.price, product.quantify, ticket_id, market, seller_id])
+    })
+    res.status(204).json({ message: "Ticked insert successfully" });
   } catch (error) {
     console.log(error);
   }
