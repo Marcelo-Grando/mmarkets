@@ -1,7 +1,10 @@
 import axios from "axios";
 
-export const getTickets = (market) => 
-  axios.get(`http://localhost:3000/api/tickets/${market}`)
+export const getTickets = (market) =>
+  axios.get(`http://localhost:3000/api/tickets/${market}`);
+
+export const getStatisticsProducts = (market) =>
+  axios.get(`http://localhost:3000/api/statistics-products/${market}`);
 
 export const getSalesTotal = (market) =>
   axios.get(`http://localhost:3000/api/sales-total/${market}`);

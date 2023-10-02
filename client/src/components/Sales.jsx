@@ -24,8 +24,8 @@ export default function Sales() {
             <div className="container w-50 my-2 text-center" key={index}>
               <div className="col h-100 card p-1 border">
                 <h5 className="bg-success">#{ticket.ticket_id}</h5>
-                {ticket.products.map((product) => (
-                  <div className="row mx-2">
+                {ticket.products.map((product, index) => (
+                  <div className="row mx-2" key={index}>
                     <div className="col p-0 border">{product.product}</div>
                     <div className="col p-0 border">{product.description}</div>
                     <div className="col p-0 border">

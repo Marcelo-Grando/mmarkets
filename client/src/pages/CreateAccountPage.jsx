@@ -61,8 +61,8 @@ const type = localStorage.getItem('type')
             </li>
           </ul>
         </div>
-        <button onClick={() => setPointer('signin')} type="button" class="btn btn-primary btn-sm mx-2">Login</button>
-        <button onClick={() => setPointer('register')} type="button" class="btn btn-primary btn-sm">Register</button>
+        <button onClick={() => setPointer('signin')} type="button" className="btn btn-primary btn-sm mx-2">Login</button>
+        <button onClick={() => setPointer('register')} type="button" className="btn btn-primary btn-sm">Register</button>
       </nav>
       <div className="container-fluid">
         <div className="row p-1 mx-3 inline">

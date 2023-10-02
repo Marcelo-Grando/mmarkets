@@ -20,6 +20,7 @@ import ManegeSellers from "./components/manegeSellers";
 import SellersReports from "./components/SellersReports";
 import SalesReports from "./components/SalesReports";
 import Sales from "./components/Sales";
+import Statistics from "./components/Statistics";
 import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
             <Route path="sellers" element={<SellersReports />} />
             <Route path="sales" element={<SalesReports />} />
             <Route path="tickets" element={<Sales/>}/>
+            <Route path="statistics" element={<Statistics/>}/>
           </Route>
           <Route path="administrators" element={<AdministratorPage />} />
           <Route path="*" element={<NotFoundPage/>}/>
@@ -48,6 +50,8 @@ function App() {
           <Route path="reports" element={<ReportsPage />}>
             <Route path="sellers" element={<SellersReports />} />
             <Route path="sales" element={<SalesReports />} />
+            <Route path="tickets" element={<Sales/>}/>
+            <Route path="statistics" element={<Statistics/>}/>
           </Route>
         </Route>
         <Route path="/notfound-page" element={<SessionNotFound />} />

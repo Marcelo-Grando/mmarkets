@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   getTickets,
+  statisticsProducts,
   salesTotal,
   salesByCategories,
   salesByProducts,
@@ -13,6 +14,8 @@ import {
 const router = Router();
 
 router.get("/tickets/:market", getTickets)
+
+router.get("/statistics-products/:market", statisticsProducts)
 
 router.get("/sales-total/:market", salesTotal);
 

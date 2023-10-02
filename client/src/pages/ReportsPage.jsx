@@ -21,7 +21,7 @@ export default function ReportsPage() {
             </NavLink>
           </div>
           <div className="col btn-gr">
-            <NavLink className="nav-link">statistics</NavLink>
+            <NavLink to={"statistics"} className="nav-link">statistics</NavLink>
           </div>
           <div className="col btn-gr">
             <NavLink className="nav-link">annual balance</NavLink>

@@ -1,12 +1,16 @@
+import Form from "./Form";
+
 export default function AdministratorForm({
   handleSubmit,
   handleInputsChange,
   administrator,
 }) {
+
   return (
     <div className="p-2 mx-2">
       <div className="abs-center text-center">
-        <form className="border p-2 form" onSubmit={handleSubmit}>
+      <Form handleInputsChange={handleInputsChange} handleSubmit={handleSubmit}  value={administrator} title={"create administrator"} btnText={"create administrator"}/>
+        {/* <form className="border p-2 form" onSubmit={handleSubmit}>
           <h4>create administrator</h4>
           <div className="form-group p-1">
             <input
@@ -59,7 +63,7 @@ export default function AdministratorForm({
           <div className="form-group m-1">
             <button className="btn bg-info w-100">Create</button>
           </div>
-        </form>
+        </form> */}
       </div>
     </div>
   );

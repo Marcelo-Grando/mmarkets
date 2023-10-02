@@ -18,10 +18,16 @@ export const getSeller = async (req, res) => {
   try {
     const { market, seller } = req.params;
 
+    console.log('req seseion user',req.session.user)
+   
+
     const [rows] = await pool.query(
       "SELECT market, name, lastname, dni, email, position FROM sellers WHERE seller_id = ? AND market = ?",
       [seller, market]
     );
+
+    console.log('rows: ', rows[0])
+
     if(rows[0].email !== req.session.user) 
       return res.status(401).json({ message: "The user doesn't have an active session" });
 
@@ -36,12 +42,15 @@ export const createSeller = async (req, res) => {
     const { market } = req.params;
     const { name, lastname, dni, email, password } = req.body;
 
+    const SECRET = process.env.SECRET
+
     if (!name || !lastname || !dni || !email || !password)
       return res.status(400).json({ message: "Complete all fields" });
 
     const [result] = await pool.query(
       "INSERT INTO sellers (name,lastname,dni,email,password, position, market) VALUES (?,?,?,?,AES_ENCRYPT(?, ?),'seller',?)",
-      [name, lastname, dni, email, password, dni, market]
+      [name, lastname, dni, email, password, 
+        SECRET, market]
     );
 
     res.send({

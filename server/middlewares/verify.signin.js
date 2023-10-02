@@ -6,6 +6,7 @@ export const verifySession = async (req, res, next) => {
       "SELECT * FROM sessions WHERE session_id = ?",
       [req.session.id]
     );
+    console.log(response)
     if (!response) 
       return res.status(401).json({ message: "The user doesn't have an active session" });
 
@@ -20,13 +21,13 @@ export const verifySession = async (req, res, next) => {
   }
 };
 
-export const comparePassword = async (dni, user_id, user_password) => {
+export const comparePassword = async (user_id, user_password) => {
 
   const SECRET = process.env.SECRET
 
   const [[seller_password]] = await pool.query(
     "SELECT AES_DECRYPT(password, ?) AS value FROM sellers WHERE seller_id = ?",
-    [dni, user_id]
+    [SECRET, user_id]
   );
   const [[market_password]] = await pool.query(
     "SELECT AES_DECRYPT(password, ?) AS value FROM markets WHERE market_id = ?",
@@ -34,7 +35,7 @@ export const comparePassword = async (dni, user_id, user_password) => {
   );
   const [[administrator_password]] = await pool.query(
     "SELECT AES_DECRYPT(password, ?) AS value FROM administrators WHERE administrator_id = ?",
-    [dni, user_id]
+    [SECRET, user_id]
   );
 
   if (seller_password)
@@ -47,7 +48,7 @@ export const comparePassword = async (dni, user_id, user_password) => {
 
 export const findUser = async (email) => {
   const [[seller]] = await pool.query(
-    "SELECT name, email, lastname, dni, position, market AS market_id, seller_id AS id FROM sellers WHERE email = ?",
+    "SELECT name, lastname, position, market AS market_id, seller_id AS id FROM sellers WHERE email = ?",
     [email]
   );
 

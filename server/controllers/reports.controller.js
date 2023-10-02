@@ -73,21 +73,31 @@ export const salesByCategories = async (req, res) => {
   }
 };
 
-export const salesByProducts = async (req, res) => {
+export const statisticsProducts = async (req, res) => {
   try {
-     const { market } = req.params;
+    const { market } = req.params;
 
-     const [[{total_quantify}]] = await pool.query(
+    const [[{ total_quantify }]] = await pool.query(
       "SELECT SUM(quantify) AS total_quantify FROM sold_products WHERE market_id = ?",
       [market]
     );
 
-    console.log(total_quantify)
+    console.log(total_quantify);
 
-     const [products] = await pool.query("SELECT product_id, name AS product, description, category, price, SUM(quantify) AS quantify, SUM(price*quantify) AS amount, (SUM(quantify)/?) * 100 AS percentage from sold_products WHERE market_id = ? GROUP BY product_id ", [total_quantify,market])
+    const [products] = await pool.query(
+      "SELECT name, quantify from sold_products WHERE market_id = ? GROUP BY name",
+      [ market]
+    );
 
+    res.json(products)
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-   console.log('products en sales by products: ', products)
+export const salesByProducts = async (req, res) => {
+  try {
+    const { market } = req.params;
 
     const [result] = await pool.query(
       "SELECT SUM(amount) AS total_sales FROM sales WHERE market = ?",
