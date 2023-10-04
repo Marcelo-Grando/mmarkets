@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function FindProductForm({ findProductsByName, setProduct, product }) {
   return (
     <div className="p-2">

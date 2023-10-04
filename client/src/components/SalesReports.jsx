@@ -87,7 +87,7 @@ export default function SalesReports() {
         <div className="row">
           <h3>sales by days</h3>
           {salesDay.map((p, index) => (
-            <ReportsDayCard key={index} day={p}/>
+            <ReportsDayCard key={index} day={p} />
           ))}
         </div>
       </div>

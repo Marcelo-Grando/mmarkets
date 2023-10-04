@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getProducts, sendSale } from "../api/Sales";
+import { getProducts, sendSale, sendTicket } from "../api/Sales";
 import SaleCard from "./SaleCard";
 import Product from "./Product";
 import FindProductForm from "./FindProductForm";
@@ -8,7 +8,7 @@ import { findProduct } from "../api/Products";
 export default function Sale() {
   const [product, setProduct] = useState([]);
   const [products, setProducts] = useState([]);
-  const [elements, setElements] = useState([]);
+  const [saleProducts, setSaleProducts] = useState([]);
   const [indexs, setIndexs] = useState([]);
   const [amount, setAmount] = useState("");
 
@@ -23,30 +23,31 @@ export default function Sale() {
     loadProducts();
   }, []);
 
-  function addElements(article) {
-    if (elements.length === 0) {
+  function addProductsToSale(article) {
+    if (saleProducts.length === 0) {
       setAmount([...amount, article.price]);
       setIndexs([...indexs, article.product_id]);
-      setElements([...elements, article]);
+      setSaleProducts([...saleProducts, article]);
     }
-    elements.forEach((e) => {
+    saleProducts.forEach((e) => {
       if (e.product_id === article.product_id) {
         e.quantify++;
         setAmount([...amount, e.price]);
-        setElements([...elements]);
+        setSaleProducts([...saleProducts]);
       }
     });
     if (!indexs.includes(article.product_id)) {
       setAmount([...amount, article.price]);
       setIndexs([...indexs, article.product_id]);
-      setElements([...elements, article]);
+      setSaleProducts([...saleProducts, article]);
     }
   }
 
-  const makeSale = async (elements, market_id, seller) => {
-    const response = await sendSale(elements, market_id, seller);
+  const makeSale = async (saleProducts, market_id, seller) => {
+    const response = await sendSale(saleProducts, market_id, seller);
+    response && (await sendTicket(response.data));
     setAmount("");
-    setElements([]);
+    setSaleProducts([]);
     setIndexs([]);
   };
 
@@ -78,15 +79,19 @@ export default function Sale() {
           <div className="row">
             <div className="col-md-5 border mx-0 p-0">
               {products.map((product, index) => (
-                <Product key={index} product={product} addElements={addElements} />
+                <Product
+                  key={index}
+                  product={product}
+                  addProductsToSale={addProductsToSale}
+                />
               ))}
             </div>
 
             <div className="col">
               <SaleCard
-                addElements={addElements}
-                elements={elements}
-                setElements={setElements}
+                addProductsToSale={addProductsToSale}
+                saleProducts={saleProducts}
+                setSaleProducts={setSaleProducts}
                 setAmount={setAmount}
                 makeSale={makeSale}
                 amount={amount}

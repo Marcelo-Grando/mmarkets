@@ -4,11 +4,14 @@ export const createAdministrator = async (req, res) => {
   try {
     const { market } = req.params;
     const { name, lastname, dni, email, password } = req.body;
+
+    const SECRET = process.env.SECRET
+
     if (!name || !lastname || !dni || !email || !password)
       return res.status(400).json({ message: "Complete all fields" });
     const [result] = await pool.query(
-      "INSERT INTO administrators (name,lastname,dni,email,password, position, market) VALUES (?,?,?,?,AES_ENCRYPT(?, ?),'administrator',?)",
-      [name, lastname, dni, email, password, dni, market]
+      "INSERT INTO administrators (name, lastname, dni,email, password, position, market) VALUES (?,?,?,?,AES_ENCRYPT(?, ?),'administrator',?)",
+      [name, lastname, dni, email, password, SECRET, market]
     );
 
     res.send({
@@ -60,7 +63,7 @@ export const getAdministrator = async (req, res) => {
 
 export const deleteAdministrator = async (req, res) => {
   try {
-    console.log('llego params: ', req.params)
+    console.log("llego params: ", req.params);
     const { administrator_id, market } = req.params;
     const [result] = await pool.query(
       "DELETE FROM administrators WHERE administrator_id = ? AND market = ?",

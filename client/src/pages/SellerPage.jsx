@@ -2,13 +2,12 @@ import { Outlet } from "react-router-dom";
 import SellersNav from "../components/SellersNav";
 
 export default function SellerPage() {
-
   return (
     <>
       <main>
-        <SellersNav/>
+        <SellersNav />
         <section>
-          <Outlet/>
+          <Outlet />
         </section>
       </main>
     </>

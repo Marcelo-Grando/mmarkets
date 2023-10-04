@@ -14,7 +14,7 @@ export default function CreateProductForm({
               className="form-control p-0"
               name="product"
               placeholder="product name"
-              onChange={handleInputsChange} 
+              onChange={handleInputsChange}
               value={values.product}
             />
           </div>
@@ -28,18 +28,20 @@ export default function CreateProductForm({
             />
           </div>
           <div className="form-group p-0 m-1">
-            <input list="categories"
+            <input
+              list="categories"
+              autoComplete="off"
               className="form-control p-0"
               placeholder="category"
               name="category"
               onChange={handleInputsChange}
               value={values.category}
             />
-              <datalist id="categories">
+            <datalist id="categories">
               {categories.map((c, i) => (
-                <option key={i} value={c.category}/>
+                <option key={i} value={c.category} />
               ))}
-              </datalist>
+            </datalist>
           </div>
           <div className="form-group p-0 m-1">
             <input
@@ -50,7 +52,6 @@ export default function CreateProductForm({
               value={values.price}
             />
           </div>
-
           <div className="form-group my-2 mx-1">
             <button className="form-control bg-info p-0">create</button>
           </div>
