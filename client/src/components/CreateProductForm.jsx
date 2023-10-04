@@ -28,19 +28,18 @@ export default function CreateProductForm({
             />
           </div>
           <div className="form-group p-0 m-1">
-            <select
+            <input list="categories"
               className="form-control p-0"
+              placeholder="category"
               name="category"
               onChange={handleInputsChange}
               value={values.category}
-            >
-              <option>Select Category</option>
+            />
+              <datalist id="categories">
               {categories.map((c, i) => (
-                <option key={i} value={c.category}>
-                  {c.category}
-                </option>
+                <option key={i} value={c.category}/>
               ))}
-            </select>
+              </datalist>
           </div>
           <div className="form-group p-0 m-1">
             <input
