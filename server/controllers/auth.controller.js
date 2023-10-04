@@ -38,18 +38,38 @@ export const signin = async (req, res) => {
       return res.status(404).json({message: "The email is not registered"});
     }
 
-    const verify_password = await comparePassword(verifyUser.dni, verifyUser.id, password)
+    const verify_password = await comparePassword(verifyUser.id, password)
 
     if(!verify_password)
       return res.status(401).json({message: 'Incorrect Password'});
 
-    req.session.user = verifyUser.email
+      console.log(verifyUser.position)
+      
+      if (verifyUser.position === 'main-account') {
+        const [[{foundEmail}]] = await pool.query(
+          "SELECT email AS foundEmail FROM markets WHERE email = ?",
+          [email]
+        );
+        req.session.user = foundEmail
+      }
+      if (verifyUser.position === 'seller') {
+        const [[{foundEmail}]] = await pool.query(
+          "SELECT email AS foundEmail FROM sellers s WHERE s.email = ?",
+          [email]
+        );
+        req.session.user = foundEmail
+      }
+      if (verifyUser.position === 'administrator') {
+        const [[{foundEmail}]] = await pool.query(
+          "SELECT email AS foundEmail FROM administrators WHERE email = ?",
+          [email]
+        );
+        req.session.user = foundEmail
+      }
 
-    const expires = req.session.cookie._expires
-
-    res.json({...verifyUser, expires});
+    res.json(verifyUser);
   } catch (error) {
-    console.log(error);
+    console.log('error',error);
   }
 };
 

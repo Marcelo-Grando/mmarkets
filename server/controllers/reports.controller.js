@@ -1,12 +1,25 @@
 import { pool } from "../db.js";
 
+export const getTickets = async (req, res) => {
+  try {
+    const { market } = req.params;
+
+    const [tickets] = await pool.query(
+      "SELECT * FROM tickets_sales WHERE market_id = ? ORDER BY ticket_id DESC",
+      [market]
+    );
+    tickets.forEach(
+      (ticket) => (ticket.products = JSON.parse(ticket.products))
+    );
+    console.log(tickets);
+    res.send(tickets);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const salesTotal = async (req, res) => {
   try {
-    const [ses] = await pool.query(
-      "SELECT * FROM sessions WHERE session_id = ?",
-      [req.session.id]
-    );
-
     const { market } = req.params;
 
     const [result] = await pool.query(
@@ -60,6 +73,28 @@ export const salesByCategories = async (req, res) => {
   }
 };
 
+export const statisticsProducts = async (req, res) => {
+  try {
+    const { market } = req.params;
+
+    const [[{ total_quantify }]] = await pool.query(
+      "SELECT SUM(quantify) AS total_quantify FROM sold_products WHERE market_id = ?",
+      [market]
+    );
+
+    console.log(total_quantify);
+
+    const [products] = await pool.query(
+      "SELECT name, quantify from sold_products WHERE market_id = ? GROUP BY name",
+      [ market]
+    );
+
+    res.json(products)
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const salesByProducts = async (req, res) => {
   try {
     const { market } = req.params;
@@ -72,7 +107,7 @@ export const salesByProducts = async (req, res) => {
     const total_sales = result[0].total_sales;
 
     const [rows] = await pool.query(
-      "SELECT p.market, p.product_id, p.product, p.category, p.description, SUM(px.quantify) AS quantify, SUM(p.price*px.quantify) AS amount,(SUM(px.quantify*p.price)/?) * 100 AS percentage FROM products p INNER JOIN products_x_sales px ON p.product_id = px.product WHERE p.market = ? GROUP BY p.product_id ORDER BY amount DESC",
+      "SELECT p.market, p.product_id, p.product, p.category, p.description, SUM(px.quantify) AS quantify, SUM(p.price*px.quantify) AS amount,(SUM(px.quantify*p.price)/?) * 100 AS percentage FROM products p INNER JOIN products_x_sales px ON p.product_id = px.product WHERE p.market = ? GROUP BY p.product_id ORDER BY quantify DESC",
       [total_sales, market]
     );
     res.send(rows);

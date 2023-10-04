@@ -8,7 +8,7 @@ export default function SellersNav() {
               <NavLink to={'manege-sellers'} className="nav-link">manage seller</NavLink>
             </div>
             <div className="col btn-gr">
-              <NavLink className="nav-link">statistics sellers</NavLink>
+              <NavLink to={'statistics'} className="nav-link">statistics sellers</NavLink>
             </div>
             <div className="col btn-gr">
               <NavLink className="nav-link">sellers info</NavLink>

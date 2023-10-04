@@ -9,4 +9,7 @@ export const getProduct = async (product, market_id) =>
 export const sendSale = async (elements, market, seller) =>
   await axios.post(`http://localhost:3000/api/sales/${market}/${seller}`, elements);
 
+export const sendTicket = async (ticket) => 
+  await axios.post(`http://localhost:3000/api/sales/tickets`, ticket)
+
 
