@@ -14,6 +14,11 @@ export const createAdministrator = async (req, res) => {
       [name, lastname, dni, email, password, SECRET, market]
     );
 
+    const [insertUser] = await pool.query(
+      "INSERT INTO users (user_id, email, password, rol, market_id) VALUES (?, ?, AES_ENCRYPT(?, ?), ?, ?)",
+      [result.insertId, email, password, SECRET, "[admin]", market]
+    );
+
     res.send({
       seller_id: result.insertId,
       name,
