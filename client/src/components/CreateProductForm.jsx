@@ -28,16 +28,15 @@ export default function CreateProductForm({
             />
           </div>
           <div className="form-group p-0 m-1">
-            <input
-              list="categories"
-              autoComplete="off"
+            <input list="categories"
+            autoComplete="off"
               className="form-control p-0"
               placeholder="category"
               name="category"
               onChange={handleInputsChange}
               value={values.category}
             />
-            <datalist id="categories">
+              <datalist id="categories">
               {categories.map((c, i) => (
                 <option key={i} value={c.category} />
               ))}
