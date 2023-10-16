@@ -1,5 +1,4 @@
 import { pool } from "../db.js";
-import { year, month, date, time, hour } from "../functions/dates.js";
 
 export const getSales = async (req, res) => {
   try {
@@ -29,9 +28,15 @@ export const createSale = async (req, res) => {
       .reduce((acumulador, valorActual) => acumulador + valorActual);
 
     const [sale] = await pool.query(
-      "INSERT INTO sales (market, seller, amount, year, month, date, time, hour) VALUES (?,?,?,?,?,?,?,?)",
-      [market, seller, amount, year, month, date, time, hour]
+      "INSERT INTO sales (market, seller, amount, date, time) VALUES (?,?,?,DATE(NOW()),TIME(NOW()))",
+      [market, seller, amount]
     );
+
+
+    const [[{date, time}]] = await pool.query("SELECT SUBSTRING(date, 1,10) AS date, time FROM sales WHERE sale_id = LAST_INSERT_ID()")
+
+
+    console.log(date, time)
 
     products.map(
       async (product) =>

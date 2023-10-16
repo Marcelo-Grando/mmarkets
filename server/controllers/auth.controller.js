@@ -9,7 +9,6 @@ export const createAccount = async (req, res) => {
   if (!market || !email || !adress || !password)
     return res.status(401).json({ message: "faltan datos" });    
 
-    //crear middleware que compruebe existencia de cuentas 
   const [[foundEmail]] = await pool.query(
     "SELECT email FROM markets m WHERE m.email = ?",
     [email]
@@ -27,7 +26,7 @@ export const createAccount = async (req, res) => {
     [result.insertId, email, password, SECRET, "[main-account]", result.insertId]
   );
 
-  res.send({
+  res.json({
     id: result.insertId,
     market,
     email,

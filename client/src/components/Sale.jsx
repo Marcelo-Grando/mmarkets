@@ -87,7 +87,8 @@ export default function Sale() {
               ))}
             </div>
 
-            <div className="col">
+            <div className="col p-1 border bg-success">
+              <h5 style={{color: 'white'}}>sale</h5>
               <SaleCard
                 addProductsToSale={addProductsToSale}
                 saleProducts={saleProducts}
