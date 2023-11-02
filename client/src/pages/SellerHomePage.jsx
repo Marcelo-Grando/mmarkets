@@ -7,8 +7,10 @@ import { useAccount } from "../hooks/useAccount";
 export default function SellerHomePage() {
   const {account, closeSession} = useAccount()
 
+  console.log('acc: ',account)
+
   if(account) {
-    return (account.position === 'seller') ? (
+    return account.position === 'seller' ? (
       <main>
         <SellerHomeNav closeSession={closeSession}/>
         <Sale />

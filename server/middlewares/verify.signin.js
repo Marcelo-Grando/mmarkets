@@ -12,6 +12,38 @@ export const verifyEmail = async (req, res, next) => {
   next();
 };
 
+export const isMainAccoun = async (req, res, next) => {
+
+  const [[user]] = await pool.query("SELECT * FROM users WHERE email = ?", [req.session.user])
+
+  const roles = user.rol.split('&&')
+
+  if(!roles.includes('admin')) return res.status(401).json("Required Main-Account rol")
+
+  next()
+}
+
+export const isAdmin = async (req, res, next) => {
+  const [[user]] = await pool.query("SELECT * FROM users WHERE email = ?", [req.session.user])
+
+  const roles = user.rol.split('&&')
+
+  if(!roles.includes('admin')) return res.status(401).json("Require admin rol")
+
+  next()
+}
+
+export const isSeller = async (req, res, next) => {
+
+  const [[user]] = await pool.query("SELECT * FROM users WHERE email = ?", [req.session.user])
+
+  const roles = user.rol.split('&&')
+
+  if(!roles.includes('admin')) return res.status(401).json("Require Seller rol")
+
+  next()
+}
+
 export const verifySession = async (req, res, next) => {
   try {
     const [[response]] = await pool.query(
@@ -31,6 +63,9 @@ export const verifySession = async (req, res, next) => {
         .status(401)
         .json({ message: "The user doesn't have an active session" });
 
+
+        console.log('verify session' )
+
     next();
   } catch (error) {
     console.log(error);
@@ -48,6 +83,8 @@ export const verifyPassword = async (req, res, next) => {
       if(user_password.value.toString() !== req.body.password) 
       return res.status(401).json({ message: "Incorrect Password" });
     }
+
+    console.log('verifyPassword')
 
   next();
 };

@@ -56,13 +56,13 @@ export default function SalesReports() {
   }
 
   useEffect(() => {
-    loadSalesTotal();
+    //loadSalesTotal();
     loadSalesCategories();
-    loadSalesProducts();
-    loadSalesSellers();
-    loadSalesByDay();
-    loadSalesByMonth();
-    loadSalesByYear();
+    // loadSalesProducts();
+    // loadSalesSellers();
+    // loadSalesByDay();
+    // loadSalesByMonth();
+    // loadSalesByYear();
   }, []);
 
   return (
@@ -71,7 +71,10 @@ export default function SalesReports() {
         <div className="row">
           <h3>sales by categories</h3>
           {categories.map((c) => (
-            <ReportsCategoryCard key={c.category_id} category={c} />
+            <div>
+              <p>{c.category}</p>
+              <p>{c.amount}</p>
+            </div>
           ))}
         </div>
       </div>
@@ -86,9 +89,9 @@ export default function SalesReports() {
       <div className="container-fluid text-center p-0">
         <div className="row">
           <h3>sales by days</h3>
-          {salesDay.map((p, index) => (
+          {/* {salesDay.map((p, index) => (
             <ReportsDayCard key={index} day={p} />
-          ))}
+          ))} */}
         </div>
       </div>
     </div>

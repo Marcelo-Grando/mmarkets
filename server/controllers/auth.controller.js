@@ -1,5 +1,6 @@
 import { pool } from "../db.js";
 import { findUser } from "../middlewares/verify.signin.js";
+import { createUser } from "./users.controller.js";
 
 export const createAccount = async (req, res) => {
   const SECRET = process.env.SECRET;
@@ -7,7 +8,7 @@ export const createAccount = async (req, res) => {
   const { market, adress, email, password } = req.body;
 
   if (!market || !email || !adress || !password)
-    return res.status(401).json({ message: "faltan datos" });    
+    return res.status(401).json({ message: "faltan datos" });
 
   const [[foundEmail]] = await pool.query(
     "SELECT email FROM markets m WHERE m.email = ?",
@@ -16,15 +17,13 @@ export const createAccount = async (req, res) => {
 
   if (foundEmail)
     return res.status(401).json({ message: "The email is already exist" });
+
   const [result] = await pool.query(
     "INSERT INTO markets (market,adress,email,password,position) VALUES (?,?,?,AES_ENCRYPT(?, ?),'main-account')",
     [market, adress, email, password, SECRET]
   );
 
-  const [insertUser] = await pool.query(
-    "INSERT INTO users (user_id, email, password, rol, market_id) VALUES (?, ?, AES_ENCRYPT(?, ?), ?, ?)",
-    [result.insertId, email, password, SECRET, "[main-account]", result.insertId]
-  );
+  createUser(result.insertId, email, password, "main-account", "main-account", result.insertId);
 
   res.json({
     id: result.insertId,
@@ -38,9 +37,11 @@ export const signin = async (req, res) => {
   try {
     const { email } = req.body;
 
-    const user = await findUser(email)
+    const user = await findUser(email);
 
-    req.session.user = email
+    req.session.user = email;
+
+    console.log("user en signin: ", user);
 
     res.json(user);
   } catch (error) {

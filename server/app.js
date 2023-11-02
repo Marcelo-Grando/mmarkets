@@ -15,8 +15,11 @@ import pxsRotes from "./routes/pxs.routes.js";
 import reportRoutes from "./routes/reports.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import administratorsRoutes from "./routes/administrator.routes.js";
+import usersRoutes from "./routes/users.routes.js"
 
 import { verifySession } from "./middlewares/verify.signin.js";
+
+import { isAdmin } from "./middlewares/verify.signin.js";
 
 import * as url from 'url';
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
@@ -71,14 +74,15 @@ app.use(
 
 
 app.use("/api", authRoutes);
-app.use("/api", verifySession, marketRoutes);
-app.use("/api", verifySession, categoriesRoutes);
-app.use("/api", verifySession, sellersRotes);
-app.use("/api", verifySession, administratorsRoutes);
+app.use("/api", usersRoutes)
+app.use("/api", [verifySession], marketRoutes);
+app.use("/api", [verifySession], categoriesRoutes);
+app.use("/api", [verifySession], sellersRotes);
+app.use("/api", [verifySession], administratorsRoutes);
 app.use("/api", verifySession, salesRoutes);
-app.use("/api", verifySession, pxsRotes);
-app.use("/api", verifySession, reportRoutes);
-app.use("/api", verifySession, productsRotes);
+app.use("/api", [verifySession], pxsRotes);
+app.use("/api", verifySession,  reportRoutes);
+app.use("/api", verifySession , productsRotes);
 
 app.use((req, res) => {
   res.status(404).json({

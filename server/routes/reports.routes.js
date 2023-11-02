@@ -11,15 +11,17 @@ import {
   salesByYear
 } from "../controllers/reports.controller.js";
 
+import { isAdmin } from "../middlewares/verify.signin.js";
+
 const router = Router();
 
-router.get("/tickets/:market", getTickets)
+router.get("/tickets/:market", isAdmin, getTickets)
 
 router.get("/statistics-products/:market", statisticsProducts)
 
 router.get("/sales-total/:market", salesTotal);
 
-router.get("/sales-categories/:market", salesByCategories);
+router.get("/sales-categories/:market", isAdmin, salesByCategories);
 
 router.get("/sales-products/:market", salesByProducts);
 

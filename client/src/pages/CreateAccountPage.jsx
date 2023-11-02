@@ -2,11 +2,10 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createAccount } from "../api/Home";
 
-import Signin from '../components/Signin'
+import Signin from "../components/Signin";
 
 export default function CreateAccountPage() {
-
-const type = localStorage.getItem('type')
+  const type = localStorage.getItem("type");
 
   const [account, setAccount] = useState({
     market: "",
@@ -15,7 +14,7 @@ const type = localStorage.getItem('type')
     password: "",
   });
 
-  const [pointer, setPointer] = useState(type)
+  const [pointer, setPointer] = useState(type);
 
   const navigate = useNavigate();
 
@@ -36,7 +35,7 @@ const type = localStorage.getItem('type')
       email: "",
       password: "",
     });
-    response && setPointer(true)
+    response && setPointer(true);
   };
 
   return (
@@ -61,73 +60,86 @@ const type = localStorage.getItem('type')
             </li>
           </ul>
         </div>
-        <button onClick={() => setPointer('signin')} type="button" className="btn btn-primary btn-sm mx-2">Login</button>
-        <button onClick={() => setPointer('register')} type="button" className="btn btn-primary btn-sm">Register</button>
+        <button
+          onClick={() => setPointer("signin")}
+          type="button"
+          className="btn btn-primary btn-sm mx-2"
+        >
+          Login
+        </button>
+        <button
+          onClick={() => setPointer("register")}
+          type="button"
+          className="btn btn-primary btn-sm"
+        >
+          Register
+        </button>
       </nav>
       <div className="container-fluid">
         <div className="row p-1 mx-3 inline">
-        
-            {
-                pointer === 'signin' && <div className="col"><Signin/></div>
-            }
-            {
-                pointer === 'register' && <div className="col">
-                <div className="abs-center text-center">
-                  <form
-                    className="border p-3 form"
-                    action=""
-                    onSubmit={handleSubmit}
-                  >
-                    <h4 className="align-middle p-2">Create Account</h4>
-                    <div className="form-group p-2">
-                      <input
-                        className="form-control"
-                        type="text"
-                        name="market"
-                        placeholder="market name"
-                        onChange={handleInputsChange}
-                        value={account.market}
-                      />
-                    </div>
-                    <div className="form-group p-2">
-                      <input
-                        className="form-control"
-                        type="text"
-                        name="adress"
-                        placeholder="adress"
-                        onChange={handleInputsChange}
-                        value={account.adress}
-                      />
-                    </div>
-                    <div className="form-group p-2">
-                      <input
-                        className="form-control"
-                        type="email"
-                        name="email"
-                        placeholder="email"
-                        onChange={handleInputsChange}
-                        value={account.email}
-                      />
-                    </div>
-                    <div className="form-group p-2">
-                      <input
-                        className="form-control"
-                        type="password"
-                        name="password"
-                        placeholder="password"
-                        onChange={handleInputsChange}
-                        value={account.password}
-                      />
-                    </div>
-                    <div className="form-group p-2">
-                      <button className="form-control bg-info">
-                        create acount
-                      </button>
-                    </div>
-                  </form>
-                </div>
+          {pointer === "signin" && (
+            <div className="col">
+              <Signin />
+            </div>
+          )}
+          {pointer === "register" && (
+            <div className="col">
+              <div className="abs-center text-center">
+                <form
+                  className="border p-3 form"
+                  action=""
+                  onSubmit={handleSubmit}
+                >
+                  <h4 className="align-middle p-2">Create Account</h4>
+                  <div className="form-group p-2">
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="market"
+                      placeholder="market name"
+                      onChange={handleInputsChange}
+                      value={account.market}
+                    />
+                  </div>
+                  <div className="form-group p-2">
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="adress"
+                      placeholder="adress"
+                      onChange={handleInputsChange}
+                      value={account.adress}
+                    />
+                  </div>
+                  <div className="form-group p-2">
+                    <input
+                      className="form-control"
+                      type="email"
+                      name="email"
+                      placeholder="email"
+                      onChange={handleInputsChange}
+                      value={account.email}
+                    />
+                  </div>
+                  <div className="form-group p-2">
+                    <input
+                      className="form-control"
+                      type="password"
+                      name="password"
+                      placeholder="password"
+                      onChange={handleInputsChange}
+                      value={account.password}
+                    />
+                  </div>
+                  <div className="form-group p-2">
+                    <button className="form-control bg-info">
+                      create acount
+                    </button>
+                  </div>
+                </form>
               </div>
-            }
+            </div>
+          )}
         </div>
       </div>
     </div>

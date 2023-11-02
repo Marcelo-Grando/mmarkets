@@ -9,8 +9,9 @@ import { useAccount } from "../hooks/useAccount";
 export default function MarketHomePage() {
   const {account, closeSession} = useAccount()
 
-  if(account) {
-    return account.position === 'main-account' ? (
+  console.log(account)
+
+    return account? (
       <main className="background-color: #eee">
         <MarketHomeNav closeSession={closeSession} account={account} /> 
         <section>
@@ -20,6 +21,4 @@ export default function MarketHomePage() {
     ) : (
       <SessionNotFound />
     );
-  }
-  return <SessionNotFound/>
 }

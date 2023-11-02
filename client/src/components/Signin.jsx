@@ -25,6 +25,9 @@ export default function SigninSeller() {
     const response = await signin(user);
     const { position } = response.data;
 
+    console.log(response.data)
+
+    //convertir a custom hook 
     localStorage.setItem("userData", JSON.stringify(response.data));
 
     if (position === "seller") navigate(`/seller`);

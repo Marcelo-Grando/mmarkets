@@ -1,5 +1,7 @@
 import { pool } from "../db.js";
 
+import { createUser } from "./users.controller.js";
+
 export const getSellers = async (req, res) => {
   try {
     const { market } = req.params;
@@ -16,14 +18,14 @@ export const getSellers = async (req, res) => {
 
 export const getSeller = async (req, res) => {
   try {
-    const { market, seller } = req.params;
+    const { market, seller_id } = req.params;
 
-    const [rows] = await pool.query(
-      "SELECT market, name, lastname, dni, email, position FROM sellers WHERE seller_id = ? AND market = ?",
-      [seller, market]
+    const [[seller]] = await pool.query(
+      "SELECT market, name, lastname, dni, email, position FROM sellers WHERE market = ? AND seller_id = ? ",
+      [market, seller_id]
     );
 
-    res.json(rows[0]);
+    res.json(seller);
   } catch (error) {
     console.log(error);
   }
@@ -34,29 +36,26 @@ export const createSeller = async (req, res) => {
     const { market } = req.params;
     const { name, lastname, dni, email, password } = req.body;
 
-    const SECRET = process.env.SECRET
+    const SECRET = process.env.SECRET;
 
     if (!name || !lastname || !dni || !email || !password)
       return res.status(400).json({ message: "Complete all fields" });
 
+
     const [result] = await pool.query(
       "INSERT INTO sellers (name,lastname,dni,email,password, position, market) VALUES (?,?,?,?,AES_ENCRYPT(?, ?),'seller',?)",
-      [name, lastname, dni, email, password, 
-        SECRET, market]
+      [name, lastname, dni, email, password, SECRET, market]
     );
 
-    const [insertUser] = await pool.query(
-      "INSERT INTO users (user_id, email, password, rol, market_id) VALUES (?, ?, AES_ENCRYPT(?, ?), ?, ?)",
-      [result.insertId, email, password, SECRET, "[seller]", market]
-    );
+    createUser(result.insertId, email, password, "seller", "seller", market);
 
-    res.send({
+    res.json({
       seller_id: result.insertId,
       name,
       lastname,
       dni,
       email,
-      market
+      market,
     });
   } catch (error) {
     console.log(error);
@@ -86,12 +85,16 @@ export const updateSeller = async (req, res) => {
 export const deleteSeller = async (req, res) => {
   try {
     const { market, seller } = req.params;
-    
+
     const [result] = await pool.query(
       "DELETE FROM sellers WHERE seller_id = ? AND market = ?",
       [seller, market]
     );
-    res.send("Seller Deleted");
+    const [deleteUser] = await pool.query(
+      "DELETE FROM users WHERE user_id = ? AND market_id = ?",
+      [seller, market]
+    );
+    res.status(204).json({ message: "Deleted seller" });
   } catch (error) {
     console.log(error);
   }
