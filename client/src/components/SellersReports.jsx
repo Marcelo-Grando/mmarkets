@@ -20,8 +20,11 @@ export default function SellersReports() {
 
   return (
     <div>
-      {sellers.map((seller) => (
-        <ReportsSellerCard key={seller.seller} seller={seller} />
+      {sellers.map((seller, index) => (
+        <div key={index}>
+          <h3>{`${seller.name} ${seller.lastname}`} </h3>
+          <h4>{`Total Sold: $${seller.total_sold}`}</h4>
+        </div>
       ))}
     </div>
   );

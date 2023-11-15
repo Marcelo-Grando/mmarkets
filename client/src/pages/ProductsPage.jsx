@@ -22,7 +22,7 @@ export default function ProductsPage() {
   });
   const [categories, setCategories] = useState([]);
 
-  const { market_id } = JSON.parse(localStorage.getItem("userData"));
+  const market_id = JSON.parse(localStorage.getItem("userData")).user_id
 
   async function loadProducts() {
     const response = await getProducts(market_id);
@@ -72,8 +72,9 @@ export default function ProductsPage() {
 
   const removeProduct = async (product_id, market_id) => {
     const response = await deleteProduct(product_id, market_id);
-    if (response.status === 204) console.log("Deleted Product");
+    console.log("response remove product: ", response.status);
     loadProducts();
+    return
   };
 
   return (

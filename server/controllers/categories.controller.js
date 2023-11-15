@@ -4,7 +4,7 @@ export const getCategories = async (req, res) => {
   try {
     const { market } = req.params;
     const [rows] = await pool.query(
-      "SELECT * FROM categories WHERE market = ?",
+      "SELECT * FROM categoriestest WHERE market_id = ?",
       [market]
     );
     res.send(rows);
@@ -17,7 +17,7 @@ export const getCategory = async (req, res) => {
   try {
     const { market, category } = req.params;
     const [rows] = await pool.query(
-      "SELECT * FROM categories WHERE market = ? AND category_id = ?",
+      "SELECT * FROM categoriestest WHERE market_id = ? AND category_id = ?",
       [market, category]
     );
     res.json(rows[0]);
@@ -31,7 +31,7 @@ export const createCategory = async (req, res) => {
     const { market } = req.params;
     const { category } = req.body;
     const [response] = await pool.query(
-      "INSERT INTO categories (category,market) VALUES (?,?)",
+      "INSERT INTO categoriestest (category,market_id) VALUES (?,?)",
       [category, market]
     );
     res.send({
@@ -66,10 +66,10 @@ export const deleteCategory = async (req, res) => {
     const { market, category } = req.params;
     console.log(req.params)
     const [result] = await pool.query(
-      "DELETE FROM categories WHERE category_id = ? AND market = ?",
+      "DELETE FROM categoriestest WHERE category_id = ? AND market_id = ?",
       [category, market]
     );
-    res.sendStatus(204);
+    res.status(204).json({message: "Category successfully deleted"});
   } catch (error) {
     res.send(error);
   }

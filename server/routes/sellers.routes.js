@@ -6,15 +6,14 @@ import {
   updateSeller,
   deleteSeller
 } from "../controllers/sellers.controller.js";
-import { isAdmin } from "../middlewares/verify.signin.js";
 
 const router = Router();
 
-router.get("/sellers/:market", getSellers);
+router.get("/sellers/:market_id", getSellers);
 
-router.get("/sellers/:market/:seller_id", getSeller);
+router.get("/sellers/:seller_id", getSeller);
 
-router.post("/sellers/:market", isAdmin, createSeller);
+router.post("/sellers/:market_id", createSeller);
 
 router.patch("/sellers/:market/:seller", updateSeller);
 

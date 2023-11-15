@@ -4,24 +4,39 @@ import { createUser } from "./users.controller.js";
 
 export const getSellers = async (req, res) => {
   try {
-    const { market } = req.params;
+    const { market_id } = req.params;
 
     const [rows] = await pool.query(
-      "SELECT market, seller_id, name, lastname, dni, email FROM sellers WHERE market = ?",
-      [market]
+      "SELECT market_id, seller_id, name, lastname, dni, email FROM sellerstest WHERE market_id = ?",
+      [market_id]
     );
-    res.send(rows);
+    res.json(rows);
   } catch (error) {
     console.log(error);
   }
 };
+
+// export const getSeller = async (req, res) => {
+//   try {
+//     const { market, seller_id } = req.params;
+
+//     const [[seller]] = await pool.query(
+//       "SELECT market, name, lastname, dni, email, position FROM sellers WHERE market = ? AND seller_id = ? ",
+//       [market, seller_id]
+//     );
+
+//     res.json(seller);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 export const getSeller = async (req, res) => {
   try {
     const { market, seller_id } = req.params;
 
     const [[seller]] = await pool.query(
-      "SELECT market, name, lastname, dni, email, position FROM sellers WHERE market = ? AND seller_id = ? ",
+      "SELECT market_id, name, lastname, dni, email FROM sellerstest WHERE market_id = ? AND seller_id = ? ",
       [market, seller_id]
     );
 
@@ -33,7 +48,8 @@ export const getSeller = async (req, res) => {
 
 export const createSeller = async (req, res) => {
   try {
-    const { market } = req.params;
+    console.log(req.params)
+    const { market_id } = req.params;
     const { name, lastname, dni, email, password } = req.body;
 
     const SECRET = process.env.SECRET;
@@ -41,22 +57,11 @@ export const createSeller = async (req, res) => {
     if (!name || !lastname || !dni || !email || !password)
       return res.status(400).json({ message: "Complete all fields" });
 
+    const [response] = await pool.query("INSERT INTO usersTest (email, password, roles, main_account) VALUES (?, AES_ENCRYPT(?, ?), ?, ?)", [email, password, SECRET, 'seller', market_id])
 
-    const [result] = await pool.query(
-      "INSERT INTO sellers (name,lastname,dni,email,password, position, market) VALUES (?,?,?,?,AES_ENCRYPT(?, ?),'seller',?)",
-      [name, lastname, dni, email, password, SECRET, market]
-    );
+    const [insertSellerData] = await pool.query("INSERT INTO sellerstest (seller_id, name, lastname, dni, email, position, market_id) VALUES (?, ?, ?, ?, ?, ?, ?)", [response.insertId, name, lastname, dni, email, 'seller', market_id])
 
-    createUser(result.insertId, email, password, "seller", "seller", market);
-
-    res.json({
-      seller_id: result.insertId,
-      name,
-      lastname,
-      dni,
-      email,
-      market,
-    });
+    res.json({message: `User ${name + ' ' + lastname} created correctly`});
   } catch (error) {
     console.log(error);
   }

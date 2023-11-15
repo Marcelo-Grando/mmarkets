@@ -14,15 +14,15 @@ export const useMembers = (type) => {
     password: "",
   });
 
-  const { market_id } = JSON.parse(localStorage.getItem("userData"));
+  const {user_id, market_id} = JSON.parse(localStorage.getItem("userData"));
 
   async function loadMembers() {
     if (type === "seller") {
-      const response = await getSellers(market_id);
+      const response = await getSellers(user_id);
       setMembers(response.data);
       return;
     }
-    const response = await getAdministrators(market_id);
+    const response = await getAdministrators(user_id);
     setMembers(response.data);
   }
 
@@ -41,9 +41,9 @@ export const useMembers = (type) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(type === 'seller') {
-      const response = await sendSeller(member, market_id);
+      const response = await sendSeller(user_id, member);
     } else {
-      const response = await sendAdministrator(member, market_id)
+      const response = await sendAdministrator(member, user_id)
     }
     loadMembers();
     setMember({

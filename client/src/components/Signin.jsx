@@ -23,18 +23,18 @@ export default function SigninSeller() {
     e.preventDefault();
 
     const response = await signin(user);
-    const { position } = response.data;
+    const { auth, user_id, roles } = response.data;
 
-    console.log(response.data)
+    console.log('data',response.data)
 
     //convertir a custom hook 
     localStorage.setItem("userData", JSON.stringify(response.data));
 
-    if (position === "seller") navigate(`/seller`);
+    if (roles === "seller") navigate(`/seller`);
 
-    if (position === "administrator") navigate(`/administrator`);
+    if (roles === "administrator") navigate(`/administrator`);
 
-    if (position === "main-account") navigate(`/market`);
+    if (roles === "main-account") navigate(`/market`);
   };
 
   return (

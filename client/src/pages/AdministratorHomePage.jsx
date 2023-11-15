@@ -6,6 +6,8 @@ import { useAccount } from "../hooks/useAccount";
 export default function AdministratorHomePage() {
   const {account, closeSession} = useAccount()
 
+  console.log('acc',account)
+
   if(account) {
     return account.position === 'administrator' ? (
       <main>

@@ -14,6 +14,8 @@ export default function Sale() {
 
   const { market_id } = JSON.parse(localStorage.getItem("userData"));
 
+  console.log(market_id)
+
   async function loadProducts() {
     const response = await getProducts(market_id);
     setProducts(response.data);
@@ -45,7 +47,7 @@ export default function Sale() {
 
   const makeSale = async (saleProducts, market_id, seller) => {
     const response = await sendSale(saleProducts, market_id, seller);
-    response && (await sendTicket(response.data));
+    //response && (await sendTicket(response.data));
     setAmount("");
     setSaleProducts([]);
     setIndexs([]);

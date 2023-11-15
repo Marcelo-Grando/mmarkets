@@ -1,51 +1,23 @@
 import { pool } from "../db.js";
 
 export const verifyEmail = async (req, res, next) => {
- 
-  const [[user]] = await pool.query(
-    "SELECT * FROM users WHERE users.email = ?",
-    [req.body.email]
-  );
+  const { email } = req.body;
+
+  const [[user]] = await pool.query("SELECT * FROM userstest WHERE email = ?", [
+    email,
+  ]);
 
   if (!user)
     return res.status(401).json({ message: "The email is not registered" });
+
   next();
 };
 
-export const isMainAccoun = async (req, res, next) => {
-
-  const [[user]] = await pool.query("SELECT * FROM users WHERE email = ?", [req.session.user])
-
-  const roles = user.rol.split('&&')
-
-  if(!roles.includes('admin')) return res.status(401).json("Required Main-Account rol")
-
-  next()
-}
-
-export const isAdmin = async (req, res, next) => {
-  const [[user]] = await pool.query("SELECT * FROM users WHERE email = ?", [req.session.user])
-
-  const roles = user.rol.split('&&')
-
-  if(!roles.includes('admin')) return res.status(401).json("Require admin rol")
-
-  next()
-}
-
-export const isSeller = async (req, res, next) => {
-
-  const [[user]] = await pool.query("SELECT * FROM users WHERE email = ?", [req.session.user])
-
-  const roles = user.rol.split('&&')
-
-  if(!roles.includes('admin')) return res.status(401).json("Require Seller rol")
-
-  next()
-}
-
 export const verifySession = async (req, res, next) => {
-  try {
+  try {  
+
+    if(!req.session.id) return res.status(401).json({ message: "The user doesn't have an active session" });
+
     const [[response]] = await pool.query(
       "SELECT * FROM sessions WHERE session_id = ?",
       [req.session.id]
@@ -63,8 +35,7 @@ export const verifySession = async (req, res, next) => {
         .status(401)
         .json({ message: "The user doesn't have an active session" });
 
-
-        console.log('verify session' )
+    console.log("verify session");
 
     next();
   } catch (error) {
@@ -75,21 +46,25 @@ export const verifyPassword = async (req, res, next) => {
   const SECRET = process.env.SECRET;
 
   const [[user_password]] = await pool.query(
-    "SELECT AES_DECRYPT(password, ?) AS value FROM users WHERE email = ?",
+    "SELECT AES_DECRYPT(password, ?) AS value FROM userstest WHERE email = ?",
     [SECRET, req.body.email]
   );
 
-    if (user_password) {
-      if(user_password.value.toString() !== req.body.password) 
+  if (user_password) {
+    if (user_password.value.toString() !== req.body.password)
       return res.status(401).json({ message: "Incorrect Password" });
-    }
+  }
 
-    console.log('verifyPassword')
+  console.log("verifyPassword");
 
   next();
 };
 
 export const findUser = async (email) => {
+  const [[user]] = await pool.query(
+    "SELECT user_id FROM usersTest WHERE email = ?",
+    [email]
+  );
 
   const [[seller]] = await pool.query(
     "SELECT name, lastname, position, market AS market_id, seller_id AS id FROM sellers WHERE email = ?",
@@ -106,7 +81,7 @@ export const findUser = async (email) => {
     [email]
   );
 
-  if (!seller && !market && !administrator) return;
+  if (!user) return;
 
   if (seller) return seller;
 

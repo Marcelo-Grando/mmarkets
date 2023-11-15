@@ -1,13 +1,14 @@
 import { pool } from "../db.js";
 
 const allProducts =
-  "SELECT * FROM products p INNER JOIN categories c ON p.category = c.category_id WHERE p.market = ? ORDER BY p.product ASC";
+  "SELECT * FROM productstest p INNER JOIN categoriestest c ON p.category_id = c.category_id WHERE p.market_id = ? ORDER BY c.category ASC";
 
 export const getProducts = async (req, res) => {
   try {
     const { market } = req.params;
-    const [rows] = await pool.query(allProducts, [market]);
-    res.send(rows);
+    const [products] = await pool.query(allProducts, [market]);
+    console.log(products);
+    res.json(products);
   } catch (error) {
     console.log(error);
   }
@@ -17,7 +18,7 @@ export const getProduct = async (req, res) => {
   try {
     const { market, product } = req.params;
     const [rows] = await pool.query(
-      "SELECT * FROM products WHERE product_id = ? AND market = ?",
+      "SELECT * FROM productstest WHERE product_id = ? AND market_id = ?",
       [product, market]
     );
     res.json(rows[0]);
@@ -29,13 +30,13 @@ export const getProduct = async (req, res) => {
 export const getProductByName = async (req, res) => {
   try {
     const { market, product } = req.params;
-    const [rows] = await pool.query(
-      "SELECT p.product_id, p.product, p.description, p.price, c.category FROM products p INNER JOIN categories c ON p.category = c.category_id WHERE p.product LIKE ? || c.category LIKE ? AND p.market = ? ORDER BY product ASC",
-      [`${product}%`,`${product}%`, market]
+    const [products] = await pool.query(
+      "SELECT p.product_id, p.product, p.description, p.price, c.category FROM productstest p INNER JOIN categoriestest c ON p.category_id = c.category_id WHERE p.product LIKE ? || c.category LIKE ? AND p.market_id = ? ORDER BY product ASC",
+      [`${product}%`, `${product}%`, market]
     );
-    if (!rows.length)
+    if (!products.length)
       return res.status(404).json({ message: "Product is not exist" });
-    res.json(rows);
+    res.json(products);
   } catch (error) {
     console.log(error);
   }
@@ -53,7 +54,7 @@ export const createProduct = async (req, res) => {
       return res.status(400).json({ message: "The price must be a number" });
 
     const [foundProduct] = await pool.query(
-      "SELECT * FROM products p WHERE p.product = ? AND p.description = ? AND p.market = ?",
+      "SELECT * FROM productstest p WHERE p.product = ? AND p.description = ? AND p.market_id = ?",
       [product, description, market]
     );
 
@@ -61,21 +62,16 @@ export const createProduct = async (req, res) => {
       return res.status(400).json({ message: "The product already exists" });
 
     const [[{ category_id }]] = await pool.query(
-      "SELECT c.category_id FROM categories c WHERE  c.category = ?",
+      "SELECT c.category_id FROM categoriestest c WHERE  c.category = ?",
       [category]
     );
 
     const [result] = await pool.query(
-      "INSERT INTO products (product, description, category, market, price) VALUES (?,?,?,?,?)",
+      "INSERT INTO productstest (product, description, category_id, market_id, price) VALUES (?,?,?,?,?)",
       [product, description, category_id, market, price]
     );
-    res.send({
-      product_id: result.insertId,
-      product,
-      description,
-      category,
-      market,
-      price,
+    res.status(201).json({
+      message: "Product created successfully",
     });
   } catch (error) {
     console.log(error);
@@ -104,10 +100,10 @@ export const deleteProduct = async (req, res) => {
   try {
     const { market, product } = req.params;
     const [result] = await pool.query(
-      "DELETE FROM products WHERE product_id = ? AND market = ?",
+      "DELETE FROM productstest WHERE product_id = ? AND market_id = ?",
       [product, market]
     );
-    res.sendStatus(204);
+    res.status(204).json({ message: "Product deleted successfully" });
   } catch (error) {
     console.log(error);
   }

@@ -3,6 +3,7 @@ import {
   getMarkets,
   getMarket,
   loginMarket,
+  getUserData
   //createMarket
 } from "../controllers/markets.controller.js";
 
@@ -10,7 +11,7 @@ const router = Router();
 
 router.get("/markets", getMarkets);
 
-router.get("/markets/:market_id",getMarket);
+router.get("/markets/:user_id/:user_roles",getUserData);
 
 router.post("/markets_login", loginMarket);
 

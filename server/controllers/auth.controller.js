@@ -18,12 +18,9 @@ export const createAccount = async (req, res) => {
   if (foundEmail)
     return res.status(401).json({ message: "The email is already exist" });
 
-  const [result] = await pool.query(
-    "INSERT INTO markets (market,adress,email,password,position) VALUES (?,?,?,AES_ENCRYPT(?, ?),'main-account')",
-    [market, adress, email, password, SECRET]
-  );
+  const [response] = await pool.query("INSERT INTO usersTest (email, password, roles) VALUES (?, AES_ENCRYPT(?, ?), ?)", [email, password, SECRET, 'main-account'])
 
-  createUser(result.insertId, email, password, "main-account", "main-account", result.insertId);
+  const [insertMarketData] = await pool.query("INSERT INTO marketTest (market_id, name, adress, state, position, roles) VALUES (?, ?, ?, ?, ?, ?)", [response.insertId, market, adress, true, "main-account", "main-account"])
 
   res.json({
     id: result.insertId,
@@ -37,13 +34,15 @@ export const signin = async (req, res) => {
   try {
     const { email } = req.body;
 
-    const user = await findUser(email);
+    const [[{ user_email, user_id, market_id, roles}]] = await pool.query("SELECT email AS user_email, user_id, main_account AS market_id, roles from userstest WHERE email = ?", [email])
 
-    req.session.user = email;
+    if(!user_id) return res.status(404).json({message: "User not found"})
 
-    console.log("user en signin: ", user);
+    req.session.user = user_email;
 
-    res.json(user);
+    console.log(user_email, user_id, market_id, roles)
+
+    res.json({auth: true, user_email, user_id, market_id, roles});
   } catch (error) {
     console.log("error", error);
   }

@@ -7,6 +7,8 @@ export default function Statistics() {
 
   const { market_id } = JSON.parse(localStorage.getItem("userData"));
 
+  console.log('first', JSON.parse(localStorage.getItem("userData")))
+
   const loadStatistics = async () => {
     const response = await getStatisticsProducts(market_id);
     console.log(response);

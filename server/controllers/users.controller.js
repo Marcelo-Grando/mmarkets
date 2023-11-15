@@ -21,3 +21,14 @@ export const createUser = async (user_id, email, password, position, rol, market
         console.log(error)
     }
 }
+
+export const createUserTest = async (req, res) => {
+
+    const {email, password} = req.body
+
+    const SECRET = process.env.SECRET
+
+    const [response] = await pool.query("INSERT INTO usersTest (email, password) VALUES (?, AES_ENCRYPT(?, ?))", [email, password, SECRET])
+
+    res.json(response)
+}

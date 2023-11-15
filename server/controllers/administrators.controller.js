@@ -1,7 +1,5 @@
 import { pool } from "../db.js";
 
-import { createUser } from "./users.controller.js";
-
 export const createAdministrator = async (req, res) => {
   try {
     const { market } = req.params;
@@ -12,16 +10,12 @@ export const createAdministrator = async (req, res) => {
     if (!name || !lastname || !dni || !email || !password)
       return res.status(400).json({ message: "Complete all fields" });
 
-    const [result] = await pool.query(
-      "INSERT INTO administrators (name, lastname, dni,email, password, position, market) VALUES (?,?,?,?,AES_ENCRYPT(?, ?),'administrator',?)",
-      [name, lastname, dni, email, password, SECRET, market]
-    );
+    const [response] = await pool.query("INSERT INTO usersTest (email, password, roles, main_account) VALUES (?, AES_ENCRYPT(?, ?), ?, ?)", [email, password, SECRET, 'administrator', market])
 
-    
-    createUser(result.insertId, email, password, "admin", "admin", market);
+    const [insertAdministratorData] = await pool.query("INSERT INTO administrators2 (administrator_id, name, lastname, dni, email, position, market_id) VALUES (?, ?, ?, ?, ?, ?, ?)", [response.insertId, name, lastname, dni, email, 'administrator', market])
 
     res.send({
-      seller_id: result.insertId,
+      seller_id: response.insertId,
       name,
       lastname,
       dni,
@@ -39,7 +33,7 @@ export const getAdministrators = async (req, res) => {
     const { market } = req.params;
     console.log(req.params);
     const [rows] = await pool.query(
-      "SELECT market, administrator_id, name, lastname, dni, email FROM administrators WHERE market = ?",
+      "SELECT market_id, administrator_id, name, lastname, dni, email FROM administrators2 WHERE market_id = ?",
       [market]
     );
     res.send(rows);
@@ -51,9 +45,9 @@ export const getAdministrators = async (req, res) => {
 export const getAdministrator = async (req, res) => {
   try {
     const { market, administrator_id } = req.params;
-    console.log("ad", administrator_id);
+
     const [[administrator]] = await pool.query(
-      "SELECT market, administrator_id, name, lastname, dni, email, position FROM administrators WHERE administrator_id = ? AND market = ?",
+      "SELECT market_id, administrator_id, name, lastname, dni, email, position FROM administrators2 WHERE administrator_id = ? AND market_id = ?",
       [administrator_id, market]
     );
     res.json(administrator);
@@ -67,7 +61,7 @@ export const deleteAdministrator = async (req, res) => {
     console.log("llego params: ", req.params);
     const { administrator_id, market } = req.params;
     const [result] = await pool.query(
-      "DELETE FROM administrators WHERE administrator_id = ? AND market = ?",
+      "DELETE FROM administrators2 WHERE administrator_id = ? AND market_id = ?",
       [administrator_id, market]
     );
     res.send("Administrator Deleted");

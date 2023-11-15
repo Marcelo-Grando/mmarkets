@@ -1,51 +1,40 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { getMarket } from "../api/Market";
-import { getSeller } from "../api/Sellers";
-import { getAdministrator } from "../api/Administrators";
+import { getUserData } from "../api/Market";
 import { logout } from "../api/Signin";
-import { getUser } from "../api/Users";
+
+// {
+//   "adress": "nos ee 123",
+//   "email": "nose@gmail.com",
+//   "market_id": 3,
+//   "name": "pruaba",
+//   "position": "main-account",
+//   "state": 1
+// }
 
 export const useAccount = () => {
   const [account, setAccount] = useState(null);
 
   const navigate = useNavigate();
 
-  const userLoad = async () => {
-    
-  }
+  const uploadUserInfo = async () => {
+    if (!localStorage.getItem("userData")) await getUserData();
 
-  const loadUser = async () => {
-    if (localStorage.userData) {
-      const { id, position, market_id } = JSON.parse(
-        localStorage.getItem("userData")
-      );
+    const { user_id, roles } = JSON.parse(
+      localStorage.getItem("userData")
+    );
 
-      const {data} = await getUser(id, market_id)
+    const response = await getUserData(user_id, roles);
 
-      console.log('user en loadUser: ', data.roles.includes('admin'))
-      if (position === "main-account") {
-        const response = await getMarket(id);
-        setAccount(response.data);
-      }
-      if (position === "seller") {
-        console.log('m_id y id: ', market_id, id)
-        const response = await getSeller(market_id, id);
-        console.log('response en seller: ', response)
-        setAccount(response.data);
-      }
-      if (position === "administrator") {
-        const response = await getAdministrator(market_id, id);
-        setAccount(response.data);
-      }
-    }
-  }
+    console.log(response);
 
-    useEffect(() => {
-      loadUser();
-    }, []);
- 
+    setAccount(response.data);
+  };
+
+  useEffect(() => {
+    uploadUserInfo();
+  }, []);
 
   const closeSession = async () => {
     const response = await logout();

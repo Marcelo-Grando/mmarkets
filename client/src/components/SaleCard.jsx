@@ -11,7 +11,7 @@ export default function SaleCard({
   setIndexs,
   indexs,
 }) {
-  const { market_id, id } = JSON.parse(localStorage.getItem("userData"));
+  const { market_id, user_id } = JSON.parse(localStorage.getItem("userData"));
 
   return (
     <div className="container card border text-center">
@@ -45,7 +45,7 @@ export default function SaleCard({
             <button
               className="col mx-2 btn p-0 btn-success"
               onClick={() => {
-                makeSale(saleProducts, market_id, id);
+                makeSale(saleProducts, market_id, user_id);
               }}
             >
               sell

@@ -22,6 +22,8 @@ export default function SalesReports() {
 
   const { market_id } = JSON.parse(localStorage.getItem("userData"));
 
+  console.log(market_id)
+
   async function loadSalesTotal() {
     const response = await getSalesTotal(market_id);
     setSalesTotal(response.data);
@@ -58,9 +60,9 @@ export default function SalesReports() {
   useEffect(() => {
     //loadSalesTotal();
     loadSalesCategories();
-    // loadSalesProducts();
+    loadSalesProducts();
     // loadSalesSellers();
-    // loadSalesByDay();
+    loadSalesByDay();
     // loadSalesByMonth();
     // loadSalesByYear();
   }, []);
@@ -70,8 +72,8 @@ export default function SalesReports() {
       <div className="container-fluid text-center p-0">
         <div className="row">
           <h3>sales by categories</h3>
-          {categories.map((c) => (
-            <div>
+          {categories.map((c, index) => (
+            <div key={index}>
               <p>{c.category}</p>
               <p>{c.amount}</p>
             </div>
@@ -89,9 +91,9 @@ export default function SalesReports() {
       <div className="container-fluid text-center p-0">
         <div className="row">
           <h3>sales by days</h3>
-          {/* {salesDay.map((p, index) => (
+          {salesDay.map((p, index) => (
             <ReportsDayCard key={index} day={p} />
-          ))} */}
+          ))}
         </div>
       </div>
     </div>

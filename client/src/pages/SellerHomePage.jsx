@@ -9,8 +9,8 @@ export default function SellerHomePage() {
 
   console.log('acc: ',account)
 
-  if(account) {
-    return account.position === 'seller' ? (
+
+    return account ? (
       <main>
         <SellerHomeNav closeSession={closeSession}/>
         <Sale />
@@ -18,6 +18,4 @@ export default function SellerHomePage() {
     ) : (
       <SessionNotFound />
     );
-  }
-  return <SessionNotFound/>
 }
