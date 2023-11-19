@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, json } from "react-router-dom";
 
 import MarketHomeNav from "../components/MarketHomeNav";
 import SessionNotFound from "./SessionNotFound";
@@ -10,6 +10,10 @@ import { useState } from "react";
 export default function MarketHomePage() {
   const {account, closeSession} = useAccount()
   //const [userData, setUserData] = useState({})
+
+  if(account) {
+    localStorage.setItem('user', JSON.stringify(account))
+  }
 
 
     return account? (

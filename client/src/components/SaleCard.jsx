@@ -11,7 +11,9 @@ export default function SaleCard({
   setIndexs,
   indexs,
 }) {
-  const { market_id, user_id } = JSON.parse(localStorage.getItem("userData"));
+  const { user_id } = JSON.parse(localStorage.getItem("userData"));
+  const { market_id } = JSON.parse(localStorage.getItem("user"));
+
 
   return (
     <div className="container card border text-center">

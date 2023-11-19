@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
+import { useAccount } from "../hooks/useAccount";
 
 import { getTickets } from "../api/Reports";
 
 export default function Sales() {
   const [tickets, setTickets] = useState([]);
 
-  const { market_id } = JSON.parse(localStorage.getItem("userData"));
+  const { market_id } = JSON.parse(localStorage.getItem("user"));
 
   async function loadTickets() {
     const response = await getTickets(market_id);

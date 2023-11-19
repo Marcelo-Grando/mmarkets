@@ -9,6 +9,10 @@ export default function SellerHomePage() {
 
   console.log('acc: ',account)
 
+  if(account) {
+    localStorage.setItem('user', JSON.stringify(account))
+  }
+
 
     return account ? (
       <main>

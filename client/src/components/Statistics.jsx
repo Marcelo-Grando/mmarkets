@@ -5,7 +5,7 @@ import { PieChart, ResponsiveContainer, Pie, Tooltip, Legend } from "recharts";
 export default function Statistics() {
   const [data, setData] = useState([]);
 
-  const { market_id } = JSON.parse(localStorage.getItem("userData"));
+  const { market_id } = JSON.parse(localStorage.getItem("user"));
 
   console.log('first', JSON.parse(localStorage.getItem("userData")))
 

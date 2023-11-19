@@ -7,7 +7,7 @@ export default function CategoriesPage() {
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
 
-  const market_id = JSON.parse(localStorage.getItem("userData")).user_id
+  const {market_id} = JSON.parse(localStorage.getItem("user"))
 
 
   const loadCategories = async () => {

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import {
-  createAccount,
+  createMarket,
   signin,
   signout,
 } from "../controllers/auth.controller.js";
@@ -10,7 +10,9 @@ import { verifyEmail, verifyPassword } from "../middlewares/verify.signin.js";
 
 const router = Router();
 
-router.post("/markets", createAccount);
+//router.post("/markets", createAccount);
+
+router.post("/markets", createMarket)
 
 router.post("/signin", verifyEmail, verifyPassword, signin);
 

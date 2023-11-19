@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useAccount } from "../hooks/useAccount";
 import { getProducts, sendSale, sendTicket } from "../api/Sales";
 import SaleCard from "./SaleCard";
 import Product from "./Product";
@@ -12,9 +13,7 @@ export default function Sale() {
   const [indexs, setIndexs] = useState([]);
   const [amount, setAmount] = useState("");
 
-  const { market_id } = JSON.parse(localStorage.getItem("userData"));
-
-  console.log(market_id)
+  const { market_id } = JSON.parse(localStorage.getItem("user"));
 
   async function loadProducts() {
     const response = await getProducts(market_id);

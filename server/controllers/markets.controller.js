@@ -20,6 +20,7 @@ export const getMarkets = async (req, res) => {
 //   res.send(rows[0]);
 // };
 
+
 export const getUserData = async (req, res) => {
   const {user_id, user_roles} = req.params
 

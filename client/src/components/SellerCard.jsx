@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function SellerCard({seller_id, name, lastname, email, dni, removeSeller}) {
+export default function SellerCard({seller_id, name, lastname, email, dni, market_id, removeSeller}) {
 
   return (
     <div className='col seller-card p-2 m-1'>
@@ -9,7 +9,7 @@ export default function SellerCard({seller_id, name, lastname, email, dni, remov
         <h6>{`DNI: ${dni}`}</h6>
         <div className='row m-1'>
         <button className='col btn btn-info mx-1 p-0'>update</button>
-        <button onClick={() => removeSeller(seller_id)} className='col btn btn-danger mx-1 p-1'>delete</button>
+        <button onClick={() => removeSeller(seller_id, market_id)} className='col btn btn-danger mx-1 p-1'>delete</button>
         </div> 
     </div>
   )

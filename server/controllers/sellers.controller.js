@@ -92,11 +92,11 @@ export const deleteSeller = async (req, res) => {
     const { market, seller } = req.params;
 
     const [result] = await pool.query(
-      "DELETE FROM sellers WHERE seller_id = ? AND market = ?",
+      "DELETE FROM sellerstest WHERE seller_id = ? AND market_id = ?",
       [seller, market]
     );
     const [deleteUser] = await pool.query(
-      "DELETE FROM users WHERE user_id = ? AND market_id = ?",
+      "DELETE FROM userstest WHERE user_id = ?",
       [seller, market]
     );
     res.status(204).json({ message: "Deleted seller" });

@@ -14,7 +14,7 @@ export const useMembers = (type) => {
     password: "",
   });
 
-  const {user_id, market_id} = JSON.parse(localStorage.getItem("userData"));
+  const {user_id} = JSON.parse(localStorage.getItem("userData"));
 
   async function loadMembers() {
     if (type === "seller") {
@@ -55,7 +55,7 @@ export const useMembers = (type) => {
     });
   };
 
-  const removeMember = async (member_id) => {
+  const removeMember = async (member_id, market_id) => {
     if(type === 'seller') {
       const response = await deleteSeller(member_id, market_id);
     } else {

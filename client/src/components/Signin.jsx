@@ -23,9 +23,9 @@ export default function SigninSeller() {
     e.preventDefault();
 
     const response = await signin(user);
-    const { auth, user_id, roles } = response.data;
+    const { roles } = response.data;
 
-    console.log('data',response.data)
+    console.log('response data userSubmit', response.data)
 
     //convertir a custom hook 
     localStorage.setItem("userData", JSON.stringify(response.data));

@@ -55,7 +55,7 @@ export const verifyPassword = async (req, res, next) => {
       return res.status(401).json({ message: "Incorrect Password" });
   }
 
-  console.log("verifyPassword");
+  req.validate_user = true
 
   next();
 };

@@ -22,7 +22,7 @@ export default function ProductsPage() {
   });
   const [categories, setCategories] = useState([]);
 
-  const market_id = JSON.parse(localStorage.getItem("userData")).user_id
+  const {market_id} = JSON.parse(localStorage.getItem("user"))
 
   async function loadProducts() {
     const response = await getProducts(market_id);

@@ -39,6 +39,7 @@ export const useAccount = () => {
   const closeSession = async () => {
     const response = await logout();
     localStorage.removeItem("userData");
+    localStorage.removeItem("user");
     setAccount(null);
     navigate("/", { replace: true });
   };

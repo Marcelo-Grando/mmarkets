@@ -1,4 +1,5 @@
 import ReportsCategoryCard from "./ReportsCategoryCard";
+import { useAccount } from "../hooks/useAccount";
 import ReportsProductCard from "./ReportsProductCard";
 import ReportsDayCard from "./ReportsDayCard";
 import {
@@ -20,9 +21,7 @@ export default function SalesReports() {
   const [sellers, setSellers] = useState([]);
   const [salesDay, setSalesDay] = useState([]);
 
-  const { market_id } = JSON.parse(localStorage.getItem("userData"));
-
-  console.log(market_id)
+  const { market_id } = JSON.parse(localStorage.getItem("user"));
 
   async function loadSalesTotal() {
     const response = await getSalesTotal(market_id);

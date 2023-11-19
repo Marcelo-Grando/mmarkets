@@ -29,6 +29,7 @@ export default function ManegeSellers() {
                   lastname={seller.lastname}
                   email={seller.email}
                   dni={seller.dni}
+                  market_id= {seller.market_id}
                   removeSeller={removeSeller}
                   seller={seller}
                   updateSellerInfo={updateSellerInfo}

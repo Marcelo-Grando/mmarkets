@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { createAccount } from "../api/Home";
+import { createAccount, createUser, createMarket } from "../api/Home";
 
 import Signin from "../components/Signin";
 
@@ -8,11 +8,14 @@ export default function CreateAccountPage() {
   const type = localStorage.getItem("type");
 
   const [account, setAccount] = useState({
-    market: "",
+    name: "",
     adress: "",
     email: "",
     password: "",
   });
+
+  console.log('account pis',account)
+
 
   const [pointer, setPointer] = useState(type);
 
@@ -28,13 +31,19 @@ export default function CreateAccountPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await createAccount(account);
+    //const response = await createAccount(account);
+    const response = await createUser({...account, roles: 'main-account'})
+    console.log('asd:', response)
+    const result = await createMarket({market_id: response.data.user_id, name: account.name, adress: account.adress, state: true,  position: 'main-account', email: account.email})
     setAccount({
-      market: "",
+      name: "",
       adress: "",
       email: "",
       password: "",
     });
+
+console.log('response:', response, "result: ", result)
+
     response && setPointer(true);
   };
 
@@ -95,10 +104,10 @@ export default function CreateAccountPage() {
                     <input
                       className="form-control"
                       type="text"
-                      name="market"
+                      name="name"
                       placeholder="market name"
                       onChange={handleInputsChange}
-                      value={account.market}
+                      value={account.name}
                     />
                   </div>
                   <div className="form-group p-2">

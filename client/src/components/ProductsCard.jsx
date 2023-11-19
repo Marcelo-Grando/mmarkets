@@ -1,7 +1,7 @@
 
 export default function ProductCard({ product, removeProduct }) {
 
-  const {market_id} = JSON.parse(localStorage.getItem('userData'))
+  const {market_id} = JSON.parse(localStorage.getItem('user'))
 
   return (
     <>
